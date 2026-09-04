@@ -89,7 +89,7 @@ function SpaceDetail() {
         </div>
       </section>
 
-      <section className="container-mixd mt-14 grid gap-16 lg:grid-cols-[1.4fr_1fr]">
+      <section className="container-mixd mt-14 grid grid-cols-[minmax(0,1fr)] gap-16 lg:grid-cols-[1.4fr_1fr]">
         <div className="min-w-0">
           <p className="eyebrow">{SPACE_TYPE_LABEL[space.space_type]}</p>
           <h1 className="display-lg mt-4">{space.name}</h1>

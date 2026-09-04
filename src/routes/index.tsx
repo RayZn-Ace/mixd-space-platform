@@ -110,6 +110,16 @@ const PEOPLE = [
   },
 ] as const;
 
+const MIX = [
+  "Students",
+  "Remote workers",
+  "Freelancers",
+  "Founders",
+  "Professionals",
+  "Teams",
+  "Companies",
+] as const;
+
 const AUDIENCES = [
   "Students",
   "Remote workers",
@@ -124,6 +134,7 @@ const AUDIENCES = [
   "Consultants",
   "Researchers",
 ];
+
 
 function Home() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());

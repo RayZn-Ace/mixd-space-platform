@@ -112,7 +112,7 @@ function SpaceDetail() {
           <div className="mt-12 border-t border-border pt-8">
             <p className="eyebrow">Ideal for</p>
             <ul className="mt-5 grid gap-y-3 sm:grid-cols-2">
-              {IDEAL_FOR[space.space_type].map((line) => (
+              {(IDEAL_FOR[space.space_type] ?? []).map((line) => (
                 <li key={line} className="flex gap-3 text-sm">
                   <span className="text-primary">✕</span>
                   {line}

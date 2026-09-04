@@ -15,7 +15,7 @@ function AdminBilling() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("payments")
-        .select("*, bookings(reference), profiles:user_id(full_name,email)")
+        .select("*, bookings(reference)")
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data ?? [];
@@ -65,12 +65,11 @@ function AdminBilling() {
       ) : (
         <AdminTable
           className="mt-6"
-          head={["Date", "Customer", "Booking", "Method", "Amount", "Status"]}
+          head={["Date", "Booking", "Method", "Amount", "Status"]}
           rows={rows.map((p) => ({
             key: p.id,
             cells: [
               formatDate(p.created_at),
-              p.profiles?.full_name ?? p.profiles?.email ?? "—",
               p.bookings?.reference ?? "—",
               (p.method ?? "—").replace(/_/g, " "),
               formatPrice(p.amount_cents, p.currency),

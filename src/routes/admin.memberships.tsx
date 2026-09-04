@@ -17,7 +17,7 @@ function AdminMemberships() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("membership_subscriptions")
-        .select("*, memberships(name), profiles:user_id(full_name,email)")
+        .select("*, memberships(name)")
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data ?? [];
@@ -75,11 +75,10 @@ function AdminMemberships() {
       ) : (
         <AdminTable
           className="mt-6"
-          head={["Member", "Plan", "Started", "Credits left", "Status"]}
+          head={["Plan", "Started", "Credits left", "Status"]}
           rows={(subs ?? []).map((s) => ({
             key: s.id,
             cells: [
-              s.profiles?.full_name ?? s.profiles?.email ?? "—",
               s.memberships?.name ?? "—",
               s.started_at ? formatDate(s.started_at) : "—",
               String(s.credits_remaining ?? 0),

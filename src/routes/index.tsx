@@ -40,6 +40,13 @@ const MANIFESTO = [
     cta: "Flex desks",
   },
   {
+    word: "WORK",
+    line: "when you want.",
+    text: "Freelance, side hustle, thesis or deep focus — no contract, just the hours you need.",
+    to: "/coworking",
+    cta: "Flex desks",
+  },
+  {
     word: "MEET",
     line: "where ideas actually flow.",
     text: "Rooms for group work, thesis sessions or your next side-project kickoff.",
@@ -53,6 +60,13 @@ const MANIFESTO = [
     to: "/team-offices",
     cta: "Team offices",
   },
+];
+
+const MIXED_USES = [
+  { label: "Study", desc: "Solo focus & group sessions", to: "/coworking" },
+  { label: "Work", desc: "Freelance & deep work", to: "/coworking" },
+  { label: "Meet", desc: "Teams & client calls", to: "/meeting-rooms" },
+  { label: "Create", desc: "Workshops & projects", to: "/team-offices" },
 ];
 
 const BENEFITS = [

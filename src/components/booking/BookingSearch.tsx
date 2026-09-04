@@ -29,6 +29,7 @@ export function BookingSearch({
 }) {
   const navigate = useNavigate();
   const { data: locations } = useQuery(locationsQuery);
+  const singleLocation = (locations ?? []).length === 1 ? locations![0] : null;
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(today());
   const [start, setStart] = useState("09:00");
@@ -41,7 +42,7 @@ export function BookingSearch({
     navigate({
       to: "/spaces",
       search: {
-        location: location || (locations?.[0]?.slug ?? ""),
+        location: singleLocation?.slug ?? location ?? "",
         date,
         start,
         end,
@@ -50,6 +51,7 @@ export function BookingSearch({
       },
     });
   };
+
 
   if (variant === "hero") {
     return (

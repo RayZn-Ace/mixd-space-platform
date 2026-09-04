@@ -131,8 +131,13 @@ function AdminLocations() {
                 ["postal_code", "Postal code"],
                 ["city", "City"],
                 ["country", "Country"],
+                ["contact_email", "Contact email"],
+                ["contact_phone", "Contact phone"],
                 ["parking_info", "Parking info"],
+                ["getting_there", "Getting there"],
+                ["hero_image_url", "Hero image URL"],
                 ["description", "Description"],
+
               ] as [keyof typeof BLANK, string][]
             ).map(([key, label]) => (
               <label key={key} className="block">

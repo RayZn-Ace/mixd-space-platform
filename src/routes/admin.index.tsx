@@ -67,6 +67,39 @@ function AdminOverview() {
         <Kpi label="Occupancy today" value={`${occupancy}%`} loading={isLoading} />
       </div>
 
+      <h2 className="display-md mt-16">Go-live checklist</h2>
+      <p className="mt-3 max-w-xl text-sm text-muted-foreground">
+        The platform is running in pre-launch mode: spaces, rates and photos on the website are
+        example data until you replace them here.
+      </p>
+      <ul className="mt-6 divide-y divide-border border-y border-border">
+        <ChecklistItem
+          label="Spaces with a photo"
+          done={spacesWithImage}
+          total={totalSpaces}
+          to="/admin/spaces"
+        />
+        <ChecklistItem
+          label="Spaces with a description"
+          done={spacesWithDescription}
+          total={totalSpaces}
+          to="/admin/spaces"
+        />
+        <ChecklistItem
+          label="Locations with address and contact"
+          done={locationsReady}
+          total={(locations ?? []).length}
+          to="/admin/locations"
+        />
+        <li className="flex items-center justify-between gap-4 py-4 text-sm">
+          <span>Online payment</span>
+          <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            Demo — bookings arrive as requests
+          </span>
+        </li>
+      </ul>
+
+
       <h2 className="display-md mt-16">Location performance</h2>
       <div className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2">
         {(locations ?? []).map((l) => {

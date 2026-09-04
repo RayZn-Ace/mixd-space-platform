@@ -25,6 +25,7 @@ import { Route as TeamOfficesRouteImport } from './routes/team-offices'
 import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
 import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
@@ -113,6 +114,11 @@ const AdminBookingsRoute = AdminBookingsRouteImport.update({
   path: '/bookings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLocationsRoute = AdminLocationsRouteImport.update({
   id: '/locations',
   path: '/locations',
@@ -165,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
@@ -189,6 +196,7 @@ export interface FileRoutesByTo {
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
@@ -215,6 +223,7 @@ export interface FileRoutesById {
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
@@ -242,6 +251,7 @@ export interface FileRouteTypes {
     | '/team-offices'
     | '/teams'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
     | '/admin/spaces'
     | '/bookings/$reference'
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/team-offices'
     | '/teams'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
     | '/admin/spaces'
     | '/bookings/$reference'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/team-offices'
     | '/teams'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
     | '/admin/spaces'
     | '/bookings/$reference'
@@ -437,6 +449,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/locations': {
       id: '/admin/locations'
       path: '/locations'
@@ -491,6 +510,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminCustomersRoute: typeof AdminCustomersRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
   AdminSpacesRoute: typeof AdminSpacesRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -498,6 +518,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminCustomersRoute: AdminCustomersRoute,
   AdminLocationsRoute: AdminLocationsRoute,
   AdminSpacesRoute: AdminSpacesRoute,
   AdminIndexRoute: AdminIndexRoute,

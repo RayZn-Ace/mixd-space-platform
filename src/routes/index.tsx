@@ -13,16 +13,17 @@ import { formatPrice } from "@/lib/mixd";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MIXD.SPACE Garbsen — Flexible workspace, by the hour or month" },
+      { title: "MIXD.SPACE Garbsen — One mixed space for study, work, meet & create" },
       {
         name: "description",
         content:
-          "Flexible desks, private offices and meeting rooms in Garbsen. Book by the hour, day or month. work. meet. create.",
+          "Study, work, meet and create at MIXD.SPACE Garbsen. Flexible desks, offices and meeting rooms for every use — book by the hour, day or month.",
       },
-      { property: "og:title", content: "MIXD.SPACE — work. meet. create." },
+      { property: "og:title", content: "MIXD.SPACE — One mixed space for everything." },
       {
         property: "og:description",
-        content: "Flexible desks, private offices and meeting rooms in Garbsen-Berenbostel.",
+        content:
+          "Study, work, meet and create at MIXD.SPACE Garbsen. Flexible spaces for every use.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

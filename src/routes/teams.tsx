@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Audience } from "@/components/site/XMark";
 import { SiteShell, PageHeader } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import teamImage from "@/assets/space-team.jpg";
@@ -50,6 +51,8 @@ function TeamsPage() {
           </Button>
         </div>
       </PageHeader>
+
+      <Audience>Startups · Project teams · Corporate teams · Client meetings · Workshops</Audience>
 
       <section className="container-mixd">
         <div className="media-zoom aspect-[16/9] bg-muted sm:aspect-[16/7]">

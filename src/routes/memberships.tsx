@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Audience } from "@/components/site/XMark";
 import { useQuery } from "@tanstack/react-query";
 import { SiteShell, PageHeader, EmptyState } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,8 @@ function MembershipsPage() {
         title="Work here regularly."
         intro="Monthly plans for people and teams who keep coming back. Prices are indicative while the location opens."
       />
+
+      <Audience>Regulars · Students · Freelancers · Remote workers · Small teams</Audience>
 
       <section className="container-mixd">
         {isLoading && <div className="h-64 w-full animate-pulse bg-muted" />}

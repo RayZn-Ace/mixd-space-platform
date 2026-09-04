@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Audience } from "@/components/site/XMark";
 import { SiteShell, PageHeader } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 
@@ -49,6 +50,8 @@ function BusinessAddressPage() {
           <Link to="/register">Request the service</Link>
         </Button>
       </PageHeader>
+
+      <Audience>Founders · Solo businesses · Consultants · Remote companies</Audience>
 
       <section className="container-mixd">
         <dl className="divide-y divide-border border-y border-border">

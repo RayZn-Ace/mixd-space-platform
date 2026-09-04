@@ -106,10 +106,30 @@ function Home() {
           </div>
         </div>
 
-        <div className="container-mixd -mt-10 lg:-mt-16">
+        <div className="container-mixd relative z-10 -mt-10 lg:-mt-16">
           <BookingSearch className="shadow-none" />
         </div>
       </section>
+
+      {/* Ticker */}
+      <div className="mt-16 overflow-hidden border-y border-border bg-foreground py-3 text-background lg:mt-24">
+        <div className="ticker flex w-max gap-10 whitespace-nowrap">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="flex gap-10 text-sm tracking-[0.18em] uppercase">
+              <span>Study sessions</span>
+              <span className="text-accent">✳</span>
+              <span>Deep work</span>
+              <span className="text-accent">✳</span>
+              <span>Team sprints</span>
+              <span className="text-accent">✳</span>
+              <span>Late-night edits</span>
+              <span className="text-accent">✳</span>
+              <span>Client meetings</span>
+              <span className="text-accent">✳</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* Manifesto */}
       <section className="container-mixd mt-28 lg:mt-40">
@@ -195,6 +215,48 @@ function Home() {
               </Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Students & founders */}
+      <section className="container-mixd mt-24 lg:mt-36">
+        <div className="grid gap-10 border border-border p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
+          <div>
+            <p className="eyebrow">Students &amp; young founders</p>
+            <h2 className="display-md mt-4 max-w-lg">
+              A desk that beats the
+              <br />
+              kitchen table.
+            </h2>
+            <p className="mt-6 max-w-md text-lg text-muted-foreground">
+              Thesis weeks, group projects, side hustles, first clients. Book an hour between
+              lectures or a room for the whole study group — no contract, no membership required.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild>
+                <Link to="/coworking">Grab a desk</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/memberships">See plans</Link>
+              </Button>
+            </div>
+          </div>
+          <ul className="grid content-start gap-3 self-center sm:grid-cols-2 lg:grid-cols-1">
+            {[
+              "Pay by the hour",
+              "Group rooms for project work",
+              "Quiet enough to actually focus",
+              "Coffee & fast WiFi included",
+            ].map((t) => (
+              <li
+                key={t}
+                className="flex items-center gap-3 border border-border px-4 py-3 text-sm transition-colors hover:border-foreground"
+              >
+                <span className="text-accent">✳</span>
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

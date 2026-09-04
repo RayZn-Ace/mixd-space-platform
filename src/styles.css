@@ -78,7 +78,7 @@
   --muted-foreground: oklch(0.525 0.011 65);
 
   /* The single accent. Change here to re-tone the brand. */
-  --accent: oklch(0.575 0.086 52);
+  --accent: oklch(0.63 0.17 46);
   --accent-foreground: oklch(0.985 0.004 85);
 
   --destructive: oklch(0.52 0.17 27);
@@ -87,7 +87,7 @@
 
   --border: oklch(0.895 0.006 80);
   --input: oklch(0.895 0.006 80);
-  --ring: oklch(0.575 0.086 52);
+  --ring: oklch(0.63 0.17 46);
 
   --sidebar: oklch(0.975 0.005 84);
   --sidebar-foreground: oklch(0.235 0.006 60);
@@ -120,7 +120,7 @@
   --secondary-foreground: oklch(0.965 0.004 85);
   --muted: oklch(0.245 0.005 60);
   --muted-foreground: oklch(0.68 0.008 70);
-  --accent: oklch(0.66 0.09 52);
+  --accent: oklch(0.72 0.16 46);
   --accent-foreground: oklch(0.155 0.004 60);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
@@ -249,4 +249,21 @@
 
 @utility rise {
   animation: mixd-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mixd-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility ticker {
+  animation: mixd-ticker 28s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }

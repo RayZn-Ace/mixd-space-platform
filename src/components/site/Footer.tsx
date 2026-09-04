@@ -59,7 +59,14 @@ export function Footer() {
             <br />
             30827 Garbsen-Berenbostel
           </address>
+          <Link
+            to="/contact"
+            className="link-underline mt-5 inline-flex items-center gap-2 text-sm text-foreground"
+          >
+            <XMark className="size-3 text-accent" /> Talk to us
+          </Link>
         </div>
+
         {COLUMNS.map((col) => (
           <div key={col.title}>
             <p className="eyebrow">{col.title}</p>

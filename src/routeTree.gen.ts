@@ -15,6 +15,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BusinessAddressRouteImport } from './routes/business-address'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoworkingRouteImport } from './routes/coworking'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MeetingRoomsRouteImport } from './routes/meeting-rooms'
@@ -68,6 +69,11 @@ const BookRoute = BookRouteImport.update({
 const BusinessAddressRoute = BusinessAddressRouteImport.update({
   id: '/business-address',
   path: '/business-address',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoworkingRoute = CoworkingRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -229,6 +236,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -262,6 +270,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -296,6 +305,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -327,6 +337,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -359,6 +370,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -392,6 +404,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BookRoute: typeof BookRoute
   BusinessAddressRoute: typeof BusinessAddressRoute
+  ContactRoute: typeof ContactRoute
   CoworkingRoute: typeof CoworkingRoute
   LoginRoute: typeof LoginRoute
   MeetingRoomsRoute: typeof MeetingRoomsRoute
@@ -452,6 +465,13 @@ declare module '@tanstack/react-router' {
       path: '/business-address'
       fullPath: '/business-address'
       preLoaderRoute: typeof BusinessAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coworking': {
@@ -656,6 +676,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BookRoute: BookRoute,
   BusinessAddressRoute: BusinessAddressRoute,
+  ContactRoute: ContactRoute,
   CoworkingRoute: CoworkingRoute,
   LoginRoute: LoginRoute,
   MeetingRoomsRoute: MeetingRoomsRoute,

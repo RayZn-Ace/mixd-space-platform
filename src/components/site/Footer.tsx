@@ -25,11 +25,21 @@ const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
     links: [
       { to: "/about", label: "About" },
       { to: "/locations", label: "Locations" },
+      { to: "/contact", label: "Contact" },
       { to: "/login", label: "Sign in" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { to: "/legal/imprint", label: "Imprint" },
+      { to: "/legal/privacy", label: "Privacy" },
+      { to: "/legal/terms", label: "Booking conditions" },
       { to: "/register", label: "Create account" },
     ],
   },
 ];
+
 
 export function Footer() {
   return (

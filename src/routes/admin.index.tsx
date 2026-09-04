@@ -55,7 +55,16 @@ function AdminOverview() {
     return "Available";
   };
 
+  const allSpaces = spaces ?? [];
+  const totalSpaces = allSpaces.length;
+  const spacesWithImage = allSpaces.filter((s) => Boolean(s.hero_image_url)).length;
+  const spacesWithDescription = allSpaces.filter((s) => Boolean(s.description)).length;
+  const locationsReady = (locations ?? []).filter(
+    (l) => Boolean(l.address_line1) && Boolean(l.contact_email),
+  ).length;
+
   return (
+
     <div>
       <p className="eyebrow">Overview</p>
       <h1 className="display-md mt-3">Today at MIXD.</h1>

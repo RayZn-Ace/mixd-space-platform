@@ -17,6 +17,7 @@ import { paymentProvider } from "@/lib/payment-provider";
 import { Button } from "@/components/ui/button";
 import { SlotPicker } from "@/components/booking/SlotPicker";
 import { PaymentSheet, type MockMethod } from "@/components/booking/PaymentSheet";
+import { SpaceCode, XMark } from "@/components/site/XMark";
 
 type Step = "when" | "extras" | "pay";
 
@@ -448,6 +449,15 @@ export function BookingWidget({
           </p>
         )}
       </div>
+    </div>
+  );
+}
+
+function Line({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <dt className="text-muted-foreground">{label}</dt>
+      <dd>{value}</dd>
     </div>
   );
 }

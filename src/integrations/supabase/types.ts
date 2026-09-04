@@ -673,6 +673,51 @@ export type Database = {
           },
         ]
       }
+      leads: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          internal_notes: string | null
+          kind: string
+          message: string | null
+          name: string
+          phone: string | null
+          source_path: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          internal_notes?: string | null
+          kind?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          source_path?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          internal_notes?: string | null
+          kind?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          source_path?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       locations: {
         Row: {
           access_hours: Json

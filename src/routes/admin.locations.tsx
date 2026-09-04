@@ -21,9 +21,14 @@ const BLANK = {
   postal_code: "",
   city: "",
   country: "Deutschland",
+  contact_email: "",
+  contact_phone: "",
   parking_info: "",
+  getting_there: "",
+  hero_image_url: "",
   description: "",
 };
+
 
 function AdminLocations() {
   const qc = useQueryClient();
@@ -94,8 +99,13 @@ function AdminLocations() {
                         postal_code: l.postal_code ?? "",
                         city: l.city ?? "",
                         country: l.country ?? "Deutschland",
+                        contact_email: l.contact_email ?? "",
+                        contact_phone: l.contact_phone ?? "",
                         parking_info: l.parking_info ?? "",
+                        getting_there: l.getting_there ?? "",
+                        hero_image_url: l.hero_image_url ?? "",
                         description: l.description ?? "",
+
                       });
                     }}
                   >
@@ -121,8 +131,13 @@ function AdminLocations() {
                 ["postal_code", "Postal code"],
                 ["city", "City"],
                 ["country", "Country"],
+                ["contact_email", "Contact email"],
+                ["contact_phone", "Contact phone"],
                 ["parking_info", "Parking info"],
+                ["getting_there", "Getting there"],
+                ["hero_image_url", "Hero image URL"],
                 ["description", "Description"],
+
               ] as [keyof typeof BLANK, string][]
             ).map(([key, label]) => (
               <label key={key} className="block">

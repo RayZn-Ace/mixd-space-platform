@@ -80,8 +80,18 @@ function BookingSuccess() {
   return (
     <SiteShell>
       <section className="container-mixd py-20 lg:py-28">
-        <p className="eyebrow">Booking {data.reference}</p>
-        <h1 className="display-xl mt-6">You're in.</h1>
+        <p className="eyebrow">
+          {data.status === "pending" ? "Request" : "Booking"} {data.reference}
+        </p>
+        <h1 className="display-xl mt-6">
+          {data.status === "pending" ? "Request received." : "You're in."}
+        </h1>
+        {data.status === "pending" && (
+          <p className="mt-6 max-w-lg text-muted-foreground">
+            We&apos;ll confirm availability and the final price by email. Nothing has been charged.
+          </p>
+        )}
+
 
         <div className="mt-14 grid gap-12 border-t border-border pt-10 lg:grid-cols-[1.2fr_1fr]">
           <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
@@ -93,12 +103,25 @@ function BookingSuccess() {
               label="Address"
               value={`${location?.address_line1 ?? ""}, ${location?.postal_code ?? ""} ${location?.city ?? ""}`}
             />
-            <Item label="Total" value={formatPrice(data.total_cents, data.currency)} />
+            <Item
+              label={data.status === "pending" ? "Estimated total" : "Total"}
+              value={formatPrice(data.total_cents, data.currency)}
+            />
           </dl>
 
           <div className="border border-border p-6">
-            <p className="eyebrow">Access</p>
-            {access ? (
+            <p className="eyebrow">{data.status === "pending" ? "What happens next" : "Access"}</p>
+            {data.status === "pending" ? (
+              <>
+                <p className="mt-4 font-display text-xl tracking-tight">
+                  We&apos;ll confirm availability.
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  You get an email from the Garbsen team, usually within one working day. Digital
+                  access is issued once the booking is confirmed.
+                </p>
+              </>
+            ) : access ? (
               <>
                 <p className="mt-4 font-display text-xl tracking-tight">
                   Access available from {formatTime(access.valid_from)}
@@ -112,6 +135,7 @@ function BookingSuccess() {
                 Digital access will appear here before your booking starts.
               </p>
             )}
+
             <Button className="mt-6 w-full" disabled>
               Access space
             </Button>

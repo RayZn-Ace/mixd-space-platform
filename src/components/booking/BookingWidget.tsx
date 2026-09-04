@@ -21,11 +21,15 @@ import { SpaceCode, XMark } from "@/components/site/XMark";
 
 type Step = "when" | "extras" | "pay";
 
+/** No live payment provider yet → the flow runs in request mode. */
+const REQUEST_MODE = !paymentProvider.live;
+
 const STEPS: { id: Step; label: string }[] = [
   { id: "when", label: "When" },
   { id: "extras", label: "Extras" },
-  { id: "pay", label: "Pay" },
+  { id: "pay", label: REQUEST_MODE ? "Review" : "Pay" },
 ];
+
 
 function nextDays(count: number) {
   const out: Date[] = [];
@@ -128,8 +132,8 @@ export function BookingWidget({
           addons_cents: addonTotal,
           discount_cents: discountCents,
           total_cents: total,
-          status: "confirmed",
-          payment_status: method === "on_site" ? "pending" : "paid",
+          status: REQUEST_MODE ? "pending" : "confirmed",
+          payment_status: !REQUEST_MODE && method !== "on_site" ? "paid" : "pending",
         })
         .select("*")
         .single();
@@ -138,7 +142,9 @@ export function BookingWidget({
         toast.error(
           error?.message.includes("bookings_no_overlap")
             ? "This space is already booked for that time."
-            : "The booking couldn't be created.",
+            : REQUEST_MODE
+              ? "The request couldn't be sent."
+              : "The booking couldn't be created.",
         );
         return;
       }
@@ -156,40 +162,41 @@ export function BookingWidget({
         );
       }
 
-      // Simulated provider round-trip so the flow feels real.
-      await new Promise((r) => setTimeout(r, 900));
-      const charge = await paymentProvider.charge({
-        bookingId: booking.id,
-        amountCents: total,
-        currency: "EUR",
-        description: `${space.name} · ${date}`,
-      });
-      await supabase.from("payments").insert({
-        booking_id: booking.id,
-        user_id: user.id,
-        amount_cents: total,
-        provider: charge.provider,
-        method,
-        provider_reference: charge.reference,
-        status: method === "on_site" ? "pending" : "paid",
-      });
+      if (!REQUEST_MODE) {
+        const charge = await paymentProvider.charge({
+          bookingId: booking.id,
+          amountCents: total,
+          currency: "EUR",
+          description: `${space.name} · ${date}`,
+        });
+        await supabase.from("payments").insert({
+          booking_id: booking.id,
+          user_id: user.id,
+          amount_cents: total,
+          provider: charge.provider,
+          method,
+          provider_reference: charge.reference,
+          status: method === "on_site" ? "pending" : "paid",
+        });
 
-      const win = accessWindow(startsAt, endsAt);
-      await supabase.from("access_credentials").insert({
-        booking_id: booking.id,
-        user_id: user.id,
-        provider: "demo",
-        method: "mobile_web",
-        valid_from: win.validFrom.toISOString(),
-        valid_until: win.validUntil.toISOString(),
-      });
+        const win = accessWindow(startsAt, endsAt);
+        await supabase.from("access_credentials").insert({
+          booking_id: booking.id,
+          user_id: user.id,
+          provider: "demo",
+          method: "mobile_web",
+          valid_from: win.validFrom.toISOString(),
+          valid_until: win.validUntil.toISOString(),
+        });
+      }
 
-      toast.success("Booked. See you there.");
+      toast.success(REQUEST_MODE ? "Request sent. We'll confirm." : "Booked. See you there.");
       navigate({ to: "/bookings/$reference", params: { reference: booking.reference } });
     } finally {
       setSubmitting(false);
     }
   }
+
 
   const canAdvance = hours > 0 && Boolean(priced);
   const activeIdx = STEPS.findIndex((x) => x.id === step);
@@ -353,7 +360,12 @@ export function BookingWidget({
 
       {step === "pay" && (
         <div className="mt-6">
-          <div className="rounded-2xl bg-surface p-4 text-sm">
+          {REQUEST_MODE && (
+            <p className="eyebrow flex items-center gap-2">
+              <XMark className="size-2.5 text-accent" /> Review &amp; request
+            </p>
+          )}
+          <div className="mt-3 rounded-2xl bg-surface p-4 text-sm">
             <div className="flex items-baseline justify-between gap-3">
               <p className="font-display text-lg tracking-tight">{space.name}</p>
               <SpaceCode code={(space as { code?: string | null }).code ?? null} />
@@ -378,7 +390,39 @@ export function BookingWidget({
             </dl>
           </div>
           <div className="mt-5">
-            {user ? (
+            {REQUEST_MODE ? (
+              <div className="rounded-2xl border border-border p-4 text-sm">
+                <p className="text-muted-foreground">
+                  Online payment isn&apos;t switched on yet. Send your request and we&apos;ll
+                  confirm the space, the time and the final price by email. Nothing is charged now.
+                </p>
+                {user ? (
+                  <Button
+                    className="mt-4 w-full"
+                    disabled={submitting || !priced}
+                    onClick={() => pay("on_site")}
+                  >
+                    {submitting ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      "Request this space"
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    className="mt-4 w-full"
+                    onClick={() =>
+                      navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } })
+                    }
+                  >
+                    Sign in to request
+                  </Button>
+                )}
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Your selection stays exactly as it is.
+                </p>
+              </div>
+            ) : user ? (
               <PaymentSheet
                 amountCents={total}
                 busy={submitting}
@@ -404,9 +448,12 @@ export function BookingWidget({
         </div>
       )}
 
+
       <div className="mt-6 border-t border-border pt-5">
         <div className="flex items-baseline justify-between">
-          <span className="text-sm text-muted-foreground">Total</span>
+          <span className="text-sm text-muted-foreground">
+            {REQUEST_MODE ? "Estimated total" : "Total"}
+          </span>
           <span className="font-display text-2xl tracking-tight">
             {priced ? formatPrice(total) : "On request"}
           </span>
@@ -415,6 +462,7 @@ export function BookingWidget({
           <p className="mt-1 text-xs text-muted-foreground">
             {hours.toFixed(hours % 1 === 0 ? 0 : 1)} hours
             {discountCents > 0 && ` · ${discountPercent}% member discount applied`}
+            {REQUEST_MODE && " · confirmed by us before anything is charged"}
           </p>
         )}
 
@@ -434,7 +482,7 @@ export function BookingWidget({
               disabled={!canAdvance}
               onClick={() => setStep(step === "when" ? "extras" : "pay")}
             >
-              {step === "when" ? "Continue" : "Go to payment"}
+              {step === "when" ? "Continue" : REQUEST_MODE ? "Review & request" : "Go to payment"}
             </Button>
           </div>
         ) : (
@@ -445,9 +493,11 @@ export function BookingWidget({
 
         {submitting && (
           <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="size-3 animate-spin" /> Confirming your booking…
+            <Loader2 className="size-3 animate-spin" />{" "}
+            {REQUEST_MODE ? "Sending your request…" : "Confirming your booking…"}
           </p>
         )}
+
       </div>
     </div>
   );

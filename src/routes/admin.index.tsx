@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice, formatTime } from "@/lib/mixd";
@@ -55,7 +55,16 @@ function AdminOverview() {
     return "Available";
   };
 
+  const allSpaces = spaces ?? [];
+  const totalSpaces = allSpaces.length;
+  const spacesWithImage = allSpaces.filter((s) => Boolean(s.hero_image_url)).length;
+  const spacesWithDescription = allSpaces.filter((s) => Boolean(s.description)).length;
+  const locationsReady = (locations ?? []).filter(
+    (l) => Boolean(l.address_line1) && Boolean(l.contact_email),
+  ).length;
+
   return (
+
     <div>
       <p className="eyebrow">Overview</p>
       <h1 className="display-md mt-3">Today at MIXD.</h1>
@@ -66,6 +75,39 @@ function AdminOverview() {
         <Kpi label="Bookings today" value={String(bookingsToday)} loading={isLoading} />
         <Kpi label="Occupancy today" value={`${occupancy}%`} loading={isLoading} />
       </div>
+
+      <h2 className="display-md mt-16">Go-live checklist</h2>
+      <p className="mt-3 max-w-xl text-sm text-muted-foreground">
+        The platform is running in pre-launch mode: spaces, rates and photos on the website are
+        example data until you replace them here.
+      </p>
+      <ul className="mt-6 divide-y divide-border border-y border-border">
+        <ChecklistItem
+          label="Spaces with a photo"
+          done={spacesWithImage}
+          total={totalSpaces}
+          to="/admin/spaces"
+        />
+        <ChecklistItem
+          label="Spaces with a description"
+          done={spacesWithDescription}
+          total={totalSpaces}
+          to="/admin/spaces"
+        />
+        <ChecklistItem
+          label="Locations with address and contact"
+          done={locationsReady}
+          total={(locations ?? []).length}
+          to="/admin/locations"
+        />
+        <li className="flex items-center justify-between gap-4 py-4 text-sm">
+          <span>Online payment</span>
+          <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+            Demo — bookings arrive as requests
+          </span>
+        </li>
+      </ul>
+
 
       <h2 className="display-md mt-16">Location performance</h2>
       <div className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2">
@@ -143,5 +185,34 @@ function Kpi({ label, value, loading }: { label: string; value: string; loading?
         <p className="mt-4 font-display text-3xl tracking-tight">{value}</p>
       )}
     </div>
+  );
+}
+
+function ChecklistItem({
+  label,
+  done,
+  total,
+  to,
+}: {
+  label: string;
+  done: number;
+  total: number;
+  to: string;
+}) {
+  const complete = total > 0 && done === total;
+  return (
+    <li className="flex items-center justify-between gap-4 py-4 text-sm">
+      <Link to={to} className="link-underline">
+        {label}
+      </Link>
+      <span
+        className={
+          "text-xs uppercase tracking-[0.14em] " +
+          (complete ? "text-muted-foreground" : "text-accent")
+        }
+      >
+        {done} / {total} ready
+      </span>
+    </li>
   );
 }

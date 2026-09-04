@@ -15,6 +15,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BookRouteImport } from './routes/book'
 import { Route as BusinessAddressRouteImport } from './routes/business-address'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoworkingRouteImport } from './routes/coworking'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MeetingRoomsRouteImport } from './routes/meeting-rooms'
@@ -28,10 +29,14 @@ import { Route as AdminAddonsRouteImport } from './routes/admin.addons'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
 import { Route as AdminMembershipsRouteImport } from './routes/admin.memberships'
 import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
+import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as SpacesIndexRouteImport } from './routes/spaces.index'
@@ -65,6 +70,11 @@ const BookRoute = BookRouteImport.update({
 const BusinessAddressRoute = BusinessAddressRouteImport.update({
   id: '/business-address',
   path: '/business-address',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoworkingRoute = CoworkingRouteImport.update({
@@ -132,6 +142,11 @@ const AdminCustomersRoute = AdminCustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLocationsRoute = AdminLocationsRouteImport.update({
   id: '/locations',
   path: '/locations',
@@ -150,6 +165,21 @@ const AdminSpacesRoute = AdminSpacesRouteImport.update({
 const BookingsReferenceRoute = BookingsReferenceRouteImport.update({
   id: '/bookings/$reference',
   path: '/bookings/$reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalImprintRoute = LegalImprintRouteImport.update({
+  id: '/legal/imprint',
+  path: '/legal/imprint',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocationsIndexRoute = LocationsIndexRouteImport.update({
@@ -180,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -192,10 +223,14 @@ export interface FileRoutesByFullPath {
   '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -208,6 +243,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -220,10 +256,14 @@ export interface FileRoutesByTo {
   '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -238,6 +278,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/book': typeof BookRoute
   '/business-address': typeof BusinessAddressRoute
+  '/contact': typeof ContactRoute
   '/coworking': typeof CoworkingRoute
   '/login': typeof LoginRoute
   '/meeting-rooms': typeof MeetingRoomsRoute
@@ -250,10 +291,14 @@ export interface FileRoutesById {
   '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
+  '/admin/leads': typeof AdminLeadsRoute
   '/admin/locations': typeof AdminLocationsRoute
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -269,6 +314,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -281,10 +327,14 @@ export interface FileRouteTypes {
     | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
+    | '/admin/leads'
     | '/admin/locations'
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -297,6 +347,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -309,10 +360,14 @@ export interface FileRouteTypes {
     | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
+    | '/admin/leads'
     | '/admin/locations'
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin'
@@ -326,6 +381,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/book'
     | '/business-address'
+    | '/contact'
     | '/coworking'
     | '/login'
     | '/meeting-rooms'
@@ -338,10 +394,14 @@ export interface FileRouteTypes {
     | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
+    | '/admin/leads'
     | '/admin/locations'
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -356,6 +416,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   BookRoute: typeof BookRoute
   BusinessAddressRoute: typeof BusinessAddressRoute
+  ContactRoute: typeof ContactRoute
   CoworkingRoute: typeof CoworkingRoute
   LoginRoute: typeof LoginRoute
   MeetingRoomsRoute: typeof MeetingRoomsRoute
@@ -365,6 +426,9 @@ export interface RootRouteChildren {
   TeamOfficesRoute: typeof TeamOfficesRoute
   TeamsRoute: typeof TeamsRoute
   BookingsReferenceRoute: typeof BookingsReferenceRoute
+  LegalImprintRoute: typeof LegalImprintRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   SpacesSlugRoute: typeof SpacesSlugRoute
   LocationsIndexRoute: typeof LocationsIndexRoute
@@ -413,6 +477,13 @@ declare module '@tanstack/react-router' {
       path: '/business-address'
       fullPath: '/business-address'
       preLoaderRoute: typeof BusinessAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coworking': {
@@ -506,6 +577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCustomersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/locations': {
       id: '/admin/locations'
       path: '/locations'
@@ -532,6 +610,27 @@ declare module '@tanstack/react-router' {
       path: '/bookings/$reference'
       fullPath: '/bookings/$reference'
       preLoaderRoute: typeof BookingsReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/imprint': {
+      id: '/legal/imprint'
+      path: '/legal/imprint'
+      fullPath: '/legal/imprint'
+      preLoaderRoute: typeof LegalImprintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/locations/': {
@@ -570,6 +669,7 @@ interface AdminRouteChildren {
   AdminBillingRoute: typeof AdminBillingRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
+  AdminLeadsRoute: typeof AdminLeadsRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
   AdminMembershipsRoute: typeof AdminMembershipsRoute
   AdminSpacesRoute: typeof AdminSpacesRoute
@@ -581,6 +681,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBillingRoute: AdminBillingRoute,
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
+  AdminLeadsRoute: AdminLeadsRoute,
   AdminLocationsRoute: AdminLocationsRoute,
   AdminMembershipsRoute: AdminMembershipsRoute,
   AdminSpacesRoute: AdminSpacesRoute,
@@ -596,6 +697,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   BookRoute: BookRoute,
   BusinessAddressRoute: BusinessAddressRoute,
+  ContactRoute: ContactRoute,
   CoworkingRoute: CoworkingRoute,
   LoginRoute: LoginRoute,
   MeetingRoomsRoute: MeetingRoomsRoute,
@@ -605,6 +707,9 @@ const rootRouteChildren: RootRouteChildren = {
   TeamOfficesRoute: TeamOfficesRoute,
   TeamsRoute: TeamsRoute,
   BookingsReferenceRoute: BookingsReferenceRoute,
+  LegalImprintRoute: LegalImprintRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   SpacesSlugRoute: SpacesSlugRoute,
   LocationsIndexRoute: LocationsIndexRoute,

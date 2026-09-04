@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Audience } from "@/components/site/XMark";
 import { SiteShell, PageHeader } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
+import { LeadBand } from "@/components/site/LeadDialog";
 
 export const Route = createFileRoute("/business-address")({
   head: () => ({
@@ -67,6 +68,14 @@ function BusinessAddressPage() {
           starts.
         </p>
       </section>
+
+      <LeadBand
+        eyebrow="Business address"
+        title="Register your company at Erlenweg 18."
+        line="Mail handling, a real address and a place to actually meet people."
+        kind="business_address"
+      />
+
     </SiteShell>
   );
 }

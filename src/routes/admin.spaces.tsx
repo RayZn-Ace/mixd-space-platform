@@ -85,6 +85,13 @@ function AdminSpaces() {
     refresh();
   }
 
+  async function saveCode(id: string, value: string) {
+    const next = value.trim().toUpperCase() || null;
+    const { error } = await supabase.from("spaces").update({ code: next }).eq("id", id);
+    if (error) toast.error(error.message);
+    else refresh();
+  }
+
   async function setStatus(id: string, status: "active" | "inactive" | "maintenance") {
     const { error } = await supabase.from("spaces").update({ status }).eq("id", id);
     if (error) toast.error(error.message);

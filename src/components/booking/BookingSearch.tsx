@@ -64,19 +64,24 @@ export function BookingSearch({
       >
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
           <label className={HERO_LABEL}>Location</label>
-          <select
-            className={cn(HERO_INPUT, "appearance-none")}
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          >
-            <option value="">Anywhere</option>
-            {(locations ?? []).map((l) => (
-              <option key={l.id} value={l.slug}>
-                {l.name}
-              </option>
-            ))}
-          </select>
+          {singleLocation ? (
+            <span className="truncate text-foreground">{singleLocation.name}</span>
+          ) : (
+            <select
+              className={cn(HERO_INPUT, "appearance-none")}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option value="">Anywhere</option>
+              {(locations ?? []).map((l) => (
+                <option key={l.id} value={l.slug}>
+                  {l.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
+
 
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
           <label className={HERO_LABEL}>When</label>

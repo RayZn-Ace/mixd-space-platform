@@ -24,6 +24,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as TeamOfficesRouteImport } from './routes/team-offices'
 import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
@@ -110,6 +111,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminBillingRoute = AdminBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -176,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
@@ -230,6 +238,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
@@ -259,6 +268,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
@@ -312,6 +323,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/billing'
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
@@ -454,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/billing': {
+      id: '/admin/billing'
+      path: '/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AdminBillingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -528,6 +547,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminBillingRoute: typeof AdminBillingRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
@@ -537,6 +557,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminBillingRoute: AdminBillingRoute,
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminLocationsRoute: AdminLocationsRoute,

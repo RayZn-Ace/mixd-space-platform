@@ -68,10 +68,11 @@ const SPACE_TYPES = [
 
 const HOW = [
   ["Find", "Pick a space and a time."],
-  ["Book", "Pay online. Done."],
-  ["Enter", "Your booking is your key."],
+  ["Request", "Send it in a few taps."],
+  ["Confirm", "We come back to you."],
   ["Work", "That's it."],
 ] as const;
+
 
 const NEEDS = [
   { need: "I need a desk today.", to: "/coworking" },

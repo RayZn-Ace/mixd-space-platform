@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -7,6 +8,7 @@ import { BookingWidget } from "@/components/booking/BookingWidget";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
 import { Button } from "@/components/ui/button";
 import { spaceQuery, spacesQuery } from "@/lib/queries";
+import type { SpaceType } from "@/lib/mixd";
 
 const searchSchema = z.object({
   space: z.string().optional(),
@@ -37,11 +39,14 @@ export const Route = createFileRoute("/book")({
 
 function BookPage() {
   const search = Route.useSearch();
+  const [type, setType] = useState<SpaceType | "all">("all");
   const { data: spaces, isLoading } = useQuery(spacesQuery());
   const { data: selected } = useQuery({
     ...spaceQuery(search.space ?? ""),
     enabled: Boolean(search.space),
   });
+
+  const visible = (spaces ?? []).filter((s) => (type === "all" ? true : s.space_type === type));
 
   if (selected) {
     return (

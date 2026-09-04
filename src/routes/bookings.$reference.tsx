@@ -80,8 +80,18 @@ function BookingSuccess() {
   return (
     <SiteShell>
       <section className="container-mixd py-20 lg:py-28">
-        <p className="eyebrow">Booking {data.reference}</p>
-        <h1 className="display-xl mt-6">You're in.</h1>
+        <p className="eyebrow">
+          {data.status === "pending" ? "Request" : "Booking"} {data.reference}
+        </p>
+        <h1 className="display-xl mt-6">
+          {data.status === "pending" ? "Request received." : "You're in."}
+        </h1>
+        {data.status === "pending" && (
+          <p className="mt-6 max-w-lg text-muted-foreground">
+            We&apos;ll confirm availability and the final price by email. Nothing has been charged.
+          </p>
+        )}
+
 
         <div className="mt-14 grid gap-12 border-t border-border pt-10 lg:grid-cols-[1.2fr_1fr]">
           <dl className="grid gap-x-10 gap-y-8 sm:grid-cols-2">

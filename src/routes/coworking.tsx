@@ -31,6 +31,7 @@ export const Route = createFileRoute("/coworking")({
         </>
       }
       intro="An open desk in a quiet, well-designed workspace. Arrive, plug in, get on with it."
+      audience="Students · Remote workers · Freelancers · Consultants between appointments"
       points={[
         ["By the hour", "Pay for the time you actually use."],
         ["Everything included", "WiFi, coffee, water, parking."],

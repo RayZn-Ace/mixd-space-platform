@@ -31,6 +31,7 @@ export const Route = createFileRoute("/team-offices")({
         </>
       }
       intro="Room for a whole team, a project sprint or a workshop week — without signing a lease."
+      audience="Startups · Project teams · Corporate teams · Temporary offices"
       points={[
         ["Team-sized", "Space for four to twelve people."],
         ["Project-ready", "Set up for focused work and workshops."],

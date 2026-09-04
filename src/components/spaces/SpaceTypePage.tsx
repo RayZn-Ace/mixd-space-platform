@@ -4,6 +4,7 @@ import { SiteShell, PageHeader, EmptyState } from "@/components/site/SiteShell";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
 import { Button } from "@/components/ui/button";
 import { spacesQuery } from "@/lib/queries";
+import { XMark } from "@/components/site/XMark";
 import type { SpaceType } from "@/lib/mixd";
 
 export function SpaceTypePage({
@@ -12,12 +13,14 @@ export function SpaceTypePage({
   title,
   intro,
   points,
+  audience,
 }: {
   type: SpaceType;
   eyebrow: string;
   title: React.ReactNode;
   intro: string;
   points: [string, string][];
+  audience: string;
 }) {
   const { data, isLoading } = useQuery(spacesQuery({ type }));
 
@@ -32,7 +35,13 @@ export function SpaceTypePage({
       </PageHeader>
 
       <section className="container-mixd">
-        <dl className="grid gap-x-12 gap-y-10 border-y border-border py-12 sm:grid-cols-3">
+        <div className="flex items-start gap-3 border-t border-border pt-8">
+          <XMark className="mt-1 size-3 shrink-0 text-accent" />
+          <p className="max-w-2xl text-sm uppercase tracking-[0.14em] text-muted-foreground">
+            {audience}
+          </p>
+        </div>
+        <dl className="mt-8 grid gap-x-12 gap-y-10 border-y border-border py-12 sm:grid-cols-3">
           {points.map(([t, d]) => (
             <div key={t}>
               <dt className="font-display text-base tracking-tight">{t}</dt>
@@ -42,7 +51,7 @@ export function SpaceTypePage({
         </dl>
       </section>
 
-      <section className="container-mixd mt-16">
+      <section className="container-mixd mt-16 pb-24">
         {isLoading ? (
           <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (

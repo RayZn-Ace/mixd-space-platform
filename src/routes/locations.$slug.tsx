@@ -40,8 +40,11 @@ function LocationPage() {
   if (isLoading) {
     return (
       <SiteShell>
-        <div className="container-mixd py-24">
-          <div className="aspect-[16/7] w-full animate-pulse bg-muted" />
+        <div className="container-mixd pt-14 pb-24">
+          <div className="h-3 w-24 animate-pulse bg-muted" />
+          <div className="mt-6 h-10 w-2/3 max-w-xl animate-pulse bg-muted" />
+          <div className="mt-6 h-4 w-48 animate-pulse bg-muted" />
+          <div className="mt-12 aspect-[16/9] w-full animate-pulse bg-muted sm:aspect-[16/7]" />
         </div>
       </SiteShell>
     );
@@ -184,7 +187,7 @@ function LocationPage() {
         </div>
       </section>
 
-      <section className="container-mixd mt-24">
+      <section className="container-mixd mt-24 pb-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="display-md">Spaces here</h2>
           <Link to="/spaces" search={{ location: slug }} className="link-underline text-sm text-muted-foreground">

@@ -31,6 +31,7 @@ export const Route = createFileRoute("/meeting-rooms")({
         </>
       }
       intro="Rooms for conversations that need a room. Screen, whiteboard and coffee, ready when you arrive."
+      audience="Companies · Workshops · Client meetings · Team sessions"
       points={[
         ["By the hour", "Book one hour or the whole day."],
         ["Equipped", "Screen, whiteboard, video conferencing."],

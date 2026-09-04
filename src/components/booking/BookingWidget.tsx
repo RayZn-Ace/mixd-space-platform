@@ -360,7 +360,12 @@ export function BookingWidget({
 
       {step === "pay" && (
         <div className="mt-6">
-          <div className="rounded-2xl bg-surface p-4 text-sm">
+          {REQUEST_MODE && (
+            <p className="eyebrow flex items-center gap-2">
+              <XMark className="size-2.5 text-accent" /> Review &amp; request
+            </p>
+          )}
+          <div className="mt-3 rounded-2xl bg-surface p-4 text-sm">
             <div className="flex items-baseline justify-between gap-3">
               <p className="font-display text-lg tracking-tight">{space.name}</p>
               <SpaceCode code={(space as { code?: string | null }).code ?? null} />
@@ -385,7 +390,39 @@ export function BookingWidget({
             </dl>
           </div>
           <div className="mt-5">
-            {user ? (
+            {REQUEST_MODE ? (
+              <div className="rounded-2xl border border-border p-4 text-sm">
+                <p className="text-muted-foreground">
+                  Online payment isn&apos;t switched on yet. Send your request and we&apos;ll
+                  confirm the space, the time and the final price by email. Nothing is charged now.
+                </p>
+                {user ? (
+                  <Button
+                    className="mt-4 w-full"
+                    disabled={submitting || !priced}
+                    onClick={() => pay("on_site")}
+                  >
+                    {submitting ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      "Request this space"
+                    )}
+                  </Button>
+                ) : (
+                  <Button
+                    className="mt-4 w-full"
+                    onClick={() =>
+                      navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } })
+                    }
+                  >
+                    Sign in to request
+                  </Button>
+                )}
+                <p className="mt-3 text-xs text-muted-foreground">
+                  Your selection stays exactly as it is.
+                </p>
+              </div>
+            ) : user ? (
               <PaymentSheet
                 amountCents={total}
                 busy={submitting}
@@ -410,6 +447,7 @@ export function BookingWidget({
           </div>
         </div>
       )}
+
 
       <div className="mt-6 border-t border-border pt-5">
         <div className="flex items-baseline justify-between">

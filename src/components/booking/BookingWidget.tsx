@@ -132,8 +132,8 @@ export function BookingWidget({
           addons_cents: addonTotal,
           discount_cents: discountCents,
           total_cents: total,
-          status: "confirmed",
-          payment_status: method === "on_site" ? "pending" : "paid",
+          status: REQUEST_MODE ? "pending" : "confirmed",
+          payment_status: !REQUEST_MODE && method !== "on_site" ? "paid" : "pending",
         })
         .select("*")
         .single();
@@ -142,7 +142,9 @@ export function BookingWidget({
         toast.error(
           error?.message.includes("bookings_no_overlap")
             ? "This space is already booked for that time."
-            : "The booking couldn't be created.",
+            : REQUEST_MODE
+              ? "The request couldn't be sent."
+              : "The booking couldn't be created.",
         );
         return;
       }
@@ -160,40 +162,41 @@ export function BookingWidget({
         );
       }
 
-      // Simulated provider round-trip so the flow feels real.
-      await new Promise((r) => setTimeout(r, 900));
-      const charge = await paymentProvider.charge({
-        bookingId: booking.id,
-        amountCents: total,
-        currency: "EUR",
-        description: `${space.name} · ${date}`,
-      });
-      await supabase.from("payments").insert({
-        booking_id: booking.id,
-        user_id: user.id,
-        amount_cents: total,
-        provider: charge.provider,
-        method,
-        provider_reference: charge.reference,
-        status: method === "on_site" ? "pending" : "paid",
-      });
+      if (!REQUEST_MODE) {
+        const charge = await paymentProvider.charge({
+          bookingId: booking.id,
+          amountCents: total,
+          currency: "EUR",
+          description: `${space.name} · ${date}`,
+        });
+        await supabase.from("payments").insert({
+          booking_id: booking.id,
+          user_id: user.id,
+          amount_cents: total,
+          provider: charge.provider,
+          method,
+          provider_reference: charge.reference,
+          status: method === "on_site" ? "pending" : "paid",
+        });
 
-      const win = accessWindow(startsAt, endsAt);
-      await supabase.from("access_credentials").insert({
-        booking_id: booking.id,
-        user_id: user.id,
-        provider: "demo",
-        method: "mobile_web",
-        valid_from: win.validFrom.toISOString(),
-        valid_until: win.validUntil.toISOString(),
-      });
+        const win = accessWindow(startsAt, endsAt);
+        await supabase.from("access_credentials").insert({
+          booking_id: booking.id,
+          user_id: user.id,
+          provider: "demo",
+          method: "mobile_web",
+          valid_from: win.validFrom.toISOString(),
+          valid_until: win.validUntil.toISOString(),
+        });
+      }
 
-      toast.success("Booked. See you there.");
+      toast.success(REQUEST_MODE ? "Request sent. We'll confirm." : "Booked. See you there.");
       navigate({ to: "/bookings/$reference", params: { reference: booking.reference } });
     } finally {
       setSubmitting(false);
     }
   }
+
 
   const canAdvance = hours > 0 && Boolean(priced);
   const activeIdx = STEPS.findIndex((x) => x.id === step);

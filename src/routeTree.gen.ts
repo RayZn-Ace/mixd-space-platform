@@ -10,33 +10,281 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as BookRouteImport } from './routes/book'
+import { Route as BusinessAddressRouteImport } from './routes/business-address'
+import { Route as CoworkingRouteImport } from './routes/coworking'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MeetingRoomsRouteImport } from './routes/meeting-rooms'
+import { Route as MembershipsRouteImport } from './routes/memberships'
+import { Route as PrivateOfficesRouteImport } from './routes/private-offices'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as TeamOfficesRouteImport } from './routes/team-offices'
+import { Route as TeamsRouteImport } from './routes/teams'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
+import { Route as LocationsIndexRouteImport } from './routes/locations.index'
+import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
+import { Route as SpacesIndexRouteImport } from './routes/spaces.index'
+import { Route as SpacesSlugRouteImport } from './routes/spaces.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessAddressRoute = BusinessAddressRouteImport.update({
+  id: '/business-address',
+  path: '/business-address',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoworkingRoute = CoworkingRouteImport.update({
+  id: '/coworking',
+  path: '/coworking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MeetingRoomsRoute = MeetingRoomsRouteImport.update({
+  id: '/meeting-rooms',
+  path: '/meeting-rooms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipsRoute = MembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivateOfficesRoute = PrivateOfficesRouteImport.update({
+  id: '/private-offices',
+  path: '/private-offices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamOfficesRoute = TeamOfficesRouteImport.update({
+  id: '/team-offices',
+  path: '/team-offices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamsRoute = TeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const BookingsReferenceRoute = BookingsReferenceRouteImport.update({
+  id: '/bookings/$reference',
+  path: '/bookings/$reference',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsIndexRoute = LocationsIndexRouteImport.update({
+  id: '/locations/',
+  path: '/locations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsSlugRoute = LocationsSlugRouteImport.update({
+  id: '/locations/$slug',
+  path: '/locations/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpacesIndexRoute = SpacesIndexRouteImport.update({
+  id: '/spaces/',
+  path: '/spaces/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpacesSlugRoute = SpacesSlugRouteImport.update({
+  id: '/spaces/$slug',
+  path: '/spaces/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/book': typeof BookRoute
+  '/business-address': typeof BusinessAddressRoute
+  '/coworking': typeof CoworkingRoute
+  '/login': typeof LoginRoute
+  '/meeting-rooms': typeof MeetingRoomsRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-offices': typeof PrivateOfficesRoute
+  '/register': typeof RegisterRoute
+  '/team-offices': typeof TeamOfficesRoute
+  '/teams': typeof TeamsRoute
+  '/bookings/$reference': typeof BookingsReferenceRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/spaces/$slug': typeof SpacesSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/locations/': typeof LocationsIndexRoute
+  '/spaces/': typeof SpacesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/book': typeof BookRoute
+  '/business-address': typeof BusinessAddressRoute
+  '/coworking': typeof CoworkingRoute
+  '/login': typeof LoginRoute
+  '/meeting-rooms': typeof MeetingRoomsRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-offices': typeof PrivateOfficesRoute
+  '/register': typeof RegisterRoute
+  '/team-offices': typeof TeamOfficesRoute
+  '/teams': typeof TeamsRoute
+  '/bookings/$reference': typeof BookingsReferenceRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/spaces/$slug': typeof SpacesSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/locations': typeof LocationsIndexRoute
+  '/spaces': typeof SpacesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/account': typeof AccountRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/book': typeof BookRoute
+  '/business-address': typeof BusinessAddressRoute
+  '/coworking': typeof CoworkingRoute
+  '/login': typeof LoginRoute
+  '/meeting-rooms': typeof MeetingRoomsRoute
+  '/memberships': typeof MembershipsRoute
+  '/private-offices': typeof PrivateOfficesRoute
+  '/register': typeof RegisterRoute
+  '/team-offices': typeof TeamOfficesRoute
+  '/teams': typeof TeamsRoute
+  '/bookings/$reference': typeof BookingsReferenceRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/spaces/$slug': typeof SpacesSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/locations/': typeof LocationsIndexRoute
+  '/spaces/': typeof SpacesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/account'
+    | '/admin'
+    | '/book'
+    | '/business-address'
+    | '/coworking'
+    | '/login'
+    | '/meeting-rooms'
+    | '/memberships'
+    | '/private-offices'
+    | '/register'
+    | '/team-offices'
+    | '/teams'
+    | '/bookings/$reference'
+    | '/locations/$slug'
+    | '/spaces/$slug'
+    | '/admin/'
+    | '/locations/'
+    | '/spaces/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/account'
+    | '/book'
+    | '/business-address'
+    | '/coworking'
+    | '/login'
+    | '/meeting-rooms'
+    | '/memberships'
+    | '/private-offices'
+    | '/register'
+    | '/team-offices'
+    | '/teams'
+    | '/bookings/$reference'
+    | '/locations/$slug'
+    | '/spaces/$slug'
+    | '/admin'
+    | '/locations'
+    | '/spaces'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/account'
+    | '/admin'
+    | '/book'
+    | '/business-address'
+    | '/coworking'
+    | '/login'
+    | '/meeting-rooms'
+    | '/memberships'
+    | '/private-offices'
+    | '/register'
+    | '/team-offices'
+    | '/teams'
+    | '/bookings/$reference'
+    | '/locations/$slug'
+    | '/spaces/$slug'
+    | '/admin/'
+    | '/locations/'
+    | '/spaces/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AccountRoute: typeof AccountRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  BookRoute: typeof BookRoute
+  BusinessAddressRoute: typeof BusinessAddressRoute
+  CoworkingRoute: typeof CoworkingRoute
+  LoginRoute: typeof LoginRoute
+  MeetingRoomsRoute: typeof MeetingRoomsRoute
+  MembershipsRoute: typeof MembershipsRoute
+  PrivateOfficesRoute: typeof PrivateOfficesRoute
+  RegisterRoute: typeof RegisterRoute
+  TeamOfficesRoute: typeof TeamOfficesRoute
+  TeamsRoute: typeof TeamsRoute
+  BookingsReferenceRoute: typeof BookingsReferenceRoute
+  LocationsSlugRoute: typeof LocationsSlugRoute
+  SpacesSlugRoute: typeof SpacesSlugRoute
+  LocationsIndexRoute: typeof LocationsIndexRoute
+  SpacesIndexRoute: typeof SpacesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +296,172 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business-address': {
+      id: '/business-address'
+      path: '/business-address'
+      fullPath: '/business-address'
+      preLoaderRoute: typeof BusinessAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coworking': {
+      id: '/coworking'
+      path: '/coworking'
+      fullPath: '/coworking'
+      preLoaderRoute: typeof CoworkingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meeting-rooms': {
+      id: '/meeting-rooms'
+      path: '/meeting-rooms'
+      fullPath: '/meeting-rooms'
+      preLoaderRoute: typeof MeetingRoomsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memberships': {
+      id: '/memberships'
+      path: '/memberships'
+      fullPath: '/memberships'
+      preLoaderRoute: typeof MembershipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/private-offices': {
+      id: '/private-offices'
+      path: '/private-offices'
+      fullPath: '/private-offices'
+      preLoaderRoute: typeof PrivateOfficesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team-offices': {
+      id: '/team-offices'
+      path: '/team-offices'
+      fullPath: '/team-offices'
+      preLoaderRoute: typeof TeamOfficesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teams': {
+      id: '/teams'
+      path: '/teams'
+      fullPath: '/teams'
+      preLoaderRoute: typeof TeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/bookings/$reference': {
+      id: '/bookings/$reference'
+      path: '/bookings/$reference'
+      fullPath: '/bookings/$reference'
+      preLoaderRoute: typeof BookingsReferenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/': {
+      id: '/locations/'
+      path: '/locations'
+      fullPath: '/locations/'
+      preLoaderRoute: typeof LocationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/$slug': {
+      id: '/locations/$slug'
+      path: '/locations/$slug'
+      fullPath: '/locations/$slug'
+      preLoaderRoute: typeof LocationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spaces/': {
+      id: '/spaces/'
+      path: '/spaces'
+      fullPath: '/spaces/'
+      preLoaderRoute: typeof SpacesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spaces/$slug': {
+      id: '/spaces/$slug'
+      path: '/spaces/$slug'
+      fullPath: '/spaces/$slug'
+      preLoaderRoute: typeof SpacesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AccountRoute: AccountRoute,
+  AdminRoute: AdminRouteWithChildren,
+  BookRoute: BookRoute,
+  BusinessAddressRoute: BusinessAddressRoute,
+  CoworkingRoute: CoworkingRoute,
+  LoginRoute: LoginRoute,
+  MeetingRoomsRoute: MeetingRoomsRoute,
+  MembershipsRoute: MembershipsRoute,
+  PrivateOfficesRoute: PrivateOfficesRoute,
+  RegisterRoute: RegisterRoute,
+  TeamOfficesRoute: TeamOfficesRoute,
+  TeamsRoute: TeamsRoute,
+  BookingsReferenceRoute: BookingsReferenceRoute,
+  LocationsSlugRoute: LocationsSlugRoute,
+  SpacesSlugRoute: SpacesSlugRoute,
+  LocationsIndexRoute: LocationsIndexRoute,
+  SpacesIndexRoute: SpacesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -44,7 +44,7 @@ const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
 export function Footer() {
   return (
     <footer className="mt-28 border-t border-border bg-surface">
-      <div className="container-mixd grid gap-12 py-16 md:grid-cols-[1.4fr_repeat(3,1fr)] lg:py-20">
+      <div className="container-mixd grid gap-12 py-16 md:grid-cols-[1.4fr_repeat(4,1fr)] lg:py-20">
         <div>
           <Wordmark className="h-12" />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">

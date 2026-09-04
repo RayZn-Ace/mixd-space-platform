@@ -302,9 +302,12 @@ export function BookingWidget({
       {step === "extras" && (
         <div className="mt-6">
           <p className="eyebrow">Add extras</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Optional. Added to your booking and billed with it.
+          </p>
           {relevantAddons.length === 0 ? (
             <p className="mt-4 text-sm text-muted-foreground">
-              No extras available for this space.
+              No extras are set up for this space yet. Continue to payment.
             </p>
           ) : (
             <ul className="mt-4 space-y-2">
@@ -350,18 +353,52 @@ export function BookingWidget({
       {step === "pay" && (
         <div className="mt-6">
           <div className="rounded-2xl bg-surface p-4 text-sm">
-            <p className="font-display text-lg tracking-tight">{space.name}</p>
-            <p className="mt-1 text-muted-foreground">
-              {formatDate(date)} · {start} – {end} · {people} {people === 1 ? "person" : "people"}
-            </p>
+            <div className="flex items-baseline justify-between gap-3">
+              <p className="font-display text-lg tracking-tight">{space.name}</p>
+              <SpaceCode code={(space as { code?: string | null }).code ?? null} />
+            </div>
+            <dl className="mt-4 space-y-2 text-sm">
+              <Line label="Date" value={formatDate(date)} />
+              <Line label="Time" value={`${start} – ${end}`} />
+              <Line label="People" value={`${people} ${people === 1 ? "person" : "people"}`} />
+              <Line
+                label={`Space (${priced ? priced.rate_type : "—"})`}
+                value={priced ? formatPrice(priced.total) : "On request"}
+              />
+              {chosenAddons.map((a) => (
+                <Line key={a.id} label={a.name} value={formatPrice(a.price_cents)} />
+              ))}
+              {discountCents > 0 && (
+                <Line
+                  label={`Member discount (${discountPercent}%)`}
+                  value={`– ${formatPrice(discountCents)}`}
+                />
+              )}
+            </dl>
           </div>
           <div className="mt-5">
-            <PaymentSheet
-              amountCents={total}
-              busy={submitting}
-              creditsAvailable={activeSub?.credits_remaining ?? 0}
-              onPay={pay}
-            />
+            {user ? (
+              <PaymentSheet
+                amountCents={total}
+                busy={submitting}
+                creditsAvailable={activeSub?.credits_remaining ?? 0}
+                onPay={pay}
+              />
+            ) : (
+              <div className="rounded-2xl border border-border p-4 text-sm">
+                <p className="text-muted-foreground">
+                  Sign in to confirm this booking. Your selection stays as it is.
+                </p>
+                <Button
+                  className="mt-4 w-full"
+                  onClick={() =>
+                    navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } })
+                  }
+                >
+                  Sign in to book
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -380,21 +417,31 @@ export function BookingWidget({
           </p>
         )}
 
-        {step !== "pay" && (
-          <Button
-            className="mt-5 w-full"
-            disabled={!(hours > 0)}
-            onClick={() => {
-              if (!user) {
-                navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } });
-                return;
-              }
-              setStep(step === "when" ? "extras" : "pay");
-            }}
-          >
-            {!user ? "Sign in to book" : step === "when" ? "Continue" : "Go to payment"}
+        {step !== "pay" ? (
+          <div className="mt-5 flex gap-2">
+            {step !== "when" && (
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={() => setStep("when")}
+              >
+                Back
+              </Button>
+            )}
+            <Button
+              className="flex-1"
+              disabled={!canAdvance}
+              onClick={() => setStep(step === "when" ? "extras" : "pay")}
+            >
+              {step === "when" ? "Continue" : "Go to payment"}
+            </Button>
+          </div>
+        ) : (
+          <Button variant="ghost" className="mt-4 w-full" onClick={() => setStep("extras")}>
+            Back to extras
           </Button>
         )}
+
         {submitting && (
           <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
             <Loader2 className="size-3 animate-spin" /> Confirming your booking…

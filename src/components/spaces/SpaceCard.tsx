@@ -29,7 +29,7 @@ export function SpaceCard({ space }: { space: SpaceWithRelations }) {
         />
       </div>
       <div className="flex flex-1 flex-col pt-5">
-        <SpaceCode code={(space as { code?: string | null }).code} className="mb-3 self-start" />
+        <SpaceCode code={(space as { code?: string | null }).code ?? null} className="mb-3 self-start" />
         <div className="flex items-baseline justify-between gap-4">
           <h3 className="font-display text-lg tracking-tight">{space.name}</h3>
           {price && (

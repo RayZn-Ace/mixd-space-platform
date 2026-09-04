@@ -13,16 +13,17 @@ import { formatPrice } from "@/lib/mixd";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MIXD.SPACE Garbsen — Flexible workspace, by the hour or month" },
+      { title: "MIXD.SPACE Garbsen — One mixed space for study, work, meet & create" },
       {
         name: "description",
         content:
-          "Flexible desks, private offices and meeting rooms in Garbsen. Book by the hour, day or month. work. meet. create.",
+          "Study, work, meet and create at MIXD.SPACE Garbsen. Flexible desks, offices and meeting rooms for every use — book by the hour, day or month.",
       },
-      { property: "og:title", content: "MIXD.SPACE — work. meet. create." },
+      { property: "og:title", content: "MIXD.SPACE — One mixed space for everything." },
       {
         property: "og:description",
-        content: "Flexible desks, private offices and meeting rooms in Garbsen-Berenbostel.",
+        content:
+          "Study, work, meet and create at MIXD.SPACE Garbsen. Flexible spaces for every use.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -40,6 +41,13 @@ const MANIFESTO = [
     cta: "Flex desks",
   },
   {
+    word: "WORK",
+    line: "when you want.",
+    text: "Freelance, side hustle, thesis or deep focus — no contract, just the hours you need.",
+    to: "/coworking",
+    cta: "Flex desks",
+  },
+  {
     word: "MEET",
     line: "where ideas actually flow.",
     text: "Rooms for group work, thesis sessions or your next side-project kickoff.",
@@ -53,6 +61,13 @@ const MANIFESTO = [
     to: "/team-offices",
     cta: "Team offices",
   },
+];
+
+const MIXED_USES = [
+  { label: "Study", desc: "Solo focus & group sessions", to: "/coworking" },
+  { label: "Work", desc: "Freelance & deep work", to: "/coworking" },
+  { label: "Meet", desc: "Teams & client calls", to: "/meeting-rooms" },
+  { label: "Create", desc: "Workshops & projects", to: "/team-offices" },
 ];
 
 const BENEFITS = [
@@ -94,17 +109,19 @@ function Home() {
           {/* Sticker badge */}
           <div className="absolute right-4 top-4 z-20 sm:right-8 sm:top-8">
             <div className="rotate-6 rounded-full bg-accent px-3 py-1.5 text-xs font-bold tracking-tight text-accent-foreground shadow-lg ring-2 ring-white/20 sm:px-4 sm:py-2 sm:text-sm">
-              98% campus vibes
+              One space, mixed use
             </div>
           </div>
 
           {/* Content */}
           <div className="relative z-10 flex flex-col justify-end px-5 pb-8 pt-32 sm:px-10 sm:pb-12 sm:pt-44 lg:px-16 lg:pb-16 lg:pt-56">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">work. meet. create.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+              study. work. meet. create.
+            </p>
             <h1 className="mt-4 max-w-3xl text-4xl font-medium leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Find your{" "}
+              One{" "}
               <span className="relative inline-block">
-                workspace
+                MIXD
                 <svg
                   className="absolute -bottom-1 left-0 w-full text-accent/80 sm:-bottom-2"
                   viewBox="0 0 100 10"
@@ -119,11 +136,11 @@ function Home() {
                     strokeLinecap="round"
                   />
                 </svg>
-              </span>
+              </span>{" "}
+              space for everything.
             </h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
-              Escape the crowded library. Book desks, meeting rooms and creative studios at MIXD.SPACE — by the hour
-              or the month.
+              Study sessions, deep work, team meetings, creative sprints — book the room that fits right now.
             </p>
 
             <div className="mt-8 max-w-4xl">
@@ -150,20 +167,56 @@ function Home() {
         <div className="ticker flex w-max gap-10 whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="flex gap-10 text-sm tracking-[0.18em] uppercase">
-              <span>Study sessions</span>
+              <span>Study</span>
               <span className="text-accent">✳</span>
-              <span>Deep work</span>
+              <span>Work</span>
               <span className="text-accent">✳</span>
-              <span>Team sprints</span>
+              <span>Meet</span>
               <span className="text-accent">✳</span>
-              <span>Late-night edits</span>
+              <span>Create</span>
               <span className="text-accent">✳</span>
-              <span>Client meetings</span>
+              <span>MIXD.SPACE</span>
               <span className="text-accent">✳</span>
             </span>
           ))}
         </div>
       </div>
+
+      {/* MIXED uses */}
+      <section className="container-mixd mt-24 lg:mt-36">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="display-md">
+            MIXD means
+            <br />
+            <span className="text-muted-foreground">mixed.</span>
+          </h2>
+          <p className="max-w-md text-muted-foreground">
+            The same room can be your study spot at noon, your meeting room at 4 PM and your creative studio after
+            dinner.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {MIXED_USES.map((use, i) => (
+            <Link
+              key={use.label}
+              to={use.to}
+              className="group relative overflow-hidden rounded-[2rem] border border-border bg-card p-8 transition-colors hover:border-foreground"
+            >
+              <span
+                className="absolute right-4 top-4 font-display text-5xl font-medium text-muted/50 transition-colors group-hover:text-accent/30"
+                aria-hidden
+              >
+                0{i + 1}
+              </span>
+              <p className="font-display text-2xl tracking-tight">{use.label}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{use.desc}</p>
+              <span className="link-underline mt-6 inline-flex items-center gap-2 text-sm group-hover:link-underline-active">
+                Book it <ArrowRight className="size-4" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* Manifesto */}
       <section className="container-mixd mt-24 lg:mt-36">

@@ -67,7 +67,7 @@ export function BookingSearch({
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           >
-            <option value="">All locations</option>
+            <option value="">Anywhere</option>
             {(locations ?? []).map((l) => (
               <option key={l.id} value={l.slug}>
                 {l.name}
@@ -143,7 +143,7 @@ export function BookingSearch({
       <label className="block">
         <span className="eyebrow">Location</span>
         <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
-          <option value="">All locations</option>
+          <option value="">Anywhere</option>
           {(locations ?? []).map((l) => (
             <option key={l.id} value={l.slug}>
               {l.name}

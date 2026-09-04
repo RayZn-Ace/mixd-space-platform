@@ -27,6 +27,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
+import { Route as AdminMembershipsRouteImport } from './routes/admin.memberships'
 import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
@@ -124,6 +125,11 @@ const AdminLocationsRoute = AdminLocationsRouteImport.update({
   path: '/locations',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminMembershipsRoute = AdminMembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSpacesRoute = AdminSpacesRouteImport.update({
   id: '/spaces',
   path: '/spaces',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -198,6 +205,7 @@ export interface FileRoutesByTo {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -278,6 +288,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -463,6 +475,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLocationsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/memberships': {
+      id: '/admin/memberships'
+      path: '/memberships'
+      fullPath: '/admin/memberships'
+      preLoaderRoute: typeof AdminMembershipsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/spaces': {
       id: '/admin/spaces'
       path: '/spaces'
@@ -512,6 +531,7 @@ interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
+  AdminMembershipsRoute: typeof AdminMembershipsRoute
   AdminSpacesRoute: typeof AdminSpacesRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -520,6 +540,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminLocationsRoute: AdminLocationsRoute,
+  AdminMembershipsRoute: AdminMembershipsRoute,
   AdminSpacesRoute: AdminSpacesRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

@@ -267,3 +267,40 @@
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Mobile web-app shell: no pinch zoom, no horizontal swipe drift.     */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    overscroll-behavior-x: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (max-width: 767px) {
+    html,
+    body {
+      touch-action: pan-y;
+      max-width: 100vw;
+    }
+  }
+}
+
+@utility safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

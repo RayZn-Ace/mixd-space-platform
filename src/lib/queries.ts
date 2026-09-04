@@ -119,3 +119,125 @@ export async function fetchConflicts(spaceId: string, startsAt: Date, endsAt: Da
   if (error) throw error;
   return data ?? [];
 }
+
+/* ------------------------------------------------------------------ */
+/* Day availability (Eversports-style slot grid)                       */
+/* ------------------------------------------------------------------ */
+
+export type DayAvailability = {
+  opensAt: string;
+  closesAt: string;
+  busy: { start: number; end: number }[];
+};
+
+export const dayAvailabilityQuery = (
+  spaceId: string,
+  locationId: string,
+  date: string,
+) =>
+  queryOptions({
+    queryKey: ["day-availability", spaceId, date],
+    queryFn: async (): Promise<DayAvailability> => {
+      const dayStart = new Date(`${date}T00:00:00`);
+      const dayEnd = new Date(`${date}T23:59:59`);
+      const weekday = dayStart.getDay();
+
+      const [rules, bookings, blocked] = await Promise.all([
+        supabase
+          .from("availability_rules")
+          .select("*")
+          .eq("active", true)
+          .or(`space_id.eq.${spaceId},location_id.eq.${locationId}`),
+        supabase
+          .from("bookings")
+          .select("starts_at,ends_at")
+          .eq("space_id", spaceId)
+          .in("status", ["pending", "confirmed", "checked_in", "completed"])
+          .lt("starts_at", dayEnd.toISOString())
+          .gt("ends_at", dayStart.toISOString()),
+        supabase
+          .from("blocked_times")
+          .select("starts_at,ends_at")
+          .eq("space_id", spaceId)
+          .lt("starts_at", dayEnd.toISOString())
+          .gt("ends_at", dayStart.toISOString()),
+      ]);
+
+      const all = rules.data ?? [];
+      const rule =
+        all.find((r) => r.space_id === spaceId && r.weekday === weekday) ??
+        all.find((r) => r.space_id === spaceId && r.weekday === null) ??
+        all.find((r) => r.weekday === weekday) ??
+        all.find((r) => r.weekday === null);
+
+      const busy = [...(bookings.data ?? []), ...(blocked.data ?? [])].map((b) => ({
+        start: new Date(b.starts_at).getTime(),
+        end: new Date(b.ends_at).getTime(),
+      }));
+
+      return {
+        opensAt: (rule?.opens_at ?? "08:00:00").slice(0, 5),
+        closesAt: (rule?.closes_at ?? "22:00:00").slice(0, 5),
+        busy,
+      };
+    },
+  });
+
+/* ------------------------------------------------------------------ */
+/* MY MIXD.                                                            */
+/* ------------------------------------------------------------------ */
+
+export const myBookingsQuery = (userId: string | undefined) =>
+  queryOptions({
+    queryKey: ["my-bookings", userId ?? "anon"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select(
+          "*, spaces(name,slug,space_type), locations(name,address_line1,postal_code,city), access_credentials(valid_from,valid_until,status)",
+        )
+        .order("starts_at", { ascending: true });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+export const mySubscriptionsQuery = (userId: string | undefined) =>
+  queryOptions({
+    queryKey: ["my-subscriptions", userId ?? "anon"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("membership_subscriptions")
+        .select("*, memberships(*)")
+        .order("started_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+export const splitsQuery = (bookingId: string) =>
+  queryOptions({
+    queryKey: ["splits", bookingId],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("booking_splits")
+        .select("*")
+        .eq("booking_id", bookingId)
+        .order("created_at");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+export const mySplitsQuery = (userId: string | undefined) =>
+  queryOptions({
+    queryKey: ["my-splits", userId ?? "anon"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("booking_splits")
+        .select("*, bookings(reference,starts_at,total_cents,spaces(name))")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });

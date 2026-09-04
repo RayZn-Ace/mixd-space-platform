@@ -89,8 +89,8 @@ function SpaceDetail() {
         </div>
       </section>
 
-      <section className="container-mixd mt-14 grid gap-16 lg:grid-cols-[1.4fr_1fr]">
-        <div>
+      <section className="container-mixd mt-14 grid grid-cols-[minmax(0,1fr)] gap-16 lg:grid-cols-[1.4fr_1fr]">
+        <div className="min-w-0">
           <p className="eyebrow">{SPACE_TYPE_LABEL[space.space_type]}</p>
           <h1 className="display-lg mt-4">{space.name}</h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">{space.description}</p>
@@ -142,7 +142,7 @@ function SpaceDetail() {
           )}
         </div>
 
-        <div className="lg:sticky lg:top-24 lg:h-fit">
+        <div className="min-w-0 lg:sticky lg:top-24 lg:h-fit">
           <BookingWidget space={space} />
         </div>
       </section>

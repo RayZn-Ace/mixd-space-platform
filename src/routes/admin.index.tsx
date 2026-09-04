@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { formatPrice, formatTime } from "@/lib/mixd";
@@ -185,5 +185,34 @@ function Kpi({ label, value, loading }: { label: string; value: string; loading?
         <p className="mt-4 font-display text-3xl tracking-tight">{value}</p>
       )}
     </div>
+  );
+}
+
+function ChecklistItem({
+  label,
+  done,
+  total,
+  to,
+}: {
+  label: string;
+  done: number;
+  total: number;
+  to: string;
+}) {
+  const complete = total > 0 && done === total;
+  return (
+    <li className="flex items-center justify-between gap-4 py-4 text-sm">
+      <Link to={to} className="link-underline">
+        {label}
+      </Link>
+      <span
+        className={
+          "text-xs uppercase tracking-[0.14em] " +
+          (complete ? "text-muted-foreground" : "text-accent")
+        }
+      >
+        {done} / {total} ready
+      </span>
+    </li>
   );
 }

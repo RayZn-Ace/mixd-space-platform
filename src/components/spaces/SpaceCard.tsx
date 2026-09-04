@@ -60,6 +60,13 @@ export function SpaceCard({ space }: { space: SpaceWithRelations }) {
             {amenities.join(" · ")}
           </p>
         )}
+        <span className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-foreground">
+          <XMark className="size-3 text-accent transition-transform group-hover:rotate-90" />
+          <span className="border-b border-transparent transition-colors group-hover:border-foreground">
+            View &amp; book
+          </span>
+        </span>
+
       </div>
     </Link>
   );

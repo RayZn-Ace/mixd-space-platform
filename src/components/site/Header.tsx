@@ -14,6 +14,7 @@ const NAV = [
   { to: "/meeting-rooms", label: "Meeting Rooms" },
   { to: "/memberships", label: "Memberships" },
   { to: "/business-address", label: "Business Address" },
+  { to: "/locations/garbsen", label: "Garbsen" },
 ] as const;
 
 export function Wordmark({ className }: { className?: string }) {

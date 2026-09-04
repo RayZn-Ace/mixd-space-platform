@@ -1137,6 +1137,7 @@ export type Database = {
       spaces: {
         Row: {
           capacity: number | null
+          code: string | null
           created_at: string
           description: string | null
           floor: string | null
@@ -1156,6 +1157,7 @@ export type Database = {
         }
         Insert: {
           capacity?: number | null
+          code?: string | null
           created_at?: string
           description?: string | null
           floor?: string | null
@@ -1175,6 +1177,7 @@ export type Database = {
         }
         Update: {
           capacity?: number | null
+          code?: string | null
           created_at?: string
           description?: string | null
           floor?: string | null

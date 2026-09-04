@@ -8,11 +8,12 @@ import logoDark from "@/assets/mixd-logo-dark.png.asset.json";
 
 
 const NAV = [
-  { to: "/spaces", label: "Spaces" },
-  { to: "/locations", label: "Locations" },
+  { to: "/coworking", label: "Desks" },
+  { to: "/private-offices", label: "Private Offices" },
+  { to: "/team-offices", label: "Team Offices" },
+  { to: "/meeting-rooms", label: "Meeting Rooms" },
   { to: "/memberships", label: "Memberships" },
-  { to: "/teams", label: "Teams" },
-  { to: "/about", label: "About" },
+  { to: "/business-address", label: "Business Address" },
 ] as const;
 
 export function Wordmark({ className }: { className?: string }) {
@@ -38,13 +39,13 @@ export function Header() {
           <Wordmark />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               className={cn(
-                "link-underline text-sm text-muted-foreground transition-colors hover:text-foreground",
+                "link-underline text-xs uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground",
                 pathname.startsWith(item.to) && "link-underline-active text-foreground",
               )}
             >
@@ -53,17 +54,17 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <Button asChild variant="ghost" size="sm">
             <Link to={user ? "/account" : "/login"}>{user ? "MY MIXD." : "Sign in"}</Link>
           </Button>
           <Button asChild size="sm">
-            <Link to="/book">Book a space</Link>
+            <Link to="/spaces">Find your space</Link>
           </Button>
         </div>
 
         <button
-          className="md:hidden"
+          className="lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
@@ -72,7 +73,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
+        <div className="border-t border-border bg-background lg:hidden">
           <div className="container-mixd flex flex-col py-4">
             {NAV.map((item) => (
               <Link
@@ -92,8 +93,8 @@ export function Header() {
               {user ? "MY MIXD." : "Sign in"}
             </Link>
             <Button asChild className="mt-4">
-              <Link to="/book" onClick={() => setOpen(false)}>
-                Book a space
+              <Link to="/spaces" onClick={() => setOpen(false)}>
+                Find your space
               </Link>
             </Button>
           </div>

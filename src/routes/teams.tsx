@@ -25,12 +25,12 @@ export const Route = createFileRoute("/teams")({
 });
 
 const FEATURES: [string, string][] = [
-  ["Central billing", "One monthly invoice for every booking your team makes."],
-  ["Budgets and limits", "Set a monthly budget per employee or per company."],
-  ["Self-service booking", "Employees book their own space; it lands on the company account."],
-  ["Usage reporting", "See spend, bookings and utilisation per month."],
-  ["Employee management", "Invite and remove people at any time."],
-  ["Memberships", "Attach a company membership for member rates."],
+  ["Central billing", "One invoice a month. Every booking on it."],
+  ["Budgets", "Set a limit per person or per company."],
+  ["Self-service", "People book themselves. It lands on the company account."],
+  ["Reporting", "Spend, bookings and usage per month."],
+  ["Team management", "Add and remove people any time."],
+  ["Project offices", "A room for three weeks or three months."],
 ];
 
 function TeamsPage() {
@@ -38,15 +38,15 @@ function TeamsPage() {
     <SiteShell>
       <PageHeader
         eyebrow="MIXD for Teams"
-        title="Workspace for your entire team."
-        intro="Give employees access to professional workspaces without maintaining another office."
+        title="Workspace when your team needs it."
+        intro="Private offices. Project spaces. Meeting rooms. Flexible terms — by the day, the week or longer."
       >
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <Link to="/register">Create a company account</Link>
           </Button>
           <Button asChild variant="outline">
-            <Link to="/spaces">See the spaces</Link>
+            <Link to="/spaces">Find your space</Link>
           </Button>
         </div>
       </PageHeader>

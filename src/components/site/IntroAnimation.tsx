@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import logoLight from "@/assets/mixd-logo-light.png.asset.json";
 
 const KEY = "mixd-intro-seen";
-const WORDS = ["study.", "work.", "meet.", "create."];
+const WORDS = ["work.", "meet.", "create."];
 
 /**
  * First-visit brand intro built around the MIXD.SPACE logo.

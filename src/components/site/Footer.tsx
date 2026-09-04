@@ -5,7 +5,7 @@ const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
   {
     title: "Spaces",
     links: [
-      { to: "/coworking", label: "Coworking" },
+      { to: "/coworking", label: "Desks" },
       { to: "/private-offices", label: "Private Offices" },
       { to: "/meeting-rooms", label: "Meeting Rooms" },
       { to: "/team-offices", label: "Team Offices" },
@@ -40,7 +40,7 @@ export function Footer() {
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             work. meet. create.
             <br />
-            Flexible workspace, completely digital.
+            Different people. Different work. One space.
           </p>
           <address className="mt-8 text-sm not-italic text-muted-foreground">
             MIXD.SPACE Garbsen

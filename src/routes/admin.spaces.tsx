@@ -31,6 +31,7 @@ function AdminSpaces() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
 
   const [name, setName] = useState("");
+  const [code, setCode] = useState("");
   const [type, setType] = useState<SpaceType>("flex_desk");
   const [locationId, setLocationId] = useState("");
   const [capacity, setCapacity] = useState("");
@@ -54,6 +55,7 @@ function AdminSpaces() {
       .from("spaces")
       .insert({
         name,
+        code: code.trim() || null,
         slug,
         space_type: type,
         location_id: location,
@@ -75,11 +77,19 @@ function AdminSpaces() {
     setSaving(false);
     toast.success("Space created.");
     setName("");
+    setCode("");
     setCapacity("");
     setSizeSqm("");
     setHourly("");
     setDaily("");
     refresh();
+  }
+
+  async function saveCode(id: string, value: string) {
+    const next = value.trim().toUpperCase() || null;
+    const { error } = await supabase.from("spaces").update({ code: next }).eq("id", id);
+    if (error) toast.error(error.message);
+    else refresh();
   }
 
   async function setStatus(id: string, status: "active" | "inactive" | "maintenance") {
@@ -115,6 +125,13 @@ function AdminSpaces() {
               return (
                 <li key={s.id} className="flex flex-wrap items-center justify-between gap-4 py-5">
                   <div>
+                    <input
+                      defaultValue={(s as { code?: string | null }).code ?? ""}
+                      placeholder="CODE"
+                      aria-label={`Code for ${s.name}`}
+                      onBlur={(e) => saveCode(s.id, e.target.value)}
+                      className="mb-1 w-28 border-b border-border bg-transparent text-[0.625rem] uppercase tracking-[0.18em] text-muted-foreground outline-none focus:border-foreground"
+                    />
                     <p className="font-display text-lg tracking-tight">{s.name}</p>
                     <p className="text-sm text-muted-foreground">
                       {SPACE_TYPE_LABEL[s.space_type]} · {s.locations?.name}
@@ -149,6 +166,15 @@ function AdminSpaces() {
             <label className="block">
               <span className="eyebrow">Name</span>
               <input required className={FIELD} value={name} onChange={(e) => setName(e.target.value)} />
+            </label>
+            <label className="block">
+              <span className="eyebrow">Code (DESK.01)</span>
+              <input
+                className={FIELD}
+                placeholder="DESK.01"
+                value={code}
+                onChange={(e) => setCode(e.target.value.toUpperCase())}
+              />
             </label>
             <label className="block">
               <span className="eyebrow">Type</span>

@@ -31,6 +31,7 @@ function AdminSpaces() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
 
   const [name, setName] = useState("");
+  const [code, setCode] = useState("");
   const [type, setType] = useState<SpaceType>("flex_desk");
   const [locationId, setLocationId] = useState("");
   const [capacity, setCapacity] = useState("");
@@ -54,6 +55,7 @@ function AdminSpaces() {
       .from("spaces")
       .insert({
         name,
+        code: code.trim() || null,
         slug,
         space_type: type,
         location_id: location,

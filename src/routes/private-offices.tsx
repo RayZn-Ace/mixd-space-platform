@@ -31,6 +31,7 @@ export const Route = createFileRoute("/private-offices")({
         </>
       }
       intro="A furnished, closed office for focused work or confidential calls. Yours for a day or a year."
+      audience="Founders · Professionals · Confidential calls · Project work"
       points={[
         ["Fully furnished", "Desk, chair, monitor, light."],
         ["Private", "Closed door, no open-plan noise."],

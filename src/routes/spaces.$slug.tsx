@@ -6,6 +6,7 @@ import { BookingWidget } from "@/components/booking/BookingWidget";
 import { spaceQuery, spacesQuery } from "@/lib/queries";
 import { SPACE_TYPE_LABEL, RATE_LABEL, formatPrice } from "@/lib/mixd";
 import { spaceImage } from "@/lib/space-images";
+import { SpaceCode } from "@/components/site/XMark";
 
 export const Route = createFileRoute("/spaces/$slug")({
   head: ({ params }) => {
@@ -59,7 +60,7 @@ function SpaceDetail() {
   const images =
     (space.space_images ?? []).length > 0
       ? space.space_images.sort((a, b) => a.sort_order - b.sort_order).map((i) => i.url)
-      : [spaceImage(space.space_type)];
+      : [spaceImage(space.space_type, (space as { code?: string | null }).code ?? null)];
   const amenities = (space.space_amenities ?? []).map((a) => a.amenities?.name).filter(Boolean);
   const related = (all ?? []).filter((s) => s.id !== space.id && s.space_type === space.space_type);
 
@@ -91,7 +92,10 @@ function SpaceDetail() {
 
       <section className="container-mixd mt-14 grid grid-cols-[minmax(0,1fr)] gap-16 lg:grid-cols-[1.4fr_1fr]">
         <div className="min-w-0">
-          <p className="eyebrow">{SPACE_TYPE_LABEL[space.space_type]}</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="eyebrow">{SPACE_TYPE_LABEL[space.space_type]}</p>
+            <SpaceCode code={(space as { code?: string | null }).code ?? null} />
+          </div>
           <h1 className="display-lg mt-4">{space.name}</h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">{space.description}</p>
 
@@ -148,7 +152,7 @@ function SpaceDetail() {
       </section>
 
       {related.length > 0 && (
-        <section className="container-mixd mt-28">
+        <section className="container-mixd mt-28 pb-24">
           <h2 className="display-md">Related spaces</h2>
           <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {related.slice(0, 3).map((s) => (

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -46,5 +47,17 @@ export function SpaceCode({ code, className }: { code?: string | null | undefine
       <XMark className="size-2.5 text-accent" />
       {code}
     </span>
+  );
+}
+
+/** One quiet line naming who a page is made for. */
+export function Audience({ children }: { children: ReactNode }) {
+  return (
+    <div className="container-mixd flex items-start gap-3 border-t border-border pt-8">
+      <XMark className="mt-1 size-3 shrink-0 text-accent" />
+      <p className="max-w-2xl text-sm uppercase tracking-[0.14em] text-muted-foreground">
+        {children}
+      </p>
+    </div>
   );
 }

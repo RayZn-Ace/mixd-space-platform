@@ -149,15 +149,20 @@ export function BookingSearch({
     >
       <label className="block">
         <span className="eyebrow">Location</span>
-        <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
-          <option value="">Anywhere</option>
-          {(locations ?? []).map((l) => (
-            <option key={l.id} value={l.slug}>
-              {l.name}
-            </option>
-          ))}
-        </select>
+        {singleLocation ? (
+          <span className={cn(FIELD, "flex items-center")}>{singleLocation.name}</span>
+        ) : (
+          <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
+            <option value="">Anywhere</option>
+            {(locations ?? []).map((l) => (
+              <option key={l.id} value={l.slug}>
+                {l.name}
+              </option>
+            ))}
+          </select>
+        )}
       </label>
+
 
       <label className="block">
         <span className="eyebrow">Date</span>

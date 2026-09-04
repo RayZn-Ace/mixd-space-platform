@@ -6,6 +6,8 @@ import meetingImage from "@/assets/space-meeting.jpg";
 import { SiteShell, EmptyState } from "@/components/site/SiteShell";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
 import { BookingSearch } from "@/components/booking/BookingSearch";
+import { Button } from "@/components/ui/button";
+
 import { locationQuery, spacesQuery } from "@/lib/queries";
 import { slugToTitle } from "@/lib/mixd";
 

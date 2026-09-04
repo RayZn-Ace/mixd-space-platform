@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap, Plug, Leaf } from "lucide-react";
 import heroImage from "@/assets/hero.jpg";
 import locationImage from "@/assets/location-garbsen.jpg";
 import { SiteShell } from "@/components/site/SiteShell";
@@ -33,23 +33,23 @@ export const Route = createFileRoute("/")({
 
 const MANIFESTO = [
   {
-    word: "WORK",
-    line: "when you want.",
-    text: "Flexible desks and private offices for whenever work needs a place.",
+    word: "STUDY",
+    line: "without the library stress.",
+    text: "Quiet desks, fast WiFi and enough coffee to get through that chapter.",
     to: "/coworking",
     cta: "Flex desks",
   },
   {
     word: "MEET",
-    line: "where it matters.",
-    text: "Meeting spaces for two people or entire teams.",
+    line: "where ideas actually flow.",
+    text: "Rooms for group work, thesis sessions or your next side-project kickoff.",
     to: "/meeting-rooms",
     cta: "Meeting rooms",
   },
   {
     word: "CREATE",
     line: "without limits.",
-    text: "Rooms designed for workshops, projects and ideas.",
+    text: "Workshops, content shoots, hackathons — spaces that keep up with your energy.",
     to: "/team-offices",
     cta: "Team offices",
   },
@@ -64,6 +64,12 @@ const BENEFITS = [
   ["Easy parking", "Free parking at the door."],
 ];
 
+const HERO_TAGS = [
+  { icon: Zap, label: "Coffee included" },
+  { icon: Plug, label: "Outlets guaranteed" },
+  { icon: Leaf, label: "Chill atmosphere" },
+];
+
 function Home() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
   const { data: memberships } = useQuery(membershipsQuery);
@@ -71,48 +77,76 @@ function Home() {
   return (
     <SiteShell>
       {/* Hero */}
-      <section className="relative">
-        <div className="container-mixd pt-14 lg:pt-20">
-          <p className="eyebrow rise">work. meet. create.</p>
-          <h1 className="display-xl rise mt-6 max-w-5xl">
-            A new way to work
-            <br />
-            in Garbsen.
-          </h1>
-          <p className="mt-8 max-w-md text-lg text-muted-foreground">
-            Flexible desks, private offices and meeting spaces. Book by the hour, day or month.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link to="/spaces">Find your space</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/locations/$slug" params={{ slug: "garbsen" }}>
-                Explore Garbsen
-              </Link>
-            </Button>
-          </div>
-        </div>
-
-        <div className="container-mixd mt-14">
-          <div className="media-zoom aspect-[16/10] w-full bg-muted sm:aspect-[16/7]">
+      <section className="container-mixd pt-6 lg:pt-10">
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem]">
+          {/* Background image */}
+          <div className="absolute inset-0">
             <img
               src={heroImage}
-              alt="A quiet, light-filled workspace at MIXD.SPACE"
+              alt="A bright, relaxed workspace at MIXD.SPACE"
               width={1920}
               height={1200}
               className="h-full w-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/25 to-foreground/10" />
           </div>
-        </div>
 
-        <div className="container-mixd relative z-10 -mt-10 lg:-mt-16">
-          <BookingSearch className="shadow-none" />
+          {/* Sticker badge */}
+          <div className="absolute right-4 top-4 z-20 sm:right-8 sm:top-8">
+            <div className="rotate-6 rounded-full bg-accent px-3 py-1.5 text-xs font-bold tracking-tight text-accent-foreground shadow-lg ring-2 ring-white/20 sm:px-4 sm:py-2 sm:text-sm">
+              98% campus vibes
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10 flex flex-col justify-end px-5 pb-8 pt-32 sm:px-10 sm:pb-12 sm:pt-44 lg:px-16 lg:pb-16 lg:pt-56">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">work. meet. create.</p>
+            <h1 className="mt-4 max-w-3xl text-4xl font-medium leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Find your{" "}
+              <span className="relative inline-block">
+                workspace
+                <svg
+                  className="absolute -bottom-1 left-0 w-full text-accent/80 sm:-bottom-2"
+                  viewBox="0 0 100 10"
+                  preserveAspectRatio="none"
+                  style={{ height: "0.45em" }}
+                >
+                  <path
+                    d="M0 5 Q 25 0, 50 5 T 100 5"
+                    stroke="currentColor"
+                    strokeWidth="5"
+                    fill="transparent"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </h1>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
+              Escape the crowded library. Book desks, meeting rooms and creative studios at MIXD.SPACE — by the hour
+              or the month.
+            </p>
+
+            <div className="mt-8 max-w-4xl">
+              <BookingSearch variant="hero" />
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {HERO_TAGS.map(({ icon: Icon, label }) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
+                  <Icon className="size-3.5" />
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Ticker */}
-      <div className="mt-16 overflow-hidden border-y border-border bg-foreground py-3 text-background lg:mt-24">
+      <div className="mt-12 overflow-hidden border-y border-border bg-foreground py-3 text-background lg:mt-16">
         <div className="ticker flex w-max gap-10 whitespace-nowrap">
           {Array.from({ length: 4 }).map((_, i) => (
             <span key={i} className="flex gap-10 text-sm tracking-[0.18em] uppercase">
@@ -132,12 +166,12 @@ function Home() {
       </div>
 
       {/* Manifesto */}
-      <section className="container-mixd mt-28 lg:mt-40">
-        <div className="divide-y divide-border border-y border-border">
+      <section className="container-mixd mt-24 lg:mt-36">
+        <div className="divide-y divide-border rounded-[2rem] border border-border bg-card p-6 sm:p-10 lg:p-14">
           {MANIFESTO.map((item) => (
             <div
               key={item.word}
-              className="grid gap-6 py-14 md:grid-cols-[1fr_1fr] md:items-end lg:py-20"
+              className="grid gap-6 py-12 first:pt-0 last:pb-0 md:grid-cols-[1fr_1fr] md:items-end lg:py-16"
             >
               <h2 className="display-lg">
                 {item.word}
@@ -174,7 +208,7 @@ function Home() {
       </section>
 
       {/* Why */}
-      <section className="mt-28 border-y border-border bg-surface py-20 lg:mt-40 lg:py-28">
+      <section className="mt-28 rounded-[2rem] border border-border bg-surface py-20 lg:mt-40 lg:py-28">
         <div className="container-mixd grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <h2 className="display-md">Why MIXD.</h2>
           <dl className="grid gap-x-12 gap-y-10 sm:grid-cols-2">
@@ -190,7 +224,7 @@ function Home() {
 
       {/* Location */}
       <section className="container-mixd mt-24 lg:mt-36">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="grid gap-10 overflow-hidden rounded-[2rem] border border-border lg:grid-cols-2 lg:items-center">
           <div className="media-zoom aspect-[4/3] bg-muted">
             <img
               src={locationImage}
@@ -201,7 +235,7 @@ function Home() {
               className="h-full w-full object-cover"
             />
           </div>
-          <div>
+          <div className="p-6 sm:p-10 lg:p-14">
             <p className="eyebrow">Location</p>
             <h2 className="display-md mt-4">MIXD.SPACE Garbsen</h2>
             <address className="mt-6 text-lg not-italic text-muted-foreground">
@@ -220,7 +254,7 @@ function Home() {
 
       {/* Students & founders */}
       <section className="container-mixd mt-24 lg:mt-36">
-        <div className="grid gap-10 border border-border p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
+        <div className="grid gap-10 rounded-[2rem] border border-border p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
           <div>
             <p className="eyebrow">Students &amp; young founders</p>
             <h2 className="display-md mt-4 max-w-lg">
@@ -229,8 +263,8 @@ function Home() {
               kitchen table.
             </h2>
             <p className="mt-6 max-w-md text-lg text-muted-foreground">
-              Thesis weeks, group projects, side hustles, first clients. Book an hour between
-              lectures or a room for the whole study group — no contract, no membership required.
+              Thesis weeks, group projects, side hustles, first clients. Book an hour between lectures or a room for the
+              whole study group — no contract, no membership required.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild>
@@ -250,7 +284,7 @@ function Home() {
             ].map((t) => (
               <li
                 key={t}
-                className="flex items-center gap-3 border border-border px-4 py-3 text-sm transition-colors hover:border-foreground"
+                className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3 text-sm transition-colors hover:border-foreground"
               >
                 <span className="text-accent">✳</span>
                 {t}
@@ -262,7 +296,7 @@ function Home() {
 
       {/* Teams */}
       <section className="container-mixd mt-28 lg:mt-40">
-        <div className="border-t border-border pt-14">
+        <div className="rounded-[2rem] border border-border p-8 lg:p-14">
           <h2 className="display-lg max-w-3xl">Workspace for your entire team.</h2>
           <p className="mt-6 max-w-md text-lg text-muted-foreground">
             Give employees access to professional workspaces without maintaining another office.
@@ -281,9 +315,9 @@ function Home() {
             Compare plans
           </Link>
         </div>
-        <div className="mt-10 grid gap-px border border-border bg-border md:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {(memberships ?? []).map((m) => (
-            <div key={m.id} className="bg-background p-8">
+            <div key={m.id} className="rounded-[2rem] border border-border bg-card p-8">
               <p className="font-display text-lg tracking-tight">{m.name}</p>
               <p className="mt-2 text-sm text-muted-foreground">{m.description}</p>
               <p className="mt-8 text-2xl">

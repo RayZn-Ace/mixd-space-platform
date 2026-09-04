@@ -34,7 +34,7 @@ export function XDivider({ className }: { className?: string }) {
 }
 
 /** Space code badge — DESK.01, MEET.02 … editable per space in MIXD.OS. */
-export function SpaceCode({ code, className }: { code?: string | null; className?: string }) {
+export function SpaceCode({ code, className }: { code?: string | null | undefined; className?: string | undefined }) {
   if (!code) return null;
   return (
     <span

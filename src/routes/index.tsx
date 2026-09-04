@@ -161,10 +161,19 @@ function Home() {
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
               Flexible desks, private offices and meeting spaces in Garbsen. Book by the hour, day or month.
             </p>
+            <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.625rem] uppercase tracking-[0.2em] text-white/70">
+              {MIX.map((m, i) => (
+                <li key={m} className="flex items-center gap-3">
+                  {i > 0 && <XMark className="size-2 text-accent" />}
+                  {m}
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-8 max-w-4xl">
               <BookingSearch variant="hero" />
             </div>
+
           </div>
         </div>
       </section>

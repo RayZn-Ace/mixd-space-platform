@@ -11,7 +11,7 @@ import peopleTeam from "@/assets/people-team.jpg";
 import { SiteShell } from "@/components/site/SiteShell";
 import { BookingSearch } from "@/components/booking/BookingSearch";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
-import { XMark, XDivider } from "@/components/site/XMark";
+import { XMark, XDivider, SectionMark } from "@/components/site/XMark";
 import { Button } from "@/components/ui/button";
 import { membershipsQuery, spacesQuery } from "@/lib/queries";
 import { formatPrice } from "@/lib/mixd";
@@ -211,7 +211,10 @@ function Home() {
       {/* 02 — Available */}
       <section className="container-mixd mt-24 lg:mt-32">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display-md">Available now.</h2>
+          <div>
+            <SectionMark index={2} label="Open today" />
+            <h2 className="display-md mt-4">Available now.</h2>
+          </div>
           <Link to="/spaces" className="link-underline text-sm text-muted-foreground">
             All spaces
           </Link>
@@ -245,7 +248,8 @@ function Home() {
       {/* 04 — MIXD means mixed */}
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="rounded-[2rem] border border-border bg-card px-6 py-16 sm:px-12 lg:px-20 lg:py-28">
-          <p className="eyebrow">MIXD means mixed.</p>
+          <SectionMark index={4} label="The mix" />
+          <p className="eyebrow mt-4">MIXD means mixed.</p>
           <h2 className="display-lg mt-8 max-w-4xl">
             MIXD isn&apos;t made for one type of person.
             <br />
@@ -293,7 +297,8 @@ function Home() {
 
       {/* 05 — Space types */}
       <section className="container-mixd mt-24 lg:mt-36">
-        <h2 className="display-md">Pick what fits today.</h2>
+        <SectionMark index={5} label="Space types" />
+        <h2 className="display-md mt-4">Pick what fits today.</h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SPACE_TYPES.map((t) => (
             <Link
@@ -341,7 +346,8 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
-            <p className="eyebrow">What brings you to MIXD?</p>
+            <SectionMark index={7} label="Your reason" />
+            <p className="eyebrow mt-4">What brings you to MIXD?</p>
             <ul className="mt-8 divide-y divide-border border-y border-border">
               {NEEDS.map((n, i) => (
                 <li key={n.need}>

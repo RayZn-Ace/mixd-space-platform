@@ -78,7 +78,7 @@
   --muted-foreground: oklch(0.525 0.011 65);
 
   /* The single accent. Change here to re-tone the brand. */
-  --accent: oklch(0.575 0.086 52);
+  --accent: oklch(0.63 0.17 46);
   --accent-foreground: oklch(0.985 0.004 85);
 
   --destructive: oklch(0.52 0.17 27);
@@ -87,7 +87,7 @@
 
   --border: oklch(0.895 0.006 80);
   --input: oklch(0.895 0.006 80);
-  --ring: oklch(0.575 0.086 52);
+  --ring: oklch(0.63 0.17 46);
 
   --sidebar: oklch(0.975 0.005 84);
   --sidebar-foreground: oklch(0.235 0.006 60);

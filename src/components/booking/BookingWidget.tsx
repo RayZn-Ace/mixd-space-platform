@@ -21,11 +21,15 @@ import { SpaceCode, XMark } from "@/components/site/XMark";
 
 type Step = "when" | "extras" | "pay";
 
+/** No live payment provider yet → the flow runs in request mode. */
+const REQUEST_MODE = !paymentProvider.live;
+
 const STEPS: { id: Step; label: string }[] = [
   { id: "when", label: "When" },
   { id: "extras", label: "Extras" },
-  { id: "pay", label: "Pay" },
+  { id: "pay", label: REQUEST_MODE ? "Review" : "Pay" },
 ];
+
 
 function nextDays(count: number) {
   const out: Date[] = [];

@@ -438,7 +438,7 @@ export function BookingWidget({
             </Button>
           </div>
         ) : (
-          <Button variant="ghost" className="mt-4 w-full" onClick={() => setStep("extras")}>
+          <Button variant="outline" className="mt-4 w-full" onClick={() => setStep("extras")}>
             Back to extras
           </Button>
         )}

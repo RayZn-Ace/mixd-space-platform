@@ -100,7 +100,7 @@ function SpaceDetail() {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">{space.description}</p>
 
           <dl className="mt-12 grid gap-x-10 gap-y-8 border-t border-border pt-8 sm:grid-cols-3">
-            <Fact label="Capacity" value={space.capacity ? `${space.capacity} people` : "On request"} />
+            <Fact label="Capacity" value={space.capacity ? `${space.capacity} ${space.capacity === 1 ? "person" : "people"}` : "On request"} />
             <Fact label="Size" value={space.size_sqm ? `${space.size_sqm} m²` : "On request"} />
             <Fact
               label="Location"

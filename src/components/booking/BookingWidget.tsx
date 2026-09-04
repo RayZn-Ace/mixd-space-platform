@@ -190,31 +190,46 @@ export function BookingWidget({
     }
   }
 
+  const canAdvance = hours > 0 && Boolean(priced);
+  const activeIdx = STEPS.findIndex((x) => x.id === step);
+  const chosenAddons = relevantAddons.filter((a) => selectedAddons.includes(a.id));
+
   return (
     <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
       <div className="flex items-center gap-2">
         {STEPS.map((s, i) => {
-          const activeIdx = STEPS.findIndex((x) => x.id === step);
           const done = i < activeIdx;
+          const reachable = i <= activeIdx || canAdvance;
           return (
             <button
               key={s.id}
               type="button"
-              onClick={() => (i <= activeIdx ? setStep(s.id) : undefined)}
+              disabled={!reachable}
+              aria-current={step === s.id ? "step" : undefined}
+              onClick={() => (reachable ? setStep(s.id) : undefined)}
               className={
-                "flex-1 rounded-full px-3 py-1.5 text-xs transition-colors " +
+                "flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 text-xs transition-colors " +
                 (step === s.id
                   ? "bg-foreground text-background"
                   : done
                     ? "bg-surface text-foreground"
-                    : "bg-muted text-muted-foreground")
+                    : reachable
+                      ? "bg-muted text-muted-foreground hover:text-foreground"
+                      : "cursor-not-allowed bg-muted text-muted-foreground/50")
               }
             >
+              {step === s.id && <XMark className="size-2.5" />}
               {s.label}
             </button>
           );
         })}
       </div>
+      {!canAdvance && step === "when" && (
+        <p className="mt-3 text-xs text-muted-foreground">
+          Pick a day and a time to continue.
+        </p>
+      )}
+
 
       {step === "when" && (
         <div className="mt-6">

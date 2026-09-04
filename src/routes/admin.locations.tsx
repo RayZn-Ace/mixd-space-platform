@@ -21,9 +21,14 @@ const BLANK = {
   postal_code: "",
   city: "",
   country: "Deutschland",
+  contact_email: "",
+  contact_phone: "",
   parking_info: "",
+  getting_there: "",
+  hero_image_url: "",
   description: "",
 };
+
 
 function AdminLocations() {
   const qc = useQueryClient();

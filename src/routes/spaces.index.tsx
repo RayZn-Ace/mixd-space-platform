@@ -110,7 +110,8 @@ function SpacesPage() {
             <span className="eyebrow">From</span>
             <input
               type="time"
-              className={FIELD}
+              disabled={!search.date}
+              className={FIELD + (search.date ? "" : " opacity-40")}
               value={search.start ?? ""}
               onChange={(e) => set({ start: e.target.value || undefined })}
             />
@@ -119,7 +120,8 @@ function SpacesPage() {
             <span className="eyebrow">Until</span>
             <input
               type="time"
-              className={FIELD}
+              disabled={!search.date}
+              className={FIELD + (search.date ? "" : " opacity-40")}
               value={search.end ?? ""}
               onChange={(e) => set({ end: e.target.value || undefined })}
             />
@@ -129,6 +131,7 @@ function SpacesPage() {
             <input
               type="number"
               min={1}
+              placeholder="Any"
               className={FIELD}
               value={search.people ?? ""}
               onChange={(e) => set({ people: Number(e.target.value) || undefined })}
@@ -140,12 +143,20 @@ function SpacesPage() {
               type="number"
               min={0}
               step={5}
+              placeholder="No limit"
               className={FIELD}
               value={search.maxPrice ?? ""}
               onChange={(e) => set({ maxPrice: Number(e.target.value) || undefined })}
             />
           </label>
         </div>
+
+        <p className="pt-3 text-xs text-muted-foreground">
+          {search.date
+            ? "Times are optional — leave them open to see everything available that day."
+            : "Pick a date to narrow down to a specific time slot. Otherwise you see everything we run."}
+        </p>
+
 
         <div className="flex flex-wrap items-center gap-2 py-5">
           <FilterChip active={!search.type} onClick={() => set({ type: undefined })}>

@@ -89,8 +89,13 @@ export function Footer() {
       </div>
       <div className="container-mixd flex flex-col gap-2 border-t border-border py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <span>© {new Date().getFullYear()} MIXD.SPACE</span>
+        <span className="flex items-center gap-2">
+          <XMark className="size-2.5 text-accent" />
+          Pre-launch — spaces and rates shown are examples.
+        </span>
         <span>Garbsen · Deutschland</span>
       </div>
+
     </footer>
   );
 }

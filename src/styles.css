@@ -172,13 +172,12 @@
   margin-inline: auto;
   max-width: 88rem;
   padding-inline: 1.5rem;
-}
 
-@media (min-width: 1024px) {
-  @utility container-mixd {
+  @media (min-width: 1024px) {
     padding-inline: 3rem;
   }
 }
+
 
 /* Editorial display type */
 @utility display-xl {

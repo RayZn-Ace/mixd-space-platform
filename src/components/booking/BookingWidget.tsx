@@ -451,7 +451,9 @@ export function BookingWidget({
 
       <div className="mt-6 border-t border-border pt-5">
         <div className="flex items-baseline justify-between">
-          <span className="text-sm text-muted-foreground">Total</span>
+          <span className="text-sm text-muted-foreground">
+            {REQUEST_MODE ? "Estimated total" : "Total"}
+          </span>
           <span className="font-display text-2xl tracking-tight">
             {priced ? formatPrice(total) : "On request"}
           </span>
@@ -460,6 +462,7 @@ export function BookingWidget({
           <p className="mt-1 text-xs text-muted-foreground">
             {hours.toFixed(hours % 1 === 0 ? 0 : 1)} hours
             {discountCents > 0 && ` · ${discountPercent}% member discount applied`}
+            {REQUEST_MODE && " · confirmed by us before anything is charged"}
           </p>
         )}
 
@@ -479,7 +482,7 @@ export function BookingWidget({
               disabled={!canAdvance}
               onClick={() => setStep(step === "when" ? "extras" : "pay")}
             >
-              {step === "when" ? "Continue" : "Go to payment"}
+              {step === "when" ? "Continue" : REQUEST_MODE ? "Review & request" : "Go to payment"}
             </Button>
           </div>
         ) : (
@@ -490,9 +493,11 @@ export function BookingWidget({
 
         {submitting && (
           <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="size-3 animate-spin" /> Confirming your booking…
+            <Loader2 className="size-3 animate-spin" />{" "}
+            {REQUEST_MODE ? "Sending your request…" : "Confirming your booking…"}
           </p>
         )}
+
       </div>
     </div>
   );

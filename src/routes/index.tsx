@@ -317,10 +317,12 @@ function Home() {
       {/* 06 — How it works */}
       <section className="mt-24 border-y border-border bg-foreground py-20 text-background lg:mt-36 lg:py-28">
         <div className="container-mixd">
-          <h2 className="display-md max-w-2xl">Your booking is your key.</h2>
+          <SectionMark index={6} label="How it works" className="text-background/60" />
+          <h2 className="display-md mt-6 max-w-2xl">Pick it. Request it. Work.</h2>
           <p className="mt-6 max-w-md text-background/70">
-            Book online, get digital access automatically. No request. No waiting.
+            Choose your space and time, send the request, and we confirm it with you.
           </p>
+
           <ol className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {HOW.map(([step, text], i) => (
               <li key={step}>

@@ -11,7 +11,7 @@ import peopleTeam from "@/assets/people-team.jpg";
 import { SiteShell } from "@/components/site/SiteShell";
 import { BookingSearch } from "@/components/booking/BookingSearch";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
-import { XMark, XDivider } from "@/components/site/XMark";
+import { XMark, XDivider, SectionMark } from "@/components/site/XMark";
 import { Button } from "@/components/ui/button";
 import { membershipsQuery, spacesQuery } from "@/lib/queries";
 import { formatPrice } from "@/lib/mixd";
@@ -68,10 +68,11 @@ const SPACE_TYPES = [
 
 const HOW = [
   ["Find", "Pick a space and a time."],
-  ["Book", "Pay online. Done."],
-  ["Enter", "Your booking is your key."],
+  ["Request", "Send it in a few taps."],
+  ["Confirm", "We come back to you."],
   ["Work", "That's it."],
 ] as const;
+
 
 const NEEDS = [
   { need: "I need a desk today.", to: "/coworking" },
@@ -110,6 +111,16 @@ const PEOPLE = [
   },
 ] as const;
 
+const MIX = [
+  "Students",
+  "Remote workers",
+  "Freelancers",
+  "Founders",
+  "Professionals",
+  "Teams",
+  "Companies",
+] as const;
+
 const AUDIENCES = [
   "Students",
   "Remote workers",
@@ -124,6 +135,7 @@ const AUDIENCES = [
   "Consultants",
   "Researchers",
 ];
+
 
 function Home() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
@@ -161,10 +173,19 @@ function Home() {
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
               Flexible desks, private offices and meeting spaces in Garbsen. Book by the hour, day or month.
             </p>
+            <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.625rem] uppercase tracking-[0.2em] text-white/70">
+              {MIX.map((m, i) => (
+                <li key={m} className="flex items-center gap-3">
+                  {i > 0 && <XMark className="size-2 text-accent" />}
+                  {m}
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-8 max-w-4xl">
               <BookingSearch variant="hero" />
             </div>
+
           </div>
         </div>
       </section>
@@ -190,7 +211,10 @@ function Home() {
       {/* 02 — Available */}
       <section className="container-mixd mt-24 lg:mt-32">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display-md">Available now.</h2>
+          <div>
+            <SectionMark index={2} label="Open today" />
+            <h2 className="display-md mt-4">Available now.</h2>
+          </div>
           <Link to="/spaces" className="link-underline text-sm text-muted-foreground">
             All spaces
           </Link>
@@ -224,7 +248,8 @@ function Home() {
       {/* 04 — MIXD means mixed */}
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="rounded-[2rem] border border-border bg-card px-6 py-16 sm:px-12 lg:px-20 lg:py-28">
-          <p className="eyebrow">MIXD means mixed.</p>
+          <SectionMark index={4} label="The mix" />
+          <p className="eyebrow mt-4">MIXD means mixed.</p>
           <h2 className="display-lg mt-8 max-w-4xl">
             MIXD isn&apos;t made for one type of person.
             <br />
@@ -272,7 +297,8 @@ function Home() {
 
       {/* 05 — Space types */}
       <section className="container-mixd mt-24 lg:mt-36">
-        <h2 className="display-md">Pick what fits today.</h2>
+        <SectionMark index={5} label="Space types" />
+        <h2 className="display-md mt-4">Pick what fits today.</h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SPACE_TYPES.map((t) => (
             <Link
@@ -296,10 +322,12 @@ function Home() {
       {/* 06 — How it works */}
       <section className="mt-24 border-y border-border bg-foreground py-20 text-background lg:mt-36 lg:py-28">
         <div className="container-mixd">
-          <h2 className="display-md max-w-2xl">Your booking is your key.</h2>
+          <SectionMark index={6} label="How it works" className="text-background/60" />
+          <h2 className="display-md mt-6 max-w-2xl">Pick it. Request it. Work.</h2>
           <p className="mt-6 max-w-md text-background/70">
-            Book online, get digital access automatically. No request. No waiting.
+            Choose your space and time, send the request, and we confirm it with you.
           </p>
+
           <ol className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {HOW.map(([step, text], i) => (
               <li key={step}>
@@ -318,7 +346,8 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
-            <p className="eyebrow">What brings you to MIXD?</p>
+            <SectionMark index={7} label="Your reason" />
+            <p className="eyebrow mt-4">What brings you to MIXD?</p>
             <ul className="mt-8 divide-y divide-border border-y border-border">
               {NEEDS.map((n, i) => (
                 <li key={n.need}>

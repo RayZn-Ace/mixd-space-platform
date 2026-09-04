@@ -50,7 +50,33 @@ export function SpaceCode({ code, className }: { code?: string | null | undefine
   );
 }
 
+/** Small numbered section marker — quiet editorial rhythm across the page. */
+export function SectionMark({
+  index,
+  label,
+  className,
+}: {
+  index: number;
+  label: string;
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "flex items-center gap-3 text-[0.625rem] uppercase tracking-[0.24em] text-muted-foreground",
+        className,
+      )}
+    >
+      <XMark className="size-2.5 shrink-0 text-accent" />
+      <span className="tabular-nums">{String(index).padStart(2, "0")}</span>
+      <span className="h-px w-6 bg-border" />
+      {label}
+    </p>
+  );
+}
+
 /** One quiet line naming who a page is made for. */
+
 export function Audience({ children }: { children: ReactNode }) {
   return (
     <div className="container-mixd flex items-start gap-3 border-t border-border pt-8">

@@ -80,7 +80,7 @@ function SpacesPage() {
           <label className="block">
             <span className="eyebrow">Location</span>
             {(locations ?? []).length === 1 ? (
-              <span className={FIELD + " flex items-center"}>{locations![0].name}</span>
+              <span className={FIELD + " flex items-center"}>{locations?.[0]?.name}</span>
             ) : (
               <select
                 className={FIELD}

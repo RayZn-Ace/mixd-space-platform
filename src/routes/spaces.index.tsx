@@ -79,19 +79,24 @@ function SpacesPage() {
         <div className="grid gap-x-8 gap-y-6 border-y border-border py-6 sm:grid-cols-2 lg:grid-cols-6">
           <label className="block">
             <span className="eyebrow">Location</span>
-            <select
-              className={FIELD}
-              value={search.location ?? ""}
-              onChange={(e) => set({ location: e.target.value || undefined })}
-            >
-              <option value="">All</option>
-              {(locations ?? []).map((l) => (
-                <option key={l.id} value={l.slug}>
-                  {l.name}
-                </option>
-              ))}
-            </select>
+            {(locations ?? []).length === 1 ? (
+              <span className={FIELD + " flex items-center"}>{locations?.[0]?.name}</span>
+            ) : (
+              <select
+                className={FIELD}
+                value={search.location ?? ""}
+                onChange={(e) => set({ location: e.target.value || undefined })}
+              >
+                <option value="">All</option>
+                {(locations ?? []).map((l) => (
+                  <option key={l.id} value={l.slug}>
+                    {l.name}
+                  </option>
+                ))}
+              </select>
+            )}
           </label>
+
           <label className="block">
             <span className="eyebrow">Date</span>
             <input

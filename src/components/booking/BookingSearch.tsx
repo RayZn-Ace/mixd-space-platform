@@ -29,6 +29,7 @@ export function BookingSearch({
 }) {
   const navigate = useNavigate();
   const { data: locations } = useQuery(locationsQuery);
+  const singleLocation = (locations ?? []).length === 1 ? locations![0] : null;
   const [location, setLocation] = useState("");
   const [date, setDate] = useState(today());
   const [start, setStart] = useState("09:00");
@@ -41,7 +42,7 @@ export function BookingSearch({
     navigate({
       to: "/spaces",
       search: {
-        location: location || (locations?.[0]?.slug ?? ""),
+        location: singleLocation?.slug ?? location ?? "",
         date,
         start,
         end,
@@ -50,6 +51,7 @@ export function BookingSearch({
       },
     });
   };
+
 
   if (variant === "hero") {
     return (
@@ -62,19 +64,24 @@ export function BookingSearch({
       >
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
           <label className={HERO_LABEL}>Location</label>
-          <select
-            className={cn(HERO_INPUT, "appearance-none")}
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          >
-            <option value="">Anywhere</option>
-            {(locations ?? []).map((l) => (
-              <option key={l.id} value={l.slug}>
-                {l.name}
-              </option>
-            ))}
-          </select>
+          {singleLocation ? (
+            <span className="truncate text-foreground">{singleLocation.name}</span>
+          ) : (
+            <select
+              className={cn(HERO_INPUT, "appearance-none")}
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+            >
+              <option value="">Anywhere</option>
+              {(locations ?? []).map((l) => (
+                <option key={l.id} value={l.slug}>
+                  {l.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
+
 
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
           <label className={HERO_LABEL}>When</label>
@@ -142,15 +149,20 @@ export function BookingSearch({
     >
       <label className="block">
         <span className="eyebrow">Location</span>
-        <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
-          <option value="">Anywhere</option>
-          {(locations ?? []).map((l) => (
-            <option key={l.id} value={l.slug}>
-              {l.name}
-            </option>
-          ))}
-        </select>
+        {singleLocation ? (
+          <span className={cn(FIELD, "flex items-center")}>{singleLocation.name}</span>
+        ) : (
+          <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
+            <option value="">Anywhere</option>
+            {(locations ?? []).map((l) => (
+              <option key={l.id} value={l.slug}>
+                {l.name}
+              </option>
+            ))}
+          </select>
+        )}
       </label>
+
 
       <label className="block">
         <span className="eyebrow">Date</span>

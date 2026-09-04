@@ -99,8 +99,13 @@ function AdminLocations() {
                         postal_code: l.postal_code ?? "",
                         city: l.city ?? "",
                         country: l.country ?? "Deutschland",
+                        contact_email: l.contact_email ?? "",
+                        contact_phone: l.contact_phone ?? "",
                         parking_info: l.parking_info ?? "",
+                        getting_there: l.getting_there ?? "",
+                        hero_image_url: l.hero_image_url ?? "",
                         description: l.description ?? "",
+
                       });
                     }}
                   >

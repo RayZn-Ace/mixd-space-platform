@@ -6,11 +6,13 @@ import study from "@/assets/space-study.jpg";
 import booth from "@/assets/space-booth.jpg";
 import workshop from "@/assets/space-workshop.jpg";
 import huddle from "@/assets/space-huddle.jpg";
+import coffee from "@/assets/space-coffee.jpg";
 import type { SpaceType } from "@/lib/mixd";
 
 /** Per-code imagery so no two neighbouring spaces look identical. Editable per space later. */
 const BY_CODE: Record<string, string> = {
   "DESK.02": study,
+  "DESK.03": coffee,
   "DESK.04": study,
   "DESK.05": flex,
   "OFFICE.03": booth,

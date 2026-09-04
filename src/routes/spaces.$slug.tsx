@@ -109,6 +109,20 @@ function SpaceDetail() {
             />
           </dl>
 
+          <div className="mt-12 border-t border-border pt-8">
+            <p className="eyebrow">Ideal for</p>
+            <ul className="mt-5 grid gap-y-3 sm:grid-cols-2">
+              {(IDEAL_FOR[space.space_type] ?? []).map((line) => (
+                <li key={line} className="flex gap-3 text-sm">
+                  <span className="text-primary">✕</span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+
+
           {amenities.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
               <p className="eyebrow">Equipment</p>
@@ -164,6 +178,39 @@ function SpaceDetail() {
     </SiteShell>
   );
 }
+
+const IDEAL_FOR: Record<string, string[]> = {
+  flex_desk: [
+    "A study day between lectures",
+    "Remote work away from the kitchen table",
+    "Freelancers who need a few focused hours",
+    "Anyone testing MIXD for the first time",
+  ],
+  private_office: [
+    "Back-to-back calls and interviews",
+    "Confidential work",
+    "Founders who need a fixed base",
+    "Deep work without headphones",
+  ],
+  team_office: [
+    "Small teams working side by side",
+    "Project sprints and workshops",
+    "Companies without a Hannover office",
+    "Studios that need room to spread out",
+  ],
+  meeting_room: [
+    "Client meetings and pitches",
+    "Board and partner sessions",
+    "Group work and thesis defences",
+    "Hybrid calls with the room on screen",
+  ],
+  workshop_space: [
+    "Workshops, trainings and offsites",
+    "Community and campus events",
+    "Product days and hackathons",
+    "Anything that needs space to move",
+  ],
+};
 
 function Fact({ label, value, href }: { label: string; value: string; href?: string | undefined }) {
   return (

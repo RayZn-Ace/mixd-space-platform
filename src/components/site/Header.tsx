@@ -52,6 +52,13 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <Link
+            to="/locations/$slug"
+            params={{ slug: "garbsen" }}
+            className="link-underline text-xs uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Garbsen
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
@@ -85,6 +92,14 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/locations/$slug"
+              params={{ slug: "garbsen" }}
+              onClick={() => setOpen(false)}
+              className="border-b border-border/60 py-3 text-lg"
+            >
+              Garbsen
+            </Link>
             <Link
               to={user ? "/account" : "/login"}
               onClick={() => setOpen(false)}

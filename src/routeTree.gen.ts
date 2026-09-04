@@ -24,8 +24,12 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as TeamOfficesRouteImport } from './routes/team-offices'
 import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAddonsRouteImport } from './routes/admin.addons'
+import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
+import { Route as AdminMembershipsRouteImport } from './routes/admin.memberships'
 import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
@@ -108,14 +112,34 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAddonsRoute = AdminAddonsRouteImport.update({
+  id: '/addons',
+  path: '/addons',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBillingRoute = AdminBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLocationsRoute = AdminLocationsRouteImport.update({
   id: '/locations',
   path: '/locations',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMembershipsRoute = AdminMembershipsRouteImport.update({
+  id: '/memberships',
+  path: '/memberships',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminSpacesRoute = AdminSpacesRouteImport.update({
@@ -164,8 +188,12 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/addons': typeof AdminAddonsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -188,8 +216,12 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/addons': typeof AdminAddonsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -214,8 +246,12 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/team-offices': typeof TeamOfficesRoute
   '/teams': typeof TeamsRoute
+  '/admin/addons': typeof AdminAddonsRoute
+  '/admin/billing': typeof AdminBillingRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/locations': typeof AdminLocationsRoute
+  '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/locations/$slug': typeof LocationsSlugRoute
@@ -241,8 +277,12 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/addons'
+    | '/admin/billing'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -265,8 +305,12 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/addons'
+    | '/admin/billing'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -290,8 +334,12 @@ export interface FileRouteTypes {
     | '/register'
     | '/team-offices'
     | '/teams'
+    | '/admin/addons'
+    | '/admin/billing'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/locations'
+    | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
     | '/locations/$slug'
@@ -430,6 +478,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/addons': {
+      id: '/admin/addons'
+      path: '/addons'
+      fullPath: '/admin/addons'
+      preLoaderRoute: typeof AdminAddonsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/billing': {
+      id: '/admin/billing'
+      path: '/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AdminBillingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -437,11 +499,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/locations': {
       id: '/admin/locations'
       path: '/locations'
       fullPath: '/admin/locations'
       preLoaderRoute: typeof AdminLocationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/memberships': {
+      id: '/admin/memberships'
+      path: '/memberships'
+      fullPath: '/admin/memberships'
+      preLoaderRoute: typeof AdminMembershipsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/spaces': {
@@ -490,15 +566,23 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAddonsRoute: typeof AdminAddonsRoute
+  AdminBillingRoute: typeof AdminBillingRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminCustomersRoute: typeof AdminCustomersRoute
   AdminLocationsRoute: typeof AdminLocationsRoute
+  AdminMembershipsRoute: typeof AdminMembershipsRoute
   AdminSpacesRoute: typeof AdminSpacesRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAddonsRoute: AdminAddonsRoute,
+  AdminBillingRoute: AdminBillingRoute,
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminCustomersRoute: AdminCustomersRoute,
   AdminLocationsRoute: AdminLocationsRoute,
+  AdminMembershipsRoute: AdminMembershipsRoute,
   AdminSpacesRoute: AdminSpacesRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

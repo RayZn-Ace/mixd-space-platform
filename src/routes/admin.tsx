@@ -19,26 +19,29 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const NAV: { to: "/admin" | "/admin/locations" | "/admin/spaces" | "/admin/bookings"; label: string; exact?: boolean }[] = [
+type AdminPath =
+  | "/admin"
+  | "/admin/locations"
+  | "/admin/spaces"
+  | "/admin/bookings"
+  | "/admin/customers"
+  | "/admin/memberships"
+  | "/admin/addons"
+  | "/admin/billing";
+
+const NAV: { to: AdminPath; label: string; exact?: boolean }[] = [
   { to: "/admin", label: "Overview", exact: true },
   { to: "/admin/locations", label: "Locations" },
   { to: "/admin/spaces", label: "Spaces" },
   { to: "/admin/bookings", label: "Bookings" },
+  { to: "/admin/customers", label: "Customers" },
+  { to: "/admin/memberships", label: "Memberships" },
+  { to: "/admin/addons", label: "Add-ons" },
+  { to: "/admin/billing", label: "Payments" },
 ];
 
-const PLANNED = [
-  "Customers",
-  "Companies",
-  "Memberships",
-  "Pricing",
-  "Add-ons",
-  "Access",
-  "Payments",
-  "Invoices",
-  "Discounts",
-  "Analytics",
-  "Settings",
-];
+const PLANNED = ["Companies", "Access control", "Analytics", "Settings"];
+
 
 function AdminLayout() {
   const { user, loading } = useAuth();

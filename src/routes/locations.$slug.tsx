@@ -93,7 +93,27 @@ function LocationPage() {
           <br />
           {location.postal_code} {location.city}
         </address>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button asChild>
+            <Link to="/spaces" search={{ location: slug }}>
+              Check availability
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Get directions
+            </a>
+          </Button>
+          <Button asChild variant="ghost">
+            <Link to="/book">Find a space</Link>
+          </Button>
+        </div>
       </section>
+
 
       <section className="container-mixd mt-12">
         <div className="media-zoom aspect-[16/9] bg-muted sm:aspect-[16/7]">

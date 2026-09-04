@@ -3,6 +3,7 @@ import { Audience } from "@/components/site/XMark";
 import { SiteShell, PageHeader } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
 import teamImage from "@/assets/space-team.jpg";
+import { LeadBand } from "@/components/site/LeadDialog";
 
 export const Route = createFileRoute("/teams")({
   head: () => ({
@@ -75,6 +76,14 @@ function TeamsPage() {
           ))}
         </dl>
       </section>
+
+      <LeadBand
+        eyebrow="For companies"
+        title="Tell us how your team works."
+        line="Desks, offices and meeting rooms on one invoice. We'll set it up with you."
+        kind="team_setup"
+      />
+
     </SiteShell>
   );
 }

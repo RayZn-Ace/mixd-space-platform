@@ -15,6 +15,7 @@ import { XMark, XDivider } from "@/components/site/XMark";
 import { Button } from "@/components/ui/button";
 import { membershipsQuery, spacesQuery } from "@/lib/queries";
 import { formatPrice } from "@/lib/mixd";
+import { LeadBand } from "@/components/site/LeadDialog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -469,6 +470,13 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <LeadBand
+        title="Want in before we open the doors?"
+        line="Get early access to MIXD.SPACE Garbsen: first dates, first desks, first rates."
+        kind="early_access"
+      />
+
     </SiteShell>
   );
 }

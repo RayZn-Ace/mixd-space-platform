@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { SPACE_TYPE_LABEL, formatPrice, fromPrice } from "@/lib/mixd";
 import type { SpaceWithRelations } from "@/lib/queries";
 import { spaceImage } from "@/lib/space-images";
+import { SpaceCode } from "@/components/site/XMark";
 
 export function SpaceCard({ space }: { space: SpaceWithRelations }) {
   const price = fromPrice(space.pricing_rules ?? []);
@@ -28,6 +29,7 @@ export function SpaceCard({ space }: { space: SpaceWithRelations }) {
         />
       </div>
       <div className="flex flex-1 flex-col pt-5">
+        <SpaceCode code={(space as { code?: string | null }).code} className="mb-3 self-start" />
         <div className="flex items-baseline justify-between gap-4">
           <h3 className="font-display text-lg tracking-tight">{space.name}</h3>
           {price && (

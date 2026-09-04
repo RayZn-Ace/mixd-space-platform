@@ -106,10 +106,30 @@ function Home() {
           </div>
         </div>
 
-        <div className="container-mixd -mt-10 lg:-mt-16">
+        <div className="container-mixd relative z-10 -mt-10 lg:-mt-16">
           <BookingSearch className="shadow-none" />
         </div>
       </section>
+
+      {/* Ticker */}
+      <div className="mt-16 overflow-hidden border-y border-border bg-foreground py-3 text-background lg:mt-24">
+        <div className="ticker flex w-max gap-10 whitespace-nowrap">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="flex gap-10 text-sm tracking-[0.18em] uppercase">
+              <span>Study sessions</span>
+              <span className="text-accent">✳</span>
+              <span>Deep work</span>
+              <span className="text-accent">✳</span>
+              <span>Team sprints</span>
+              <span className="text-accent">✳</span>
+              <span>Late-night edits</span>
+              <span className="text-accent">✳</span>
+              <span>Client meetings</span>
+              <span className="text-accent">✳</span>
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* Manifesto */}
       <section className="container-mixd mt-28 lg:mt-40">

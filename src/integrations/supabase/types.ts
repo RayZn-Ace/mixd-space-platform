@@ -290,6 +290,53 @@ export type Database = {
           },
         ]
       }
+      booking_splits: {
+        Row: {
+          amount_cents: number
+          booking_id: string
+          created_at: string
+          created_by: string
+          email: string | null
+          id: string
+          name: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount_cents?: number
+          booking_id: string
+          created_at?: string
+          created_by: string
+          email?: string | null
+          id?: string
+          name: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          booking_id?: string
+          created_at?: string
+          created_by?: string
+          email?: string | null
+          id?: string
+          name?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_splits_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookings: {
         Row: {
           addons_cents: number

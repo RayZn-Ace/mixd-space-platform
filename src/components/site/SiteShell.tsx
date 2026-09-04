@@ -1,16 +1,19 @@
 import type { ReactNode } from "react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { MobileTabBar } from "@/components/site/MobileTabBar";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-20 md:pb-0">{children}</main>
       <Footer />
+      <MobileTabBar />
     </div>
   );
 }
+
 
 export function PageHeader({
   eyebrow,

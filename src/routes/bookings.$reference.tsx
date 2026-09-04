@@ -3,7 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteShell, EmptyState } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
+import { SplitBill } from "@/components/booking/SplitBill";
 import { formatDate, formatPrice, formatTime } from "@/lib/mixd";
+
 
 export const Route = createFileRoute("/bookings/$reference")({
   head: () => ({
@@ -116,7 +118,16 @@ function BookingSuccess() {
           </div>
         </div>
 
+        <div className="mt-12 max-w-xl">
+          <SplitBill
+            bookingId={data.id}
+            totalCents={data.total_cents}
+            reference={data.reference}
+          />
+        </div>
+
         <div className="mt-12 flex flex-wrap gap-3">
+
           <Button asChild variant="outline">
             <Link to="/account">View booking</Link>
           </Button>

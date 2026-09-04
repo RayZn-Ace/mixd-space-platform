@@ -219,7 +219,7 @@ export function BookingWidget({
       {step === "when" && (
         <div className="mt-6">
           <p className="eyebrow">Pick a day</p>
-          <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1">
+          <div className="no-scrollbar -mx-1 mt-3 flex min-w-0 max-w-full gap-2 overflow-x-auto px-1 pb-1">
             {nextDays(14).map((d) => {
               const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
               const active = value === date;

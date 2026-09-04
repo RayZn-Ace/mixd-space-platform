@@ -24,6 +24,7 @@ type AdminPath =
   | "/admin/locations"
   | "/admin/spaces"
   | "/admin/bookings"
+  | "/admin/leads"
   | "/admin/customers"
   | "/admin/memberships"
   | "/admin/addons"
@@ -34,11 +35,13 @@ const NAV: { to: AdminPath; label: string; exact?: boolean }[] = [
   { to: "/admin/locations", label: "Locations" },
   { to: "/admin/spaces", label: "Spaces" },
   { to: "/admin/bookings", label: "Bookings" },
+  { to: "/admin/leads", label: "Leads" },
   { to: "/admin/customers", label: "Customers" },
   { to: "/admin/memberships", label: "Memberships" },
   { to: "/admin/addons", label: "Add-ons" },
   { to: "/admin/billing", label: "Payments" },
 ];
+
 
 const PLANNED = ["Companies", "Access control", "Analytics", "Settings"];
 

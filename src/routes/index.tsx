@@ -218,6 +218,48 @@ function Home() {
         </div>
       </section>
 
+      {/* Students & founders */}
+      <section className="container-mixd mt-24 lg:mt-36">
+        <div className="grid gap-10 border border-border p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
+          <div>
+            <p className="eyebrow">Students &amp; young founders</p>
+            <h2 className="display-md mt-4 max-w-lg">
+              A desk that beats the
+              <br />
+              kitchen table.
+            </h2>
+            <p className="mt-6 max-w-md text-lg text-muted-foreground">
+              Thesis weeks, group projects, side hustles, first clients. Book an hour between
+              lectures or a room for the whole study group — no contract, no membership required.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild>
+                <Link to="/coworking">Grab a desk</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/memberships">See plans</Link>
+              </Button>
+            </div>
+          </div>
+          <ul className="grid content-start gap-3 self-center sm:grid-cols-2 lg:grid-cols-1">
+            {[
+              "Pay by the hour",
+              "Group rooms for project work",
+              "Quiet enough to actually focus",
+              "Coffee & fast WiFi included",
+            ].map((t) => (
+              <li
+                key={t}
+                className="flex items-center gap-3 border border-border px-4 py-3 text-sm transition-colors hover:border-foreground"
+              >
+                <span className="text-accent">✳</span>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* Teams */}
       <section className="container-mixd mt-28 lg:mt-40">
         <div className="border-t border-border pt-14">

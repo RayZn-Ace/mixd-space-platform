@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Wordmark } from "@/components/site/Header";
+import { XMark } from "@/components/site/XMark";
+
 
 const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
   {

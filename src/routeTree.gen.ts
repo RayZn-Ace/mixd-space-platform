@@ -34,6 +34,7 @@ import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
 import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as SpacesIndexRouteImport } from './routes/spaces.index'
@@ -164,6 +165,11 @@ const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
   path: '/legal/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocationsIndexRoute = LocationsIndexRouteImport.update({
   id: '/locations/',
   path: '/locations/',
@@ -210,6 +216,7 @@ export interface FileRoutesByFullPath {
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -240,6 +247,7 @@ export interface FileRoutesByTo {
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/bookings/$reference': typeof BookingsReferenceRoute
   '/legal/imprint': typeof LegalImprintRoute
   '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/bookings/$reference'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -335,6 +345,7 @@ export interface FileRouteTypes {
     | '/bookings/$reference'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin'
@@ -366,6 +377,7 @@ export interface FileRouteTypes {
     | '/bookings/$reference'
     | '/legal/imprint'
     | '/legal/privacy'
+    | '/legal/terms'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -391,6 +403,7 @@ export interface RootRouteChildren {
   BookingsReferenceRoute: typeof BookingsReferenceRoute
   LegalImprintRoute: typeof LegalImprintRoute
   LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   SpacesSlugRoute: typeof SpacesSlugRoute
   LocationsIndexRoute: typeof LocationsIndexRoute
@@ -574,6 +587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/locations/': {
       id: '/locations/'
       path: '/locations'
@@ -647,6 +667,7 @@ const rootRouteChildren: RootRouteChildren = {
   BookingsReferenceRoute: BookingsReferenceRoute,
   LegalImprintRoute: LegalImprintRoute,
   LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   SpacesSlugRoute: SpacesSlugRoute,
   LocationsIndexRoute: LocationsIndexRoute,

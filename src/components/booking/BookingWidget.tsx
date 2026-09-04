@@ -21,7 +21,12 @@ export function BookingWidget({
   defaults,
 }: {
   space: SpaceWithRelations;
-  defaults?: { date?: string; start?: string; end?: string; people?: number };
+  defaults?: {
+    date?: string | undefined;
+    start?: string | undefined;
+    end?: string | undefined;
+    people?: number | undefined;
+  };
 }) {
   const navigate = useNavigate();
   const { user } = useAuth();

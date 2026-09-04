@@ -81,7 +81,7 @@ function AccountPage() {
     );
   }
 
-  const name = (user.user_metadata?.full_name as string) ?? user.email?.split("@")[0] ?? "there";
+  const name = (user.user_metadata?.['full_name'] as string) ?? user.email?.split("@")[0] ?? "there";
 
   return (
     <SiteShell>

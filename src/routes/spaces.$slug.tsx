@@ -161,7 +161,7 @@ function SpaceDetail() {
   );
 }
 
-function Fact({ label, value, href }: { label: string; value: string; href?: string }) {
+function Fact({ label, value, href }: { label: string; value: string; href?: string | undefined }) {
   return (
     <div>
       <dt className="eyebrow">{label}</dt>

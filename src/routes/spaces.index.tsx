@@ -45,13 +45,14 @@ const FIELD =
 
 function SpacesPage() {
   const search = Route.useSearch();
-  const navigate = useNavigate({ from: "/spaces" });
+  const navigate = useNavigate({ from: "/spaces/" });
   const { data: locations } = useQuery(locationsQuery);
   const { data: amenities } = useQuery(amenitiesQuery);
   const { data: spaces, isLoading, error } = useQuery(spacesQuery());
 
-  const set = (patch: Partial<typeof search>) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }) });
+  type SpaceSearch = z.infer<typeof searchSchema>;
+  const set = (patch: Partial<SpaceSearch>) =>
+    navigate({ search: (prev: SpaceSearch) => ({ ...prev, ...patch }) });
 
   const filtered = (spaces ?? []).filter((s) => {
     if (search.location && s.locations?.slug !== search.location) return false;
@@ -184,7 +185,7 @@ function SpacesPage() {
             title="No spaces match these filters."
             description="Try a different date, a different space type or fewer filters."
             action={
-              <Button variant="outline" onClick={() => navigate({ search: {} })}>
+              <Button variant="outline" onClick={() => navigate({ search: () => ({}) })}>
                 Clear filters
               </Button>
             }

@@ -19,12 +19,12 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const NAV = [
+const NAV: { to: "/admin" | "/admin/locations" | "/admin/spaces" | "/admin/bookings"; label: string; exact?: boolean }[] = [
   { to: "/admin", label: "Overview", exact: true },
   { to: "/admin/locations", label: "Locations" },
   { to: "/admin/spaces", label: "Spaces" },
   { to: "/admin/bookings", label: "Bookings" },
-] as const;
+];
 
 const PLANNED = [
   "Customers",

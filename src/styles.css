@@ -309,234 +309,183 @@
 /* First-visit brand intro                                             */
 /* ------------------------------------------------------------------ */
 
-@keyframes mixd-intro-letter {
+.mixd-intro {
+  background: #0b0b0b;
+  color: oklch(0.985 0.006 85);
+  animation: mixd-intro-bg 2600ms ease-out forwards;
+}
+
+@keyframes mixd-intro-bg {
   0% {
-    opacity: 0;
-    transform: translateY(0.5em) scale(1.35) rotate(-6deg);
-    filter: blur(18px);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(0);
+    background-color: #000;
   }
   100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(0deg);
-    filter: blur(0);
+    background-color: #0b0b0b;
   }
 }
 
-@keyframes mixd-intro-dot {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.9);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes mixd-intro-space {
-  0% {
-    opacity: 0;
-    transform: translateX(-0.4em);
-    letter-spacing: 0.4em;
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    letter-spacing: 0;
-  }
-}
-
-@keyframes mixd-intro-rule {
-  0% {
-    transform: scaleX(0);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes mixd-intro-word {
-  0% {
-    opacity: 0;
-    transform: translateY(0.7em);
-  }
-  100% {
-    opacity: 0.85;
-    transform: translateY(0);
-  }
+/* soft accent haze */
+.mixd-intro-glow {
+  position: absolute;
+  width: min(120vw, 60rem);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--accent) 45%, transparent) 0%,
+    transparent 62%
+  );
+  filter: blur(70px);
+  animation: mixd-intro-glow 2800ms cubic-bezier(0.16, 1, 0.3, 1) 200ms forwards;
 }
 
 @keyframes mixd-intro-glow {
   0% {
     opacity: 0;
-    transform: scale(0.6);
+    transform: scale(0.7);
   }
-  55% {
-    opacity: 0.85;
-    transform: scale(1.05);
+  45% {
+    opacity: 0.55;
   }
   100% {
-    opacity: 0.5;
-    transform: scale(1.15);
+    opacity: 0.28;
+    transform: scale(1.12);
   }
 }
 
-@keyframes mixd-intro-grid {
+/* sweeping light beam across the mark */
+.mixd-intro-beam {
+  position: absolute;
+  inset: -30% -60%;
+  opacity: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 40%,
+    oklch(1 0 0 / 0.16) 50%,
+    transparent 60%
+  );
+  animation: mixd-intro-beam 1800ms cubic-bezier(0.65, 0, 0.35, 1) 700ms forwards;
+}
+
+@keyframes mixd-intro-beam {
   0% {
     opacity: 0;
-    transform: translateY(3%) scale(1.15);
+    transform: translateX(-45%);
+  }
+  25% {
+    opacity: 1;
   }
   100% {
-    opacity: 0.16;
-    transform: translateY(0) scale(1);
+    opacity: 0;
+    transform: translateX(45%);
   }
 }
 
-@keyframes mixd-intro-flash {
+/* the logo itself: masked wipe reveal + slow settle */
+.mixd-intro-mark {
+  width: min(78vw, 34rem);
+  height: auto;
+  opacity: 0;
+  transform-origin: center;
+  animation: mixd-intro-mark 1900ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
+}
+
+@keyframes mixd-intro-mark {
   0% {
     opacity: 0;
-    transform: translateY(100%);
+    transform: scale(1.14);
+    filter: blur(16px);
+    clip-path: inset(0 100% 0 0);
   }
   35% {
     opacity: 1;
+    filter: blur(4px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mixd-intro {
-  background: oklch(0.16 0.012 55);
-  color: oklch(0.985 0.006 85);
-}
-
-.mixd-intro--leaving {
-  animation: mixd-intro-out 900ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-@keyframes mixd-intro-out {
-  0% {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
-  }
-  100% {
-    clip-path: inset(0 0 100% 0);
-    opacity: 1;
-  }
-}
-
-.mixd-intro--leaving .mixd-intro-logo {
-  animation: mixd-intro-logo-out 800ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-@keyframes mixd-intro-logo-out {
-  0% {
     transform: scale(1);
-    opacity: 1;
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
   }
-  100% {
-    transform: scale(1.35);
-    opacity: 0;
-    filter: blur(10px);
-  }
-}
-
-.mixd-intro-glow {
-  position: absolute;
-  width: min(90vw, 46rem);
-  aspect-ratio: 1;
-  border-radius: 9999px;
-  background: radial-gradient(
-    circle,
-    color-mix(in oklab, var(--accent) 60%, transparent) 0%,
-    transparent 65%
-  );
-  filter: blur(50px);
-  animation: mixd-intro-glow 2200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.mixd-intro-grid {
-  position: absolute;
-  inset: -10%;
-  opacity: 0;
-  background-image:
-    linear-gradient(to right, oklch(1 0 0 / 0.35) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 0.35) 1px, transparent 1px);
-  background-size: 72px 72px;
-  mask-image: radial-gradient(circle at center, black 10%, transparent 70%);
-  animation: mixd-intro-grid 1800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.mixd-intro-letter,
-.mixd-intro-dot,
-.mixd-intro-space {
-  display: inline-block;
-  opacity: 0;
-}
-
-.mixd-intro-letter {
-  animation: mixd-intro-letter 1100ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.mixd-intro-dot {
-  color: var(--accent);
-  animation: mixd-intro-dot 700ms cubic-bezier(0.34, 1.56, 0.64, 1) 620ms forwards;
-}
-
-.mixd-intro-space {
-  animation: mixd-intro-space 900ms cubic-bezier(0.16, 1, 0.3, 1) 760ms forwards;
 }
 
 .mixd-intro-rule {
-  margin-top: 1.75rem;
+  margin-top: 2rem;
   height: 1px;
   width: min(70vw, 26rem);
-  transform-origin: left center;
+  transform-origin: center;
   transform: scaleX(0);
   background: linear-gradient(to right, transparent, var(--accent), transparent);
-  animation: mixd-intro-rule 900ms cubic-bezier(0.16, 1, 0.3, 1) 1000ms forwards;
+  animation: mixd-intro-rule 1000ms cubic-bezier(0.16, 1, 0.3, 1) 1400ms forwards;
+}
+
+@keyframes mixd-intro-rule {
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .mixd-intro-word {
   display: inline-block;
   opacity: 0;
-  animation: mixd-intro-word 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: mixd-intro-word 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.mixd-intro-curtain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(
-    to top,
-    color-mix(in oklab, var(--accent) 30%, transparent),
-    transparent 45%
-  );
-  animation: mixd-intro-flash 1400ms cubic-bezier(0.16, 1, 0.3, 1) 1400ms forwards;
+@keyframes mixd-intro-word {
+  0% {
+    opacity: 0;
+    transform: translateY(0.6em);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* exit: mark pushes forward, black panel slides up */
+.mixd-intro--leaving {
+  animation: mixd-intro-out 950ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes mixd-intro-out {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+.mixd-intro--leaving .mixd-intro-stage {
+  animation: mixd-intro-stage-out 750ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes mixd-intro-stage-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+    filter: blur(8px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mixd-intro-letter,
-  .mixd-intro-dot,
-  .mixd-intro-space,
-  .mixd-intro-word,
+  .mixd-intro,
+  .mixd-intro-mark,
   .mixd-intro-glow,
-  .mixd-intro-grid,
+  .mixd-intro-beam,
   .mixd-intro-rule,
-  .mixd-intro-curtain,
+  .mixd-intro-word,
   .mixd-intro--leaving,
-  .mixd-intro--leaving .mixd-intro-logo {
-    animation-duration: 200ms !important;
+  .mixd-intro--leaving .mixd-intro-stage {
+    animation-duration: 220ms !important;
     animation-delay: 0ms !important;
   }
 }
+

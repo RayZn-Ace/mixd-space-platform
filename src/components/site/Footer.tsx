@@ -36,7 +36,7 @@ export function Footer() {
     <footer className="mt-28 border-t border-border bg-surface">
       <div className="container-mixd grid gap-12 py-16 md:grid-cols-[1.4fr_repeat(3,1fr)] lg:py-20">
         <div>
-          <Wordmark className="text-base" />
+          <Wordmark className="h-12" />
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             work. meet. create.
             <br />

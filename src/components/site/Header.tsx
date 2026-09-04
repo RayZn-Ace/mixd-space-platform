@@ -4,6 +4,8 @@ import { Menu, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoDark from "@/assets/mixd-logo-dark.png.asset.json";
+
 
 const NAV = [
   { to: "/spaces", label: "Spaces" },
@@ -15,14 +17,14 @@ const NAV = [
 
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <span
-      className={cn("font-display text-[0.95rem] font-semibold tracking-[0.02em]", className)}
-      style={{ fontFamily: "var(--font-display)" }}
-    >
-      MIXD<span className="text-accent">.</span>SPACE
-    </span>
+    <img
+      src={logoDark.url}
+      alt="MIXD.SPACE"
+      className={cn("h-9 w-auto object-contain", className)}
+    />
   );
 }
+
 
 export function Header() {
   const [open, setOpen] = useState(false);

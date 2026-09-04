@@ -55,7 +55,7 @@ function AdminLayout() {
       <aside className="border-b border-border bg-sidebar lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
         <div className="flex h-16 items-center px-6">
           <Link to="/">
-            <Wordmark className="text-sm" />
+            <Wordmark className="h-7" />
           </Link>
           <span className="ml-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">OS</span>
         </div>

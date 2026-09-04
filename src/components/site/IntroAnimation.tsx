@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import logoLight from "@/assets/mixd-logo-light.png.asset.json";
 
 const KEY = "mixd-intro-seen";
 const WORDS = ["study.", "work.", "meet.", "create."];
 
 /**
- * First-visit brand intro. Plays once per browser session, respects
- * prefers-reduced-motion and never blocks the page for more than ~3s.
+ * First-visit brand intro built around the MIXD.SPACE logo.
+ * Plays once per browser session, respects prefers-reduced-motion.
  */
 export function IntroAnimation() {
   const [phase, setPhase] = useState<"idle" | "playing" | "leaving" | "done">("idle");
@@ -32,13 +33,13 @@ export function IntroAnimation() {
     setPhase("playing");
     document.body.style.overflow = "hidden";
 
-    const leave = window.setTimeout(() => setPhase("leaving"), reduced ? 600 : 2900);
+    const leave = window.setTimeout(() => setPhase("leaving"), reduced ? 500 : 2900);
     const end = window.setTimeout(
       () => {
         setPhase("done");
         document.body.style.overflow = "";
       },
-      reduced ? 1100 : 3800,
+      reduced ? 900 : 3800,
     );
 
     return () => {
@@ -59,35 +60,27 @@ export function IntroAnimation() {
       }
     >
       <div className="mixd-intro-glow" />
-      <div className="mixd-intro-grid" />
 
-      <div className="relative flex flex-col items-center px-6 text-center">
-        <div className="mixd-intro-logo font-display text-[clamp(2.5rem,11vw,7rem)] leading-none tracking-tight">
-          {"MIXD".split("").map((c, i) => (
-            <span key={i} className="mixd-intro-letter" style={{ animationDelay: `${i * 90}ms` }}>
-              {c}
-            </span>
-          ))}
-          <span className="mixd-intro-dot">.</span>
-          <span className="mixd-intro-space">SPACE</span>
+      <div className="mixd-intro-stage relative flex flex-col items-center px-6 text-center">
+        <div className="relative overflow-hidden">
+          <img src={logoLight.url} alt="" className="mixd-intro-mark" />
+          <div className="mixd-intro-beam" />
         </div>
 
         <div className="mixd-intro-rule" />
 
-        <div className="mixd-intro-words mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 font-sans text-[clamp(0.8rem,3.4vw,1.15rem)] uppercase tracking-[0.35em]">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 font-sans text-[clamp(0.7rem,3vw,0.95rem)] uppercase tracking-[0.4em]">
           {WORDS.map((w, i) => (
             <span
               key={w}
               className="mixd-intro-word"
-              style={{ animationDelay: `${900 + i * 170}ms` }}
+              style={{ animationDelay: `${1500 + i * 150}ms` }}
             >
               {w}
             </span>
           ))}
         </div>
       </div>
-
-      <div className="mixd-intro-curtain" />
     </div>
   );
 }

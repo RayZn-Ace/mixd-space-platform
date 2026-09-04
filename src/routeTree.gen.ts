@@ -32,6 +32,7 @@ import { Route as AdminLocationsRouteImport } from './routes/admin.locations'
 import { Route as AdminMembershipsRouteImport } from './routes/admin.memberships'
 import { Route as AdminSpacesRouteImport } from './routes/admin.spaces'
 import { Route as BookingsReferenceRouteImport } from './routes/bookings.$reference'
+import { Route as LegalImprintRouteImport } from './routes/legal.imprint'
 import { Route as LocationsIndexRouteImport } from './routes/locations.index'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as SpacesIndexRouteImport } from './routes/spaces.index'
@@ -152,6 +153,11 @@ const BookingsReferenceRoute = BookingsReferenceRouteImport.update({
   path: '/bookings/$reference',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegalImprintRoute = LegalImprintRouteImport.update({
+  id: '/legal/imprint',
+  path: '/legal/imprint',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocationsIndexRoute = LocationsIndexRouteImport.update({
   id: '/locations/',
   path: '/locations/',
@@ -196,6 +202,7 @@ export interface FileRoutesByFullPath {
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -224,6 +231,7 @@ export interface FileRoutesByTo {
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin': typeof AdminIndexRoute
@@ -254,6 +262,7 @@ export interface FileRoutesById {
   '/admin/memberships': typeof AdminMembershipsRoute
   '/admin/spaces': typeof AdminSpacesRoute
   '/bookings/$reference': typeof BookingsReferenceRoute
+  '/legal/imprint': typeof LegalImprintRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/spaces/$slug': typeof SpacesSlugRoute
   '/admin/': typeof AdminIndexRoute
@@ -285,6 +294,7 @@ export interface FileRouteTypes {
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -313,6 +323,7 @@ export interface FileRouteTypes {
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin'
@@ -342,6 +353,7 @@ export interface FileRouteTypes {
     | '/admin/memberships'
     | '/admin/spaces'
     | '/bookings/$reference'
+    | '/legal/imprint'
     | '/locations/$slug'
     | '/spaces/$slug'
     | '/admin/'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   TeamOfficesRoute: typeof TeamOfficesRoute
   TeamsRoute: typeof TeamsRoute
   BookingsReferenceRoute: typeof BookingsReferenceRoute
+  LegalImprintRoute: typeof LegalImprintRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   SpacesSlugRoute: typeof SpacesSlugRoute
   LocationsIndexRoute: typeof LocationsIndexRoute
@@ -534,6 +547,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingsReferenceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legal/imprint': {
+      id: '/legal/imprint'
+      path: '/legal/imprint'
+      fullPath: '/legal/imprint'
+      preLoaderRoute: typeof LegalImprintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/locations/': {
       id: '/locations/'
       path: '/locations'
@@ -605,6 +625,7 @@ const rootRouteChildren: RootRouteChildren = {
   TeamOfficesRoute: TeamOfficesRoute,
   TeamsRoute: TeamsRoute,
   BookingsReferenceRoute: BookingsReferenceRoute,
+  LegalImprintRoute: LegalImprintRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   SpacesSlugRoute: SpacesSlugRoute,
   LocationsIndexRoute: LocationsIndexRoute,

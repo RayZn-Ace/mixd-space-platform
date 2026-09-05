@@ -1,5 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { SPACE_TYPE_LABEL, formatPrice, fromPrice } from "@/lib/mixd";
+import {
+  SPACE_TYPE_LABEL,
+  amenityLabel,
+  formatPrice,
+  fromPrice,
+  spaceMarketingCopy,
+} from "@/lib/mixd";
 import type { SpaceWithRelations } from "@/lib/queries";
 import { spaceImage } from "@/lib/space-images";
 import { SpaceCode, XMark } from "@/components/site/XMark";
@@ -16,12 +22,13 @@ export function SpaceCard({ space }: { space: SpaceWithRelations }) {
   const amenities = [...all]
     .sort((a, b) => Number(GENERIC.includes(a)) - Number(GENERIC.includes(b)))
     .slice(0, 3);
+  const description = spaceMarketingCopy(space);
 
   return (
     <Link
       to="/spaces/$slug"
       params={{ slug: space.slug }}
-      className="group flex flex-col"
+      className="group flex min-w-0 flex-col"
       aria-label={space.name}
     >
       <div className="media-zoom aspect-[4/3] w-full bg-muted">
@@ -43,30 +50,31 @@ export function SpaceCard({ space }: { space: SpaceWithRelations }) {
           </h3>
           {price && (
             <span className="shrink-0 text-sm text-muted-foreground">
-              from {formatPrice(price.price_cents)} / {price.label}
+              ab {formatPrice(price.price_cents)} / {price.label}
             </span>
           )}
         </div>
-        {space.description && (
-          <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{space.description}</p>
+        {description && (
+          <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{description}</p>
         )}
         <p className="mt-2 text-sm text-muted-foreground">
           {SPACE_TYPE_LABEL[space.space_type]}
-          {space.capacity ? ` · up to ${space.capacity} ${space.capacity === 1 ? "person" : "people"}` : ""}
+          {space.capacity
+            ? ` · bis ${space.capacity} ${space.capacity === 1 ? "Person" : "Personen"}`
+            : ""}
           {space.locations ? ` · ${space.locations.name}` : ""}
         </p>
         {amenities.length > 0 && (
           <p className="mt-3 text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            {amenities.join(" · ")}
+            {amenities.map(amenityLabel).join(" · ")}
           </p>
         )}
         <span className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-foreground">
           <XMark className="size-3 text-accent transition-transform group-hover:rotate-90" />
           <span className="border-b border-transparent transition-colors group-hover:border-foreground">
-            View &amp; book
+            Ansehen &amp; anfragen
           </span>
         </span>
-
       </div>
     </Link>
   );

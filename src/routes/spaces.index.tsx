@@ -5,7 +5,13 @@ import { SiteShell, PageHeader, EmptyState } from "@/components/site/SiteShell";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
 import { Button } from "@/components/ui/button";
 import { amenitiesQuery, locationsQuery, spacesQuery } from "@/lib/queries";
-import { BOOKABLE_SPACE_TYPES, SPACE_TYPE_LABEL, fromPrice, type SpaceType } from "@/lib/mixd";
+import {
+  BOOKABLE_SPACE_TYPES,
+  SPACE_TYPE_LABEL,
+  amenityLabel,
+  fromPrice,
+  type SpaceType,
+} from "@/lib/mixd";
 
 const searchSchema = z.object({
   location: z.string().optional(),
@@ -26,12 +32,12 @@ export const Route = createFileRoute("/spaces/")({
       {
         name: "description",
         content:
-          "Browse flex desks, private offices, meeting rooms and team offices at MIXD.SPACE. Filter by date, time, people and price.",
+          "Alle Spaces bei MIXD.SPACE Garbsen: Desks, Private Offices, Team Offices und Meeting Rooms nach Datum, Uhrzeit, Personen und Preis filtern.",
       },
       { property: "og:title", content: "All spaces — MIXD.SPACE" },
       {
         property: "og:description",
-        content: "Flexible workspace in Garbsen, bookable by the hour, day or month.",
+        content: "Flexible Spaces in Garbsen, buchbar nach Stunde, Tag oder Monat.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -58,7 +64,10 @@ function SpacesPage() {
     if (search.location && s.locations?.slug !== search.location) return false;
     if (search.type && s.space_type !== search.type) return false;
     if (search.people && s.capacity && s.capacity < search.people) return false;
-    if (search.amenity && !(s.space_amenities ?? []).some((a) => a.amenities?.slug === search.amenity))
+    if (
+      search.amenity &&
+      !(s.space_amenities ?? []).some((a) => a.amenities?.slug === search.amenity)
+    )
       return false;
     if (search.maxPrice) {
       const p = fromPrice(s.pricing_rules ?? []);
@@ -72,13 +81,13 @@ function SpacesPage() {
       <PageHeader
         eyebrow="Discovery"
         title="Find your space."
-        intro="Every space, every rate, live availability. Filter down to exactly what you need."
+        intro="Alle Desks, Offices und Meeting Rooms in Garbsen. Filtere nach deinem Anlass, deiner Zeit und der passenden Größe."
       />
 
       <section className="container-mixd">
         <div className="grid gap-x-8 gap-y-6 border-y border-border py-6 sm:grid-cols-2 lg:grid-cols-6">
           <label className="block">
-            <span className="eyebrow">Location</span>
+            <span className="eyebrow">Standort</span>
             {(locations ?? []).length === 1 ? (
               <span className={FIELD + " flex items-center"}>{locations?.[0]?.name}</span>
             ) : (
@@ -87,7 +96,7 @@ function SpacesPage() {
                 value={search.location ?? ""}
                 onChange={(e) => set({ location: e.target.value || undefined })}
               >
-                <option value="">All</option>
+                <option value="">Alle</option>
                 {(locations ?? []).map((l) => (
                   <option key={l.id} value={l.slug}>
                     {l.name}
@@ -98,7 +107,7 @@ function SpacesPage() {
           </label>
 
           <label className="block">
-            <span className="eyebrow">Date</span>
+            <span className="eyebrow">Datum</span>
             <input
               type="date"
               className={FIELD}
@@ -107,7 +116,7 @@ function SpacesPage() {
             />
           </label>
           <label className="block">
-            <span className="eyebrow">From</span>
+            <span className="eyebrow">Von</span>
             <input
               type="time"
               disabled={!search.date}
@@ -117,7 +126,7 @@ function SpacesPage() {
             />
           </label>
           <label className="block">
-            <span className="eyebrow">Until</span>
+            <span className="eyebrow">Bis</span>
             <input
               type="time"
               disabled={!search.date}
@@ -127,23 +136,23 @@ function SpacesPage() {
             />
           </label>
           <label className="block">
-            <span className="eyebrow">People</span>
+            <span className="eyebrow">Personen</span>
             <input
               type="number"
               min={1}
-              placeholder="Any"
+              placeholder="Alle"
               className={FIELD}
               value={search.people ?? ""}
               onChange={(e) => set({ people: Number(e.target.value) || undefined })}
             />
           </label>
           <label className="block">
-            <span className="eyebrow">Max price / day</span>
+            <span className="eyebrow">Max. Preis / Tag</span>
             <input
               type="number"
               min={0}
               step={5}
-              placeholder="No limit"
+              placeholder="Kein Limit"
               className={FIELD}
               value={search.maxPrice ?? ""}
               onChange={(e) => set({ maxPrice: Number(e.target.value) || undefined })}
@@ -153,14 +162,13 @@ function SpacesPage() {
 
         <p className="pt-3 text-xs text-muted-foreground">
           {search.date
-            ? "Times are optional — leave them open to see everything available that day."
-            : "Pick a date to narrow down to a specific time slot. Otherwise you see everything we run."}
+            ? "Uhrzeiten sind optional - ohne Zeitfenster siehst du alles für diesen Tag."
+            : "Wähle ein Datum, um gezielter zu suchen. Ohne Filter siehst du alle MIXD Spaces."}
         </p>
-
 
         <div className="flex flex-wrap items-center gap-2 py-5">
           <FilterChip active={!search.type} onClick={() => set({ type: undefined })}>
-            All types
+            Alle Typen
           </FilterChip>
           {BOOKABLE_SPACE_TYPES.map((t) => (
             <FilterChip key={t} active={search.type === t} onClick={() => set({ type: t })}>
@@ -176,7 +184,7 @@ function SpacesPage() {
                 set({ amenity: search.amenity === a.slug ? undefined : (a.slug as string) })
               }
             >
-              {a.name}
+              {amenityLabel(a.name)}
             </FilterChip>
           ))}
         </div>
@@ -185,8 +193,8 @@ function SpacesPage() {
       <section className="container-mixd pb-10">
         {error && (
           <EmptyState
-            title="Spaces couldn't load."
-            description="Please refresh the page and try again."
+            title="Spaces konnten nicht geladen werden."
+            description="Bitte lade die Seite neu und versuche es noch einmal."
           />
         )}
         {isLoading && (
@@ -198,11 +206,11 @@ function SpacesPage() {
         )}
         {!isLoading && !error && filtered.length === 0 && (
           <EmptyState
-            title="No spaces match these filters."
-            description="Try a different date, a different space type or fewer filters."
+            title="Kein Space passt zu diesen Filtern."
+            description="Probiere ein anderes Datum, einen anderen Space-Typ oder weniger Filter."
             action={
               <Button variant="outline" onClick={() => navigate({ search: () => ({}) })}>
-                Clear filters
+                Filter zurücksetzen
               </Button>
             }
           />
@@ -210,7 +218,7 @@ function SpacesPage() {
         {!isLoading && filtered.length > 0 && (
           <>
             <p className="mb-8 text-sm text-muted-foreground">
-              {filtered.length} {filtered.length === 1 ? "space" : "spaces"}
+              {filtered.length} {filtered.length === 1 ? "Space" : "Spaces"}
             </p>
             <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((s) => (

@@ -25,11 +25,10 @@ type Step = "when" | "extras" | "pay";
 const REQUEST_MODE = !paymentProvider.live;
 
 const STEPS: { id: Step; label: string }[] = [
-  { id: "when", label: "When" },
+  { id: "when", label: "Zeit" },
   { id: "extras", label: "Extras" },
-  { id: "pay", label: REQUEST_MODE ? "Review" : "Pay" },
+  { id: "pay", label: REQUEST_MODE ? "Anfrage" : "Zahlen" },
 ];
-
 
 function nextDays(count: number) {
   const out: Date[] = [];
@@ -106,14 +105,14 @@ export function BookingWidget({
       return;
     }
     if (!priced) {
-      toast.error("No rate is configured for this space yet.");
+      toast.error("Für diesen Space ist noch kein Preis hinterlegt.");
       return;
     }
     setSubmitting(true);
     try {
       const conflicts = await fetchConflicts(space.id, startsAt, endsAt);
       if (conflicts.length > 0) {
-        toast.error("This space was just booked for that time.");
+        toast.error("Dieser Space wurde für die Zeit gerade angefragt oder gebucht.");
         setStep("when");
         return;
       }
@@ -141,10 +140,10 @@ export function BookingWidget({
       if (error || !booking) {
         toast.error(
           error?.message.includes("bookings_no_overlap")
-            ? "This space is already booked for that time."
+            ? "Dieser Space ist für diese Zeit bereits belegt."
             : REQUEST_MODE
-              ? "The request couldn't be sent."
-              : "The booking couldn't be created.",
+              ? "Die Anfrage konnte nicht gesendet werden."
+              : "Die Buchung konnte nicht erstellt werden.",
         );
         return;
       }
@@ -190,20 +189,23 @@ export function BookingWidget({
         });
       }
 
-      toast.success(REQUEST_MODE ? "Request sent. We'll confirm." : "Booked. See you there.");
+      toast.success(
+        REQUEST_MODE
+          ? "Anfrage gesendet. Wir bestätigen sie persönlich."
+          : "Gebucht. Bis gleich bei MIXD.",
+      );
       navigate({ to: "/bookings/$reference", params: { reference: booking.reference } });
     } finally {
       setSubmitting(false);
     }
   }
 
-
   const canAdvance = hours > 0 && Boolean(priced);
   const activeIdx = STEPS.findIndex((x) => x.id === step);
   const chosenAddons = relevantAddons.filter((a) => selectedAddons.includes(a.id));
 
   return (
-    <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
+    <div className="min-w-0 rounded-3xl border border-border bg-card p-5 sm:p-6">
       <div className="flex items-center gap-2">
         {STEPS.map((s, i) => {
           const done = i < activeIdx;
@@ -234,14 +236,13 @@ export function BookingWidget({
       </div>
       {!canAdvance && step === "when" && (
         <p className="mt-3 text-xs text-muted-foreground">
-          Pick a day and a time to continue.
+          Wähle Tag und Uhrzeit, um fortzufahren.
         </p>
       )}
 
-
       {step === "when" && (
         <div className="mt-6">
-          <p className="eyebrow">Pick a day</p>
+          <p className="eyebrow">Tag wählen</p>
           <div className="no-scrollbar -mx-1 mt-3 flex min-w-0 max-w-full gap-2 overflow-x-auto px-1 pb-1">
             {nextDays(14).map((d) => {
               const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -259,7 +260,7 @@ export function BookingWidget({
                   }
                 >
                   <span className="opacity-70">
-                    {d.toLocaleDateString("en-GB", { weekday: "short" })}
+                    {d.toLocaleDateString("de-DE", { weekday: "short" })}
                   </span>
                   <span className="mt-1 text-base">{d.getDate()}</span>
                 </button>
@@ -267,7 +268,7 @@ export function BookingWidget({
             })}
           </div>
 
-          <p className="eyebrow mt-6">Pick your time</p>
+          <p className="eyebrow mt-6">Uhrzeit wählen</p>
           <div className="mt-3">
             <SlotPicker
               spaceId={space.id}
@@ -283,7 +284,7 @@ export function BookingWidget({
           </div>
 
           <div className="mt-6 flex items-center justify-between rounded-2xl border border-border px-4 py-3">
-            <span className="text-sm">People</span>
+            <span className="text-sm">Personen</span>
             <span className="flex items-center gap-3">
               <button
                 type="button"
@@ -309,13 +310,14 @@ export function BookingWidget({
 
       {step === "extras" && (
         <div className="mt-6">
-          <p className="eyebrow">Add extras</p>
+          <p className="eyebrow">Extras hinzufügen</p>
           <p className="mt-2 text-sm text-muted-foreground">
-            Optional. Added to your booking and billed with it.
+            Optional. Wird zur Anfrage hinzugefuegt und transparent mit kalkuliert.
           </p>
           {relevantAddons.length === 0 ? (
             <p className="mt-4 text-sm text-muted-foreground">
-              No extras are set up for this space yet. Continue to payment.
+              Für diesen Space sind noch keine Extras hinterlegt. Du kannst direkt zur Anfrage
+              weitergehen.
             </p>
           ) : (
             <ul className="mt-4 space-y-2">
@@ -362,7 +364,7 @@ export function BookingWidget({
         <div className="mt-6">
           {REQUEST_MODE && (
             <p className="eyebrow flex items-center gap-2">
-              <XMark className="size-2.5 text-accent" /> Review &amp; request
+              <XMark className="size-2.5 text-accent" /> Prüfen &amp; anfragen
             </p>
           )}
           <div className="mt-3 rounded-2xl bg-surface p-4 text-sm">
@@ -371,20 +373,20 @@ export function BookingWidget({
               <SpaceCode code={(space as { code?: string | null }).code ?? null} />
             </div>
             <dl className="mt-4 space-y-2 text-sm">
-              <Line label="Date" value={formatDate(date)} />
-              <Line label="Time" value={`${start} – ${end}`} />
-              <Line label="People" value={`${people} ${people === 1 ? "person" : "people"}`} />
+              <Line label="Datum" value={formatDate(date)} />
+              <Line label="Zeit" value={`${start} - ${end}`} />
+              <Line label="Personen" value={`${people} ${people === 1 ? "Person" : "Personen"}`} />
               <Line
-                label={`Space (${priced ? priced.rate_type : "—"})`}
-                value={priced ? formatPrice(priced.total) : "On request"}
+                label={`Space (${priced ? priced.rate_type : "-"})`}
+                value={priced ? formatPrice(priced.total) : "Auf Anfrage"}
               />
               {chosenAddons.map((a) => (
                 <Line key={a.id} label={a.name} value={formatPrice(a.price_cents)} />
               ))}
               {discountCents > 0 && (
                 <Line
-                  label={`Member discount (${discountPercent}%)`}
-                  value={`– ${formatPrice(discountCents)}`}
+                  label={`Member Rabatt (${discountPercent}%)`}
+                  value={`- ${formatPrice(discountCents)}`}
                 />
               )}
             </dl>
@@ -393,8 +395,8 @@ export function BookingWidget({
             {REQUEST_MODE ? (
               <div className="rounded-2xl border border-border p-4 text-sm">
                 <p className="text-muted-foreground">
-                  Online payment isn&apos;t switched on yet. Send your request and we&apos;ll
-                  confirm the space, the time and the final price by email. Nothing is charged now.
+                  Online-Zahlung ist noch nicht aktiv. Sende deine Anfrage ab und wir bestätigen
+                  Space, Zeit und finalen Preis per E-Mail. Jetzt wird nichts berechnet.
                 </p>
                 {user ? (
                   <Button
@@ -402,11 +404,7 @@ export function BookingWidget({
                     disabled={submitting || !priced}
                     onClick={() => pay("on_site")}
                   >
-                    {submitting ? (
-                      <Loader2 className="size-4 animate-spin" />
-                    ) : (
-                      "Request this space"
-                    )}
+                    {submitting ? <Loader2 className="size-4 animate-spin" /> : "Space anfragen"}
                   </Button>
                 ) : (
                   <Button
@@ -415,12 +413,10 @@ export function BookingWidget({
                       navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } })
                     }
                   >
-                    Sign in to request
+                    Einloggen und anfragen
                   </Button>
                 )}
-                <p className="mt-3 text-xs text-muted-foreground">
-                  Your selection stays exactly as it is.
-                </p>
+                <p className="mt-3 text-xs text-muted-foreground">Deine Auswahl bleibt erhalten.</p>
               </div>
             ) : user ? (
               <PaymentSheet
@@ -432,7 +428,7 @@ export function BookingWidget({
             ) : (
               <div className="rounded-2xl border border-border p-4 text-sm">
                 <p className="text-muted-foreground">
-                  Sign in to confirm this booking. Your selection stays as it is.
+                  Logge dich ein, um die Buchung zu bestätigen. Deine Auswahl bleibt erhalten.
                 </p>
                 <Button
                   className="mt-4 w-full"
@@ -440,7 +436,7 @@ export function BookingWidget({
                     navigate({ to: "/login", search: { next: `/spaces/${space.slug}` } })
                   }
                 >
-                  Sign in to book
+                  Einloggen und buchen
                 </Button>
               </div>
             )}
@@ -448,33 +444,28 @@ export function BookingWidget({
         </div>
       )}
 
-
       <div className="mt-6 border-t border-border pt-5">
         <div className="flex items-baseline justify-between">
           <span className="text-sm text-muted-foreground">
-            {REQUEST_MODE ? "Estimated total" : "Total"}
+            {REQUEST_MODE ? "Voraussichtlicher Gesamtpreis" : "Gesamtpreis"}
           </span>
           <span className="font-display text-2xl tracking-tight">
-            {priced ? formatPrice(total) : "On request"}
+            {priced ? formatPrice(total) : "Auf Anfrage"}
           </span>
         </div>
         {hours > 0 && (
           <p className="mt-1 text-xs text-muted-foreground">
-            {hours.toFixed(hours % 1 === 0 ? 0 : 1)} hours
-            {discountCents > 0 && ` · ${discountPercent}% member discount applied`}
-            {REQUEST_MODE && " · confirmed by us before anything is charged"}
+            {hours.toFixed(hours % 1 === 0 ? 0 : 1)} Stunden
+            {discountCents > 0 && ` · ${discountPercent}% Member Rabatt angewendet`}
+            {REQUEST_MODE && " · wird vor Kosten verbindlich bestätigt"}
           </p>
         )}
 
         {step !== "pay" ? (
           <div className="mt-5 flex gap-2">
             {step !== "when" && (
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => setStep("when")}
-              >
-                Back
+              <Button variant="outline" className="flex-1" onClick={() => setStep("when")}>
+                Zurück
               </Button>
             )}
             <Button
@@ -482,22 +473,21 @@ export function BookingWidget({
               disabled={!canAdvance}
               onClick={() => setStep(step === "when" ? "extras" : "pay")}
             >
-              {step === "when" ? "Continue" : REQUEST_MODE ? "Review & request" : "Go to payment"}
+              {step === "when" ? "Weiter" : REQUEST_MODE ? "Prüfen & anfragen" : "Zur Zahlung"}
             </Button>
           </div>
         ) : (
           <Button variant="outline" className="mt-4 w-full" onClick={() => setStep("extras")}>
-            Back to extras
+            Zurück zu Extras
           </Button>
         )}
 
         {submitting && (
           <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
             <Loader2 className="size-3 animate-spin" />{" "}
-            {REQUEST_MODE ? "Sending your request…" : "Confirming your booking…"}
+            {REQUEST_MODE ? "Anfrage wird gesendet..." : "Buchung wird bestätigt..."}
           </p>
         )}
-
       </div>
     </div>
   );

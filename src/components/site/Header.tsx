@@ -6,14 +6,13 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoDark from "@/assets/mixd-logo-dark.png.asset.json";
 
-
 const NAV = [
   { to: "/coworking", label: "Desks" },
   { to: "/private-offices", label: "Private Offices" },
   { to: "/team-offices", label: "Team Offices" },
   { to: "/meeting-rooms", label: "Meeting Rooms" },
   { to: "/memberships", label: "Memberships" },
-  { to: "/business-address", label: "Business Address" },
+  { to: "/business-address", label: "Business Adresse" },
 ] as const;
 
 export function Wordmark({ className }: { className?: string }) {
@@ -25,7 +24,6 @@ export function Wordmark({ className }: { className?: string }) {
     />
   );
 }
-
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -63,10 +61,10 @@ export function Header() {
 
         <div className="hidden items-center gap-2 lg:flex">
           <Button asChild variant="ghost" size="sm">
-            <Link to={user ? "/account" : "/login"}>{user ? "MY MIXD." : "Sign in"}</Link>
+            <Link to={user ? "/account" : "/login"}>{user ? "MY MIXD." : "Login"}</Link>
           </Button>
           <Button asChild size="sm">
-            <Link to="/spaces">Find your space</Link>
+            <Link to="/spaces">Space finden</Link>
           </Button>
         </div>
 
@@ -105,11 +103,11 @@ export function Header() {
               onClick={() => setOpen(false)}
               className="border-b border-border/60 py-3 text-lg"
             >
-              {user ? "MY MIXD." : "Sign in"}
+              {user ? "MY MIXD." : "Login"}
             </Link>
             <Button asChild className="mt-4">
               <Link to="/spaces" onClick={() => setOpen(false)}>
-                Find your space
+                Space finden
               </Link>
             </Button>
           </div>

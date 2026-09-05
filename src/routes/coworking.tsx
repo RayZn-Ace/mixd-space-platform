@@ -8,7 +8,7 @@ export const Route = createFileRoute("/coworking")({
       {
         name: "description",
         content:
-          "Flexible coworking desks in Garbsen-Berenbostel. Book a flex desk by the hour, day or month. Fast WiFi, coffee and parking included.",
+          "Flexible Desks in Garbsen-Berenbostel für Studierende, Remote Worker, Freelancer und Professionals. Stundenweise, tageweise oder regelmäßig anfragen.",
       },
       { property: "og:title", content: "Coworking Garbsen — MIXD.SPACE" },
       {
@@ -27,15 +27,15 @@ export const Route = createFileRoute("/coworking")({
         <>
           WORK
           <br />
-          when you want.
+          wann es für dich passt.
         </>
       }
-      intro="An open desk in a quiet, well-designed workspace. Arrive, plug in, get on with it."
-      audience="Students · Remote workers · Freelancers · Consultants between appointments"
+      intro="Ein ruhiger, gut gestalteter Desk für Fokus, Lernen, Remote Work oder den produktiven Tag zwischen Terminen."
+      audience="Studierende · Remote Worker · Freelancer · Consultants zwischen Terminen"
       points={[
-        ["By the hour", "Pay for the time you actually use."],
-        ["Everything included", "WiFi, coffee, water, parking."],
-        ["No contract", "Book today, leave tomorrow."],
+        ["Flexibel", "Stundenweise, tageweise oder regelmäßig nutzbar."],
+        ["Alles da", "WiFi, Kaffee, Wasser und Parken vor Ort."],
+        ["Kein Vertrag", "Heute anfragen, morgen arbeiten."],
       ]}
     />
   ),

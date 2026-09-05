@@ -13,11 +13,11 @@ export const Route = createFileRoute("/admin/leads")({
 });
 
 const KIND_LABEL: Record<string, string> = {
-  early_access: "Early access",
-  team_setup: "Team setup",
-  business_address: "Business address",
-  contact: "Contact",
-  space_request: "Space request",
+  early_access: "Early Access",
+  team_setup: "Team Setup",
+  business_address: "Business Adresse",
+  contact: "Kontakt",
+  space_request: "Space Anfrage",
 };
 
 const NEXT_STATUS: Record<string, string> = {
@@ -48,7 +48,7 @@ function AdminLeads() {
       .eq("id", id);
     if (error) toast.error(error.message);
     else {
-      toast.success("Lead updated.");
+      toast.success("Lead aktualisiert.");
       qc.invalidateQueries({ queryKey: ["admin-leads"] });
     }
   }
@@ -61,12 +61,12 @@ function AdminLeads() {
     <div>
       <AdminHeader
         eyebrow="Leads"
-        title="Everyone who reached out."
-        intro="Requests from the public website: early access, team setups, business address and general contact."
-        search={{ value: q, onChange: setQ, placeholder: "Search name, email, company" }}
+        title="Alle Anfragen an einem Ort."
+        intro="Leads von der Website: Early Access, Team Setups, Business Adresse, Kontakt und Space-Anfragen."
+        search={{ value: q, onChange: setQ, placeholder: "Name, E-Mail oder Firma suchen" }}
       >
         <span className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-          {rows.length} {rows.length === 1 ? "lead" : "leads"}
+          {rows.length} {rows.length === 1 ? "Lead" : "Leads"}
         </span>
       </AdminHeader>
 
@@ -74,15 +74,15 @@ function AdminLeads() {
       {!isLoading && rows.length === 0 && (
         <div className="mt-10">
           <EmptyState
-            title="No leads yet."
-            description="Requests sent through the website land here."
+            title="Noch keine Leads."
+            description="Anfragen ueber die Website landen hier."
           />
         </div>
       )}
       {rows.length > 0 && (
         <div className="mt-10">
           <AdminTable
-            head={["Received", "Type", "Name", "Contact", "Message", "Status", ""]}
+            head={["Eingang", "Typ", "Name", "Kontakt", "Nachricht", "Status", ""]}
             rows={rows.map((l) => ({
               key: l.id,
               cells: [
@@ -107,7 +107,7 @@ function AdminLeads() {
                 </span>,
                 <StatusBadge key="s" value={l.status} />,
                 <Button key="a" size="sm" variant="outline" onClick={() => advance(l.id, l.status)}>
-                  Mark {NEXT_STATUS[l.status] ?? "new"}
+                  Auf {NEXT_STATUS[l.status] ?? "new"} setzen
                 </Button>,
               ],
             }))}

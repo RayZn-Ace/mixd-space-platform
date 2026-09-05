@@ -31,20 +31,18 @@ type AdminPath =
   | "/admin/billing";
 
 const NAV: { to: AdminPath; label: string; exact?: boolean }[] = [
-  { to: "/admin", label: "Overview", exact: true },
-  { to: "/admin/locations", label: "Locations" },
+  { to: "/admin", label: "Überblick", exact: true },
+  { to: "/admin/locations", label: "Standorte" },
   { to: "/admin/spaces", label: "Spaces" },
-  { to: "/admin/bookings", label: "Bookings" },
+  { to: "/admin/bookings", label: "Buchungen" },
   { to: "/admin/leads", label: "Leads" },
-  { to: "/admin/customers", label: "Customers" },
+  { to: "/admin/customers", label: "Kunden" },
   { to: "/admin/memberships", label: "Memberships" },
   { to: "/admin/addons", label: "Add-ons" },
-  { to: "/admin/billing", label: "Payments" },
+  { to: "/admin/billing", label: "Zahlungen" },
 ];
 
-
-const PLANNED = ["Companies", "Access control", "Analytics", "Settings"];
-
+const PLANNED = ["Unternehmen", "Access Control", "Analytics", "Settings"];
 
 function AdminLayout() {
   const { user, loading } = useAuth();
@@ -85,7 +83,7 @@ function AdminLayout() {
           })}
           <div className="hidden pt-6 lg:block">
             <p className="px-3 text-[0.6rem] uppercase tracking-[0.2em] text-muted-foreground">
-              Planned
+              Geplant
             </p>
             <ul className="mt-2 space-y-1">
               {PLANNED.map((p) => (
@@ -101,8 +99,8 @@ function AdminLayout() {
       <main className="flex-1 px-6 py-10 lg:px-12">
         {!loading && user && !isStaff && (
           <div className="mb-8 border border-border bg-surface p-5 text-sm text-muted-foreground">
-            You're signed in without an operations role, so data below is limited to what your
-            account may see. Ask an administrator to grant you staff access.
+            Du bist ohne Operations-Rolle eingeloggt. Die Daten unten sind deshalb auf das begrenzt,
+            was dein Account sehen darf.
           </div>
         )}
         <Outlet />

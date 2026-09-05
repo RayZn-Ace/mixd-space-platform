@@ -52,7 +52,6 @@ export function BookingSearch({
     });
   };
 
-
   if (variant === "hero") {
     return (
       <form
@@ -63,7 +62,7 @@ export function BookingSearch({
         )}
       >
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
-          <label className={HERO_LABEL}>Location</label>
+          <label className={HERO_LABEL}>Standort</label>
           {singleLocation ? (
             <span className="truncate text-foreground">{singleLocation.name}</span>
           ) : (
@@ -72,7 +71,7 @@ export function BookingSearch({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
-              <option value="">Anywhere</option>
+              <option value="">Alle Standorte</option>
               {(locations ?? []).map((l) => (
                 <option key={l.id} value={l.slug}>
                   {l.name}
@@ -82,9 +81,8 @@ export function BookingSearch({
           )}
         </div>
 
-
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
-          <label className={HERO_LABEL}>When</label>
+          <label className={HERO_LABEL}>Datum</label>
           <div className="flex items-center gap-2">
             <input
               type="date"
@@ -97,7 +95,7 @@ export function BookingSearch({
         </div>
 
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
-          <label className={HERO_LABEL}>Time</label>
+          <label className={HERO_LABEL}>Zeit</label>
           <div className="flex items-center gap-1">
             <input
               type="time"
@@ -117,8 +115,12 @@ export function BookingSearch({
 
         <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
           <label className={HERO_LABEL}>Space</label>
-          <select className={cn(HERO_INPUT, "appearance-none")} value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="">Any space</option>
+          <select
+            className={cn(HERO_INPUT, "appearance-none")}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="">Alles anzeigen</option>
             {BOOKABLE_SPACE_TYPES.map((t) => (
               <option key={t} value={t}>
                 {SPACE_TYPE_LABEL[t]}
@@ -131,7 +133,7 @@ export function BookingSearch({
           type="submit"
           className="group shrink-0 rounded-2xl bg-accent px-7 py-6 text-base font-semibold text-accent-foreground hover:bg-accent/90 sm:py-0"
         >
-          Find a spot
+          Verfügbarkeit prüfen
           <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />
         </Button>
       </form>
@@ -148,12 +150,12 @@ export function BookingSearch({
       )}
     >
       <label className="block">
-        <span className="eyebrow">Location</span>
+        <span className="eyebrow">Standort</span>
         {singleLocation ? (
           <span className={cn(FIELD, "flex items-center")}>{singleLocation.name}</span>
         ) : (
           <select className={FIELD} value={location} onChange={(e) => setLocation(e.target.value)}>
-            <option value="">Anywhere</option>
+            <option value="">Alle Standorte</option>
             {(locations ?? []).map((l) => (
               <option key={l.id} value={l.slug}>
                 {l.name}
@@ -163,26 +165,41 @@ export function BookingSearch({
         )}
       </label>
 
-
       <label className="block">
-        <span className="eyebrow">Date</span>
-        <input type="date" className={FIELD} value={date} min={today()} onChange={(e) => setDate(e.target.value)} />
+        <span className="eyebrow">Datum</span>
+        <input
+          type="date"
+          className={FIELD}
+          value={date}
+          min={today()}
+          onChange={(e) => setDate(e.target.value)}
+        />
       </label>
 
       <div className="grid grid-cols-2 gap-4 lg:contents">
         <label className="block">
-          <span className="eyebrow">From</span>
-          <input type="time" className={FIELD} value={start} onChange={(e) => setStart(e.target.value)} />
+          <span className="eyebrow">Von</span>
+          <input
+            type="time"
+            className={FIELD}
+            value={start}
+            onChange={(e) => setStart(e.target.value)}
+          />
         </label>
         <label className="block">
-          <span className="eyebrow">Until</span>
-          <input type="time" className={FIELD} value={end} onChange={(e) => setEnd(e.target.value)} />
+          <span className="eyebrow">Bis</span>
+          <input
+            type="time"
+            className={FIELD}
+            value={end}
+            onChange={(e) => setEnd(e.target.value)}
+          />
         </label>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:contents">
         <label className="block">
-          <span className="eyebrow">People</span>
+          <span className="eyebrow">Personen</span>
           <input
             type="number"
             min={1}
@@ -195,7 +212,7 @@ export function BookingSearch({
         <label className="block">
           <span className="eyebrow">Space</span>
           <select className={FIELD} value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="">Any</option>
+            <option value="">Alle</option>
             {BOOKABLE_SPACE_TYPES.map((t) => (
               <option key={t} value={t}>
                 {SPACE_TYPE_LABEL[t]}
@@ -206,7 +223,7 @@ export function BookingSearch({
       </div>
 
       <Button type="submit" size="lg" className="mt-2 w-full sm:col-span-2 lg:col-span-6 lg:mt-4">
-        Find a space
+        Space finden
       </Button>
     </form>
   );

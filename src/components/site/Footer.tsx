@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { Wordmark } from "@/components/site/Header";
 import { XMark } from "@/components/site/XMark";
 
-
 const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
   {
     title: "Spaces",
@@ -17,31 +16,30 @@ const COLUMNS: { title: string; links: { to: string; label: string }[] }[] = [
     title: "Products",
     links: [
       { to: "/memberships", label: "Memberships" },
-      { to: "/business-address", label: "Business Address" },
+      { to: "/business-address", label: "Business Adresse" },
       { to: "/teams", label: "MIXD for Teams" },
-      { to: "/spaces", label: "All spaces" },
+      { to: "/spaces", label: "Alle Spaces" },
     ],
   },
   {
     title: "Company",
     links: [
-      { to: "/about", label: "About" },
-      { to: "/locations", label: "Locations" },
-      { to: "/contact", label: "Contact" },
-      { to: "/login", label: "Sign in" },
+      { to: "/about", label: "Über MIXD" },
+      { to: "/locations", label: "Standorte" },
+      { to: "/contact", label: "Kontakt" },
+      { to: "/login", label: "Login" },
     ],
   },
   {
     title: "Legal",
     links: [
-      { to: "/legal/imprint", label: "Imprint" },
-      { to: "/legal/privacy", label: "Privacy" },
-      { to: "/legal/terms", label: "Booking conditions" },
-      { to: "/register", label: "Create account" },
+      { to: "/legal/imprint", label: "Impressum" },
+      { to: "/legal/privacy", label: "Datenschutz" },
+      { to: "/legal/terms", label: "Buchungsbedingungen" },
+      { to: "/register", label: "Account erstellen" },
     ],
   },
 ];
-
 
 export function Footer() {
   return (
@@ -52,7 +50,7 @@ export function Footer() {
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">
             work. meet. create.
             <br />
-            Different people. Different work. One space.
+            Unterschiedliche Menschen. Unterschiedliche Arbeit. Ein Space.
           </p>
           <address className="mt-8 text-sm not-italic text-muted-foreground">
             MIXD.SPACE Garbsen
@@ -65,7 +63,7 @@ export function Footer() {
             to="/contact"
             className="link-underline mt-5 inline-flex items-center gap-2 text-sm text-foreground"
           >
-            <XMark className="size-3 text-accent" /> Talk to us
+            <XMark className="size-3 text-accent" /> Sprich mit uns
           </Link>
         </div>
 
@@ -91,11 +89,10 @@ export function Footer() {
         <span>© {new Date().getFullYear()} MIXD.SPACE</span>
         <span className="flex items-center gap-2">
           <XMark className="size-2.5 text-accent" />
-          Pre-launch — spaces and rates shown are examples.
+          Pre-launch - Spaces und Preise sind noch Beispielwerte.
         </span>
         <span>Garbsen · Deutschland</span>
       </div>
-
     </footer>
   );
 }

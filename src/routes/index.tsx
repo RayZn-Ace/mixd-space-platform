@@ -24,12 +24,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Different people. Different work. One space. Flexible desks, private offices and meeting rooms in Garbsen. Book by the hour, day or month.",
+          "Flexible Desks, Private Offices, Team Offices und Meeting Rooms in Garbsen. MIXD.SPACE ist der bewusst gemischte Workspace für Studierende, Freelancer, Teams und Unternehmen.",
       },
       { property: "og:title", content: "MIXD.SPACE — work. meet. create." },
       {
         property: "og:description",
-        content: "Different people. Different work. One space. Book by the hour, day or month.",
+        content: "Unterschiedliche Menschen. Unterschiedliche Arbeit. Ein Space in Garbsen.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -41,47 +41,61 @@ export const Route = createFileRoute("/")({
 const USES = [
   {
     word: "WORK",
-    line: "Focus, without the kitchen table.",
+    line: "Konzentriert arbeiten, ohne Küchentisch.",
     to: "/coworking",
-    cta: "Desks",
+    cta: "Desks ansehen",
   },
   {
     word: "MEET",
-    line: "A room that makes the meeting easy.",
+    line: "Räume für Termine, Workshops und Entscheidungen.",
     to: "/meeting-rooms",
-    cta: "Meeting rooms",
+    cta: "Meeting Rooms",
   },
   {
     word: "CREATE",
-    line: "Space for the projects in between.",
+    line: "Platz für Projekte, Teams und neue Ideen.",
     to: "/team-offices",
-    cta: "Team offices",
+    cta: "Team Offices",
   },
 ] as const;
 
 const SPACE_TYPES = [
-  { code: "DESK", label: "Desks", desc: "By the hour, day or month.", to: "/coworking" },
-  { code: "OFFICE", label: "Private Offices", desc: "Your own door.", to: "/private-offices" },
-  { code: "MEET", label: "Meeting Rooms", desc: "2 to 12 people.", to: "/meeting-rooms" },
-  { code: "TEAM", label: "Team Offices", desc: "For teams and projects.", to: "/team-offices" },
+  {
+    code: "DESK",
+    label: "Desks",
+    desc: "Stundenweise, tageweise oder regelmäßig.",
+    to: "/coworking",
+  },
+  {
+    code: "OFFICE",
+    label: "Private Offices",
+    desc: "Dein eigener Raum mit Tür.",
+    to: "/private-offices",
+  },
+  { code: "MEET", label: "Meeting Rooms", desc: "Für 2 bis 12 Personen.", to: "/meeting-rooms" },
+  {
+    code: "TEAM",
+    label: "Team Offices",
+    desc: "Für Teams, Projekte und Firmen.",
+    to: "/team-offices",
+  },
 ] as const;
 
 const HOW = [
-  ["Find", "Pick a space and a time."],
-  ["Request", "Send it in a few taps."],
-  ["Confirm", "We come back to you."],
-  ["Work", "That's it."],
+  ["Finden", "Space, Datum und Uhrzeit auswählen."],
+  ["Anfragen", "In wenigen Schritten digital abschicken."],
+  ["Bestätigen", "Wir prüfen und bestätigen die Buchung."],
+  ["Arbeiten", "Ankommen, einchecken, loslegen."],
 ] as const;
 
-
 const NEEDS = [
-  { need: "I need a desk today.", to: "/coworking" },
-  { need: "I need somewhere to study.", to: "/coworking" },
-  { need: "I need a quiet place for calls.", to: "/private-offices" },
-  { need: "I need a meeting room.", to: "/meeting-rooms" },
-  { need: "I need an office for my team.", to: "/team-offices" },
-  { need: "I need a project office.", to: "/teams" },
-  { need: "I need a business address.", to: "/business-address" },
+  { need: "Ich brauche heute einen Desk.", to: "/coworking" },
+  { need: "Ich will konzentriert lernen oder schreiben.", to: "/coworking" },
+  { need: "Ich brauche Ruhe für Calls.", to: "/private-offices" },
+  { need: "Ich suche einen Meetingraum.", to: "/meeting-rooms" },
+  { need: "Mein Team braucht ein Office.", to: "/team-offices" },
+  { need: "Wir brauchen ein Projektbüro.", to: "/teams" },
+  { need: "Ich brauche eine Business Adresse.", to: "/business-address" },
 ] as const;
 
 const PEOPLE = [
@@ -90,7 +104,7 @@ const PEOPLE = [
     w: 1200,
     h: 1500,
     alt: "A student working on a thesis at a quiet desk",
-    label: "Bachelor thesis. Third coffee.",
+    label: "Bachelorarbeit. Dritter Kaffee.",
     tag: "DESK.04",
   },
   {
@@ -98,7 +112,7 @@ const PEOPLE = [
     w: 1200,
     h: 1500,
     alt: "A professional working on a laptop by the window",
-    label: "Remote day. Not at home.",
+    label: "Remote Day. Nicht zuhause.",
     tag: "DESK.01",
   },
   {
@@ -106,36 +120,35 @@ const PEOPLE = [
     w: 1200,
     h: 1500,
     alt: "A consultant taking a call between appointments",
-    label: "Two appointments. One hour between.",
+    label: "Zwei Termine. Eine Stunde dazwischen.",
     tag: "OFFICE.02",
   },
 ] as const;
 
 const MIX = [
-  "Students",
-  "Remote workers",
+  "Studierende",
+  "Remote Worker",
   "Freelancers",
   "Founders",
   "Professionals",
   "Teams",
-  "Companies",
+  "Unternehmen",
 ] as const;
 
 const AUDIENCES = [
-  "Students",
-  "Remote workers",
+  "Studierende",
+  "Remote Worker",
   "Freelancers",
   "Founders",
-  "Creatives",
+  "Kreative",
   "Professionals",
   "Startups",
-  "Small businesses",
-  "Project teams",
-  "Corporate teams",
+  "Kleine Unternehmen",
+  "Projektteams",
+  "Corporate Teams",
   "Consultants",
-  "Researchers",
+  "Researcher",
 ];
-
 
 function Home() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
@@ -164,14 +177,15 @@ function Home() {
               work. meet. create.
             </p>
             <h1 className="mt-5 max-w-3xl text-4xl font-medium leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
-              Different people.
+              Unterschiedliche Menschen.
               <br />
-              Different work.
+              Unterschiedliche Arbeit.
               <br />
-              <span className="text-white/60">One space.</span>
+              <span className="text-white/60">Ein Space.</span>
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/85 sm:text-lg">
-              Flexible desks, private offices and meeting spaces in Garbsen. Book by the hour, day or month.
+              Desks, Private Offices, Team Offices und Meeting Rooms in Garbsen. Premium im
+              Anspruch, offen im Gefühl, digital buchbar.
             </p>
             <ul className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-[0.625rem] uppercase tracking-[0.2em] text-white/70">
               {MIX.map((m, i) => (
@@ -185,7 +199,6 @@ function Home() {
             <div className="mt-8 max-w-4xl">
               <BookingSearch variant="hero" />
             </div>
-
           </div>
         </div>
       </section>
@@ -212,11 +225,11 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-32">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <SectionMark index={2} label="Open today" />
-            <h2 className="display-md mt-4">Available now.</h2>
+            <SectionMark index={2} label="Live buchbar" />
+            <h2 className="display-md mt-4">Was heute zu deinem Tag passt.</h2>
           </div>
           <Link to="/spaces" className="link-underline text-sm text-muted-foreground">
-            All spaces
+            Alle Spaces
           </Link>
         </div>
         <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -249,16 +262,16 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="rounded-[2rem] border border-border bg-card px-6 py-16 sm:px-12 lg:px-20 lg:py-28">
           <SectionMark index={4} label="The mix" />
-          <p className="eyebrow mt-4">MIXD means mixed.</p>
+          <p className="eyebrow mt-4">MIXD bedeutet mixed.</p>
           <h2 className="display-lg mt-8 max-w-4xl">
-            MIXD isn&apos;t made for one type of person.
+            MIXD ist nicht für nur eine Art Mensch gebaut.
             <br />
-            <span className="text-muted-foreground">That&apos;s the point.</span>
+            <span className="text-muted-foreground">Genau das ist der Punkt.</span>
           </h2>
 
           <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_1fr]">
             <p className="font-display text-3xl leading-[1.15] tracking-tight sm:text-4xl">
-              Students.
+              Studierende.
               <br />
               Founders.
               <br />
@@ -266,18 +279,18 @@ function Home() {
               <br />
               Teams.
               <br />
-              Businesses.
+              Unternehmen.
             </p>
             <div className="max-w-md text-lg text-muted-foreground">
-              <p>Different people come here for different reasons.</p>
+              <p>MIXD bringt bewusst unterschiedliche Arbeitsrealitäten an einem Ort zusammen.</p>
               <p className="mt-6 text-foreground">
-                Some need focus.
+                Manche brauchen Fokus.
                 <br />
-                Some need a meeting room.
+                Manche brauchen einen Meetingraum.
                 <br />
-                Some need an office for three months.
+                Manche brauchen ein Büro für drei Monate.
                 <br />
-                Some just need a desk for today.
+                Manche brauchen einfach heute einen Desk.
               </p>
               <p className="mt-6 flex items-center gap-2 text-foreground">
                 <XMark className="size-3 text-accent" /> That&apos;s MIXD.
@@ -297,14 +310,14 @@ function Home() {
 
       {/* 05 — Space types */}
       <section className="container-mixd mt-24 lg:mt-36">
-        <SectionMark index={5} label="Space types" />
-        <h2 className="display-md mt-4">Pick what fits today.</h2>
+        <SectionMark index={5} label="Space Typen" />
+        <h2 className="display-md mt-4">Wähle, was heute passt.</h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {SPACE_TYPES.map((t) => (
             <Link
               key={t.code}
               to={t.to}
-              className="group flex flex-col justify-between rounded-[1.75rem] border border-border bg-card p-8 transition-colors hover:border-foreground"
+              className="group flex flex-col justify-between rounded-lg border border-border bg-card p-8 transition-colors hover:border-foreground"
             >
               <span className="inline-flex items-center gap-2 text-[0.625rem] uppercase tracking-[0.24em] text-muted-foreground">
                 <XMark className="size-2.5 text-accent" />
@@ -322,10 +335,11 @@ function Home() {
       {/* 06 — How it works */}
       <section className="mt-24 border-y border-border bg-foreground py-20 text-background lg:mt-36 lg:py-28">
         <div className="container-mixd">
-          <SectionMark index={6} label="How it works" className="text-background/60" />
-          <h2 className="display-md mt-6 max-w-2xl">Pick it. Request it. Work.</h2>
+          <SectionMark index={6} label="Booking Flow" className="text-background/60" />
+          <h2 className="display-md mt-6 max-w-2xl">Auswählen. Anfragen. Loslegen.</h2>
           <p className="mt-6 max-w-md text-background/70">
-            Choose your space and time, send the request, and we confirm it with you.
+            Der digitale Flow ist schon da: Space und Zeit wählen, Extras hinzufügen, Anfrage
+            abschicken. Bis Payment live ist, bestätigen wir persönlich.
           </p>
 
           <ol className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -346,8 +360,8 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="grid gap-12 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
-            <SectionMark index={7} label="Your reason" />
-            <p className="eyebrow mt-4">What brings you to MIXD?</p>
+            <SectionMark index={7} label="Dein Anlass" />
+            <p className="eyebrow mt-4">Warum kommst du zu MIXD?</p>
             <ul className="mt-8 divide-y divide-border border-y border-border">
               {NEEDS.map((n, i) => (
                 <li key={n.need}>
@@ -358,7 +372,9 @@ function Home() {
                     onClick={() => setNeed(i)}
                     className={
                       "flex w-full items-center justify-between gap-4 py-4 text-left font-display text-xl tracking-tight transition-colors sm:text-2xl " +
-                      (need === i ? "text-foreground" : "text-muted-foreground hover:text-foreground")
+                      (need === i
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground")
                     }
                   >
                     {n.need}
@@ -373,7 +389,7 @@ function Home() {
               ))}
             </ul>
             <Button asChild className="mt-8">
-              <Link to={NEEDS[need]!.to}>Show me the space</Link>
+              <Link to={NEEDS[need]!.to}>Passenden Space zeigen</Link>
             </Button>
           </div>
 
@@ -429,7 +445,7 @@ function Home() {
             </address>
             <Button asChild variant="outline" className="mt-8">
               <Link to="/locations/$slug" params={{ slug: "garbsen" }}>
-                See the location
+                Standort ansehen
               </Link>
             </Button>
           </div>
@@ -439,9 +455,9 @@ function Home() {
       {/* 09 — Memberships */}
       <section className="container-mixd mt-24 lg:mt-32">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display-md">Here often?</h2>
+          <h2 className="display-md">Öfter hier?</h2>
           <Link to="/memberships" className="link-underline text-sm text-muted-foreground">
-            Compare plans
+            Pläne vergleichen
           </Link>
         </div>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -451,7 +467,7 @@ function Home() {
               <p className="mt-2 text-sm text-muted-foreground">{m.description}</p>
               <p className="mt-8 text-2xl">
                 {formatPrice(m.monthly_price_cents)}
-                <span className="text-sm text-muted-foreground"> / month</span>
+                <span className="text-sm text-muted-foreground"> / Monat</span>
               </p>
             </div>
           ))}
@@ -462,13 +478,13 @@ function Home() {
       <section className="container-mixd mt-24 lg:mt-36">
         <div className="grid gap-10 overflow-hidden rounded-[2rem] border border-border lg:grid-cols-[1fr_1fr] lg:items-center">
           <div className="p-8 lg:p-14">
-            <p className="eyebrow">MIXD for Teams</p>
-            <h2 className="display-md mt-4 max-w-md">Workspace when your team needs it.</h2>
+            <p className="eyebrow">MIXD für Teams</p>
+            <h2 className="display-md mt-4 max-w-md">Workspace, wenn dein Team ihn braucht.</h2>
             <p className="mt-6 max-w-sm text-lg text-muted-foreground">
-              Private offices. Project spaces. Meeting rooms. Flexible terms.
+              Private Offices. Projektflächen. Meeting Rooms. Flexible Laufzeiten.
             </p>
             <Button asChild className="mt-8">
-              <Link to="/teams">For teams</Link>
+              <Link to="/teams">Für Teams</Link>
             </Button>
           </div>
           <div className="media-zoom aspect-[16/10] bg-muted">
@@ -491,21 +507,20 @@ function Home() {
           <h2 className="display-lg mx-auto mt-8 max-w-2xl">Find your space.</h2>
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
-              <Link to="/spaces">See all spaces</Link>
+              <Link to="/spaces">Alle Spaces ansehen</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link to="/book">Book now</Link>
+              <Link to="/book">Jetzt anfragen</Link>
             </Button>
           </div>
         </div>
       </section>
 
       <LeadBand
-        title="Want in before we open the doors?"
-        line="Get early access to MIXD.SPACE Garbsen: first dates, first desks, first rates."
+        title="Willst du rein, bevor die Türen offiziell offen sind?"
+        line="Hol dir Early Access für MIXD.SPACE Garbsen: erste Termine, erste Desks, erste Konditionen."
         kind="early_access"
       />
-
     </SiteShell>
   );
 }

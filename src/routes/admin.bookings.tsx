@@ -47,19 +47,19 @@ function AdminBookings() {
     const { error } = await supabase.from("bookings").update({ status: next }).eq("id", id);
     if (error) toast.error(error.message);
     else {
-      toast.success("Booking updated.");
+      toast.success("Buchung aktualisiert.");
       qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     }
   }
 
   return (
     <div>
-      <p className="eyebrow">Bookings</p>
-      <h1 className="display-md mt-3">Every booking.</h1>
+      <p className="eyebrow">Buchungen</p>
+      <h1 className="display-md mt-3">Alle Buchungen und Anfragen.</h1>
 
       <div className="mt-8 flex flex-wrap gap-6 border-y border-border py-5">
         <label className="block">
-          <span className="eyebrow">Date</span>
+          <span className="eyebrow">Datum</span>
           <input
             type="date"
             className="h-10 border-0 border-b border-border bg-transparent text-sm outline-none focus:border-foreground"
@@ -74,7 +74,7 @@ function AdminBookings() {
             value={status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option value="">All</option>
+            <option value="">Alle</option>
             {STATUSES.map((s) => (
               <option key={s} value={s}>
                 {s.replace("_", " ")}
@@ -87,7 +87,10 @@ function AdminBookings() {
       {isLoading && <div className="mt-8 h-24 animate-pulse bg-muted" />}
       {!isLoading && rows.length === 0 && (
         <div className="mt-8">
-          <EmptyState title="No bookings match." description="Try another date or status." />
+          <EmptyState
+            title="Keine passenden Buchungen."
+            description="Probiere ein anderes Datum oder einen anderen Status."
+          />
         </div>
       )}
 

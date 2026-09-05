@@ -48,7 +48,11 @@ function AdminOverview() {
   const now = Date.now();
   const statusFor = (spaceId: string) => {
     const relevant = rows.filter((b) => b.space_id === spaceId && b.status !== "cancelled");
-    if (relevant.some((b) => new Date(b.starts_at).getTime() <= now && new Date(b.ends_at).getTime() >= now))
+    if (
+      relevant.some(
+        (b) => new Date(b.starts_at).getTime() <= now && new Date(b.ends_at).getTime() >= now,
+      )
+    )
       return "Occupied";
     if (relevant.some((b) => isToday(b.starts_at) && new Date(b.starts_at).getTime() > now))
       return "Upcoming";
@@ -64,52 +68,50 @@ function AdminOverview() {
   ).length;
 
   return (
-
     <div>
-      <p className="eyebrow">Overview</p>
-      <h1 className="display-md mt-3">Today at MIXD.</h1>
+      <p className="eyebrow">Überblick</p>
+      <h1 className="display-md mt-3">Heute bei MIXD.</h1>
 
       <div className="mt-10 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        <Kpi label="Revenue today" value={formatPrice(revenueToday)} loading={isLoading} />
-        <Kpi label="Revenue this month" value={formatPrice(revenueMonth)} loading={isLoading} />
-        <Kpi label="Bookings today" value={String(bookingsToday)} loading={isLoading} />
-        <Kpi label="Occupancy today" value={`${occupancy}%`} loading={isLoading} />
+        <Kpi label="Umsatz heute" value={formatPrice(revenueToday)} loading={isLoading} />
+        <Kpi label="Umsatz Monat" value={formatPrice(revenueMonth)} loading={isLoading} />
+        <Kpi label="Buchungen heute" value={String(bookingsToday)} loading={isLoading} />
+        <Kpi label="Auslastung heute" value={`${occupancy}%`} loading={isLoading} />
       </div>
 
-      <h2 className="display-md mt-16">Go-live checklist</h2>
+      <h2 className="display-md mt-16">Go-live Checkliste</h2>
       <p className="mt-3 max-w-xl text-sm text-muted-foreground">
-        The platform is running in pre-launch mode: spaces, rates and photos on the website are
-        example data until you replace them here.
+        Die Plattform läuft im Pre-Launch-Modus: Spaces, Preise und Fotos können noch Beispielwerte
+        sein, bis sie hier final gepflegt sind.
       </p>
       <ul className="mt-6 divide-y divide-border border-y border-border">
         <ChecklistItem
-          label="Spaces with a photo"
+          label="Spaces mit Foto"
           done={spacesWithImage}
           total={totalSpaces}
           to="/admin/spaces"
         />
         <ChecklistItem
-          label="Spaces with a description"
+          label="Spaces mit Beschreibung"
           done={spacesWithDescription}
           total={totalSpaces}
           to="/admin/spaces"
         />
         <ChecklistItem
-          label="Locations with address and contact"
+          label="Standorte mit Adresse und Kontakt"
           done={locationsReady}
           total={(locations ?? []).length}
           to="/admin/locations"
         />
         <li className="flex items-center justify-between gap-4 py-4 text-sm">
-          <span>Online payment</span>
+          <span>Online-Zahlung</span>
           <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
-            Demo — bookings arrive as requests
+            Demo - Buchungen kommen als Anfrage rein
           </span>
         </li>
       </ul>
 
-
-      <h2 className="display-md mt-16">Location performance</h2>
+      <h2 className="display-md mt-16">Standort-Performance</h2>
       <div className="mt-6 grid gap-px border border-border bg-border md:grid-cols-2">
         {(locations ?? []).map((l) => {
           const locSpaces = (spaces ?? []).filter((s) => s.location_id === l.id);
@@ -120,16 +122,16 @@ function AdminOverview() {
           return (
             <div key={l.id} className="bg-background p-8">
               <p className="font-display text-lg tracking-tight uppercase">{l.city ?? l.name}</p>
-              <p className="mt-6 font-display text-4xl tracking-tight">{occ}% occupied</p>
+              <p className="mt-6 font-display text-4xl tracking-tight">{occ}% belegt</p>
               <dl className="mt-6 grid grid-cols-3 gap-4 text-sm">
                 <div>
-                  <dt className="eyebrow">Revenue</dt>
+                  <dt className="eyebrow">Umsatz</dt>
                   <dd className="mt-1">
                     {formatPrice(locBookings.reduce((s, b) => s + b.total_cents, 0))}
                   </dd>
                 </div>
                 <div>
-                  <dt className="eyebrow">Bookings</dt>
+                  <dt className="eyebrow">Buchungen</dt>
                   <dd className="mt-1">{locBookings.length}</dd>
                 </div>
                 <div>
@@ -142,7 +144,7 @@ function AdminOverview() {
         })}
       </div>
 
-      <h2 className="display-md mt-16">Live space status</h2>
+      <h2 className="display-md mt-16">Live Space Status</h2>
       <ul className="mt-6 divide-y divide-border border-y border-border">
         {(spaces ?? []).map((s) => (
           <li key={s.id} className="flex items-center justify-between gap-4 py-4">
@@ -157,18 +159,21 @@ function AdminOverview() {
         ))}
       </ul>
 
-      <h2 className="display-md mt-16">Next bookings</h2>
+      <h2 className="display-md mt-16">Nächste Buchungen</h2>
       <ul className="mt-6 divide-y divide-border border-y border-border">
-        {rows.filter((b) => new Date(b.ends_at).getTime() >= now).slice(0, 8).map((b) => (
-          <li key={b.id} className="flex items-center justify-between gap-4 py-4 text-sm">
-            <span>{b.spaces?.name}</span>
-            <span className="text-muted-foreground">
-              {new Date(b.starts_at).toLocaleDateString("en-GB")} · {formatTime(b.starts_at)}
-            </span>
-          </li>
-        ))}
+        {rows
+          .filter((b) => new Date(b.ends_at).getTime() >= now)
+          .slice(0, 8)
+          .map((b) => (
+            <li key={b.id} className="flex items-center justify-between gap-4 py-4 text-sm">
+              <span>{b.spaces?.name}</span>
+              <span className="text-muted-foreground">
+                {new Date(b.starts_at).toLocaleDateString("de-DE")} · {formatTime(b.starts_at)}
+              </span>
+            </li>
+          ))}
         {rows.length === 0 && (
-          <li className="py-8 text-sm text-muted-foreground">No bookings yet.</li>
+          <li className="py-8 text-sm text-muted-foreground">Noch keine Buchungen.</li>
         )}
       </ul>
     </div>
@@ -211,7 +216,7 @@ function ChecklistItem({
           (complete ? "text-muted-foreground" : "text-accent")
         }
       >
-        {done} / {total} ready
+        {done} / {total} bereit
       </span>
     </li>
   );

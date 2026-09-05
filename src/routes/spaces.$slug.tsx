@@ -4,7 +4,13 @@ import { SiteShell, EmptyState } from "@/components/site/SiteShell";
 import { SpaceCard } from "@/components/spaces/SpaceCard";
 import { BookingWidget } from "@/components/booking/BookingWidget";
 import { spaceQuery, spacesQuery } from "@/lib/queries";
-import { SPACE_TYPE_LABEL, RATE_LABEL, formatPrice } from "@/lib/mixd";
+import {
+  SPACE_TYPE_LABEL,
+  RATE_LABEL,
+  amenityLabel,
+  formatPrice,
+  spaceMarketingCopy,
+} from "@/lib/mixd";
 import { spaceImage } from "@/lib/space-images";
 import { SpaceCode } from "@/components/site/XMark";
 
@@ -19,12 +25,12 @@ export const Route = createFileRoute("/spaces/$slug")({
         { title: `${name} — MIXD.SPACE Garbsen` },
         {
           name: "description",
-          content: `Book ${name} at MIXD.SPACE Garbsen. Flexible workspace by the hour, day or month.`,
+          content: `${name} bei MIXD.SPACE Garbsen anfragen. Flexible Workspace-Nutzung nach Stunde, Tag oder Monat.`,
         },
         { property: "og:title", content: `${name} — MIXD.SPACE` },
         {
           property: "og:description",
-          content: `Book ${name} at MIXD.SPACE Garbsen, Erlenweg 18.`,
+          content: `${name} bei MIXD.SPACE Garbsen, Erlenweg 18.`,
         },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
@@ -35,7 +41,10 @@ export const Route = createFileRoute("/spaces/$slug")({
   notFoundComponent: () => (
     <SiteShell>
       <div className="container-mixd py-24">
-        <EmptyState title="This space doesn't exist." description="It may have been removed." />
+        <EmptyState
+          title="Diesen Space gibt es nicht."
+          description="Vielleicht wurde er entfernt oder umbenannt."
+        />
       </div>
     </SiteShell>
   ),
@@ -63,12 +72,13 @@ function SpaceDetail() {
       : [spaceImage(space.space_type, (space as { code?: string | null }).code ?? null)];
   const amenities = (space.space_amenities ?? []).map((a) => a.amenities?.name).filter(Boolean);
   const related = (all ?? []).filter((s) => s.id !== space.id && s.space_type === space.space_type);
+  const description = spaceMarketingCopy(space);
 
   return (
     <SiteShell>
       <section className="container-mixd pt-10">
         <Link to="/spaces" className="link-underline text-sm text-muted-foreground">
-          ← All spaces
+          ← Alle Spaces
         </Link>
         <div className="mt-6 grid gap-2 md:grid-cols-3">
           {images.slice(0, 3).map((src, i) => (
@@ -97,39 +107,44 @@ function SpaceDetail() {
             <SpaceCode code={(space as { code?: string | null }).code ?? null} />
           </div>
           <h1 className="display-lg mt-4">{space.name}</h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">{space.description}</p>
+          <p className="mt-6 max-w-xl text-lg text-muted-foreground">{description}</p>
 
           <dl className="mt-12 grid gap-x-10 gap-y-8 border-t border-border pt-8 sm:grid-cols-3">
-            <Fact label="Capacity" value={space.capacity ? `${space.capacity} ${space.capacity === 1 ? "person" : "people"}` : "On request"} />
-            <Fact label="Size" value={space.size_sqm ? `${space.size_sqm} m²` : "On request"} />
             <Fact
-              label="Location"
+              label="Kapazität"
+              value={
+                space.capacity
+                  ? `${space.capacity} ${space.capacity === 1 ? "Person" : "Personen"}`
+                  : "Auf Anfrage"
+              }
+            />
+            <Fact label="Größe" value={space.size_sqm ? `${space.size_sqm} m²` : "Auf Anfrage"} />
+            <Fact
+              label="Standort"
               value={space.locations?.name ?? "—"}
               href={space.locations ? `/locations/${space.locations.slug}` : undefined}
             />
           </dl>
 
           <div className="mt-12 border-t border-border pt-8">
-            <p className="eyebrow">Ideal for</p>
+            <p className="eyebrow">Ideal für</p>
             <ul className="mt-5 grid gap-y-3 sm:grid-cols-2">
               {(IDEAL_FOR[space.space_type] ?? []).map((line) => (
                 <li key={line} className="flex gap-3 text-sm">
-                  <span className="text-primary">✕</span>
+                  <span className="text-primary">x</span>
                   {line}
                 </li>
               ))}
             </ul>
           </div>
 
-
-
           {amenities.length > 0 && (
             <div className="mt-12 border-t border-border pt-8">
-              <p className="eyebrow">Equipment</p>
+              <p className="eyebrow">Ausstattung</p>
               <ul className="mt-5 grid gap-y-3 sm:grid-cols-2">
                 {amenities.map((a) => (
                   <li key={a} className="text-sm">
-                    {a}
+                    {amenityLabel(a)}
                   </li>
                 ))}
               </ul>
@@ -137,7 +152,7 @@ function SpaceDetail() {
           )}
 
           <div className="mt-12 border-t border-border pt-8">
-            <p className="eyebrow">Rates</p>
+            <p className="eyebrow">Preise</p>
             <ul className="mt-5 divide-y divide-border">
               {(space.pricing_rules ?? [])
                 .filter((r) => r.active)
@@ -154,7 +169,7 @@ function SpaceDetail() {
 
           {space.rules && (
             <div className="mt-12 border-t border-border pt-8">
-              <p className="eyebrow">House rules</p>
+              <p className="eyebrow">House Rules</p>
               <p className="mt-4 text-sm text-muted-foreground">{space.rules}</p>
             </div>
           )}
@@ -167,7 +182,7 @@ function SpaceDetail() {
 
       {related.length > 0 && (
         <section className="container-mixd mt-28 pb-24">
-          <h2 className="display-md">Related spaces</h2>
+          <h2 className="display-md">Ähnliche Spaces</h2>
           <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {related.slice(0, 3).map((s) => (
               <SpaceCard key={s.id} space={s} />
@@ -181,34 +196,34 @@ function SpaceDetail() {
 
 const IDEAL_FOR: Record<string, string[]> = {
   flex_desk: [
-    "A study day between lectures",
-    "Remote work away from the kitchen table",
-    "Freelancers who need a few focused hours",
-    "Anyone testing MIXD for the first time",
+    "Lerntage zwischen Vorlesungen",
+    "Remote Work weg vom Küchentisch",
+    "Freelancer mit ein paar fokussierten Stunden",
+    "Alle, die MIXD zum ersten Mal testen",
   ],
   private_office: [
-    "Back-to-back calls and interviews",
-    "Confidential work",
-    "Founders who need a fixed base",
-    "Deep work without headphones",
+    "Back-to-back Calls und Interviews",
+    "Vertrauliche Arbeit",
+    "Founder mit fester Base",
+    "Deep Work ohne Kopfhörer",
   ],
   team_office: [
-    "Small teams working side by side",
-    "Project sprints and workshops",
-    "Companies without a Hannover office",
-    "Studios that need room to spread out",
+    "Kleine Teams, die nebeneinander arbeiten",
+    "Projekt-Sprints und Workshops",
+    "Unternehmen ohne eigenes Büro bei Hannover",
+    "Studios und Teams mit Platzbedarf",
   ],
   meeting_room: [
-    "Client meetings and pitches",
-    "Board and partner sessions",
-    "Group work and thesis defences",
-    "Hybrid calls with the room on screen",
+    "Kundentermine und Pitches",
+    "Board- und Partner-Sessions",
+    "Gruppenarbeit und Abschluss-Präsentationen",
+    "Hybride Calls mit professionellem Raum",
   ],
   workshop_space: [
-    "Workshops, trainings and offsites",
-    "Community and campus events",
-    "Product days and hackathons",
-    "Anything that needs space to move",
+    "Workshops, Trainings und Offsites",
+    "Community- und Campus-Events",
+    "Product Days und Hackathons",
+    "Alles, was Raum zum Bewegen braucht",
   ],
 };
 

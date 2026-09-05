@@ -8,7 +8,7 @@ export const Route = createFileRoute("/meeting-rooms")({
       {
         name: "description",
         content:
-          "Book a meeting room in Garbsen-Berenbostel by the hour or day. Screen, whiteboard, video conferencing and catering on request.",
+          "Meeting Room in Garbsen-Berenbostel anfragen: für Kundentermine, Workshops, Team-Sessions und hybride Meetings.",
       },
       { property: "og:title", content: "Meeting rooms in Garbsen — MIXD.SPACE" },
       {
@@ -27,15 +27,15 @@ export const Route = createFileRoute("/meeting-rooms")({
         <>
           MEET
           <br />
-          where it matters.
+          wenn der Raum zählt.
         </>
       }
-      intro="Rooms for conversations that need a room. Screen, whiteboard and coffee, ready when you arrive."
-      audience="Companies · Workshops · Client meetings · Team sessions"
+      intro="Räume für Gespräche, die nicht zwischen Tür und Angel stattfinden sollten. Screen, Whiteboard und Kaffee stehen bereit."
+      audience="Unternehmen · Workshops · Kundentermine · Team-Sessions"
       points={[
-        ["By the hour", "Book one hour or the whole day."],
-        ["Equipped", "Screen, whiteboard, video conferencing."],
-        ["Catering", "Add drinks and lunch at checkout."],
+        ["Stundenweise", "Eine Stunde, halber Tag oder ganzer Workshop-Tag."],
+        ["Ausgestattet", "Screen, Whiteboard und Video-Setup je nach Raum."],
+        ["Extras", "Getränke, Kaffee oder Catering mit anfragen."],
       ]}
     />
   ),

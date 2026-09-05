@@ -83,7 +83,11 @@ export function SlotPicker({
   }
 
   if (slots.length === 0) {
-    return <p className="text-sm text-muted-foreground">No opening hours set for this day.</p>;
+    return (
+      <p className="text-sm text-muted-foreground">
+        Für diesen Tag sind noch keine Öffnungszeiten hinterlegt.
+      </p>
+    );
   }
 
   return (
@@ -113,7 +117,8 @@ export function SlotPicker({
         })}
       </div>
       <p className="mt-3 text-xs text-muted-foreground">
-        Tap a start time, then tap a later time to extend. Greyed-out slots are already taken.
+        Tippe eine Startzeit an und danach eine spätere Zeit, um den Slot zu verlängern. Ausgegraute
+        Zeiten sind bereits belegt oder vorbei.
       </p>
     </div>
   );

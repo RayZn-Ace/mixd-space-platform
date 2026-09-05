@@ -25,17 +25,17 @@ export const Route = createFileRoute("/private-offices")({
       eyebrow="Private Offices"
       title={
         <>
-          A door
+          Dein Raum
           <br />
-          that shuts.
+          mit Tür.
         </>
       }
-      intro="A furnished, closed office for focused work or confidential calls. Yours for a day or a year."
-      audience="Founders · Professionals · Confidential calls · Project work"
+      intro="Ein möbliertes, geschlossenes Office für Fokus, vertrauliche Calls, Interviews oder Arbeit, die nicht in den offenen Bereich gehoert."
+      audience="Founder · Professionals · vertrauliche Calls · Projektarbeit"
       points={[
-        ["Fully furnished", "Desk, chair, monitor, light."],
-        ["Private", "Closed door, no open-plan noise."],
-        ["Flexible term", "Day, week or month rates."],
+        ["Möbliert", "Desk, Stuhl, Monitor und Licht sind bereit."],
+        ["Privat", "Tür zu, Fokus an."],
+        ["Flexibel", "Tag, Woche oder Monat statt langer Mietbindung."],
       ]}
     />
   ),

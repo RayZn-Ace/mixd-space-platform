@@ -14,8 +14,8 @@ type TabItem = {
 const TABS: TabItem[] = [
   { to: "/", label: "Home", icon: Home, exact: true },
   { to: "/spaces", label: "Spaces", icon: Search },
-  { to: "/book", label: "Book", icon: CalendarPlus, center: true },
-  { to: "/memberships", label: "Plans", icon: Ticket },
+  { to: "/book", label: "Buchen", icon: CalendarPlus, center: true },
+  { to: "/memberships", label: "Pläne", icon: Ticket },
 ];
 
 export function MobileTabBar() {
@@ -74,7 +74,7 @@ export function MobileTabBar() {
             >
               <User className="size-5" />
             </span>
-            {user ? "My MIXD" : "Sign in"}
+            {user ? "My MIXD" : "Login"}
           </Link>
         </li>
       </ul>

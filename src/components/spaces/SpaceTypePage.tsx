@@ -29,7 +29,7 @@ export function SpaceTypePage({
       <PageHeader eyebrow={eyebrow} title={title} intro={intro}>
         <Button asChild>
           <Link to="/spaces" search={{ type }}>
-            Check availability
+            Verfügbarkeit pruefen
           </Link>
         </Button>
       </PageHeader>
@@ -61,10 +61,10 @@ export function SpaceTypePage({
         ) : (data ?? []).length === 0 ? (
           <EmptyState
             title="Nothing listed here yet."
-            description="These spaces are being prepared. Ask us what's coming."
+            description="Diese Spaces werden vorbereitet. Frag uns gern, was als Nächstes kommt."
             action={
               <Button asChild variant="outline">
-                <Link to="/spaces">Browse all spaces</Link>
+                <Link to="/spaces">Alle Spaces ansehen</Link>
               </Button>
             }
           />

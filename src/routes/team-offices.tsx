@@ -8,7 +8,7 @@ export const Route = createFileRoute("/team-offices")({
       {
         name: "description",
         content:
-          "Team offices in Garbsen-Berenbostel for whole teams, projects and workshops. Bookable by the day or month.",
+          "Team Offices in Garbsen-Berenbostel für Projektteams, Startups und Unternehmen. Flexibel für Tage, Wochen oder Monate anfragen.",
       },
       { property: "og:title", content: "Team offices in Garbsen — MIXD.SPACE" },
       {
@@ -27,15 +27,15 @@ export const Route = createFileRoute("/team-offices")({
         <>
           CREATE
           <br />
-          without limits.
+          mit deinem Team.
         </>
       }
-      intro="Room for a whole team, a project sprint or a workshop week — without signing a lease."
-      audience="Startups · Project teams · Corporate teams · Temporary offices"
+      intro="Raum für ein ganzes Team, einen Projekt-Sprint oder mehrere Wochen Zusammenarbeit - ohne klassischen Mietvertrag."
+      audience="Startups · Projektteams · Corporate Teams · temporäre Projektbüros"
       points={[
-        ["Team-sized", "Space for four to twelve people."],
-        ["Project-ready", "Set up for focused work and workshops."],
-        ["Monthly rates", "Scale up or down as the team changes."],
+        ["Teamgröße", "Platz für mehrere Personen, je nach Raum und Setup."],
+        ["Projektbereit", "Ausgelegt auf Zusammenarbeit, Fokus und Workshops."],
+        ["Skalierbar", "Hoch oder runter, wenn sich dein Team verändert."],
       ]}
     />
   ),

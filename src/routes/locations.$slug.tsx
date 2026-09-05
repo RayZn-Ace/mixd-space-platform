@@ -19,12 +19,12 @@ export const Route = createFileRoute("/locations/$slug")({
         { title: `MIXD.SPACE ${city} — Coworking, Büro & Meetingraum` },
         {
           name: "description",
-          content: `MIXD.SPACE ${city}: flexible desks, private offices and meeting rooms. Book by the hour, day or month.`,
+          content: `MIXD.SPACE ${city}: flexible Desks, Private Offices, Team Offices und Meeting Rooms für Arbeit, Meetings und Projekte.`,
         },
         { property: "og:title", content: `MIXD.SPACE ${city}` },
         {
           property: "og:description",
-          content: `Flexible workspace in ${city}. Book by the hour, day or month.`,
+          content: `Flexible Spaces in ${city}. work. meet. create.`,
         },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
@@ -56,7 +56,7 @@ function LocationPage() {
     return (
       <SiteShell>
         <div className="container-mixd py-24">
-          <EmptyState title="This location doesn't exist." />
+          <EmptyState title="Diesen Standort gibt es nicht." />
         </div>
       </SiteShell>
     );
@@ -85,11 +85,18 @@ function LocationPage() {
 
   return (
     <SiteShell>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <section className="container-mixd pt-14">
-        <p className="eyebrow">Location</p>
+        <p className="eyebrow">Standort</p>
         <h1 className="display-xl mt-6">{location.name}</h1>
+        <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
+          Der erste MIXD.SPACE Standort in Garbsen-Berenbostel: nah genug für den Alltag,
+          professionell genug für Kundentermine, flexibel genug für alles dazwischen.
+        </p>
         <address className="mt-8 text-lg not-italic text-muted-foreground">
           {location.address_line1}
           <br />
@@ -98,7 +105,7 @@ function LocationPage() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild>
             <Link to="/spaces" search={{ location: slug }}>
-              Check availability
+              Verfügbarkeit prüfen
             </Link>
           </Button>
           <Button asChild variant="outline">
@@ -107,15 +114,14 @@ function LocationPage() {
               target="_blank"
               rel="noreferrer"
             >
-              Get directions
+              Route öffnen
             </a>
           </Button>
           <Button asChild variant="ghost">
-            <Link to="/book">Find a space</Link>
+            <Link to="/book">Space anfragen</Link>
           </Button>
         </div>
       </section>
-
 
       <section className="container-mixd mt-12">
         <div className="media-zoom aspect-[16/9] bg-muted sm:aspect-[16/7]">
@@ -133,7 +139,7 @@ function LocationPage() {
 
       <section className="container-mixd mt-24 grid gap-12 border-t border-border pt-12 lg:grid-cols-3">
         <div>
-          <p className="eyebrow">Opening hours</p>
+          <p className="eyebrow">Öffnungszeiten</p>
           <ul className="mt-5 space-y-2 text-sm">
             {Object.entries(hours).map(([k, v]) => (
               <li key={k} className="flex justify-between gap-4">
@@ -144,20 +150,20 @@ function LocationPage() {
           </ul>
           {location.parking_info && (
             <>
-              <p className="eyebrow mt-10">Parking</p>
+              <p className="eyebrow mt-10">Parken</p>
               <p className="mt-4 text-sm text-muted-foreground">{location.parking_info}</p>
             </>
           )}
           {location.getting_there && (
             <>
-              <p className="eyebrow mt-10">Getting there</p>
+              <p className="eyebrow mt-10">Anfahrt</p>
               <p className="mt-4 text-sm text-muted-foreground">{location.getting_there}</p>
             </>
           )}
         </div>
 
         <div>
-          <p className="eyebrow">Amenities</p>
+          <p className="eyebrow">Ausstattung</p>
           <ul className="mt-5 grid gap-2 text-sm">
             {amenities.map((a) => (
               <li key={a}>{a}</li>
@@ -176,7 +182,7 @@ function LocationPage() {
         </div>
 
         <div>
-          <p className="eyebrow">Map</p>
+          <p className="eyebrow">Karte</p>
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`}
             target="_blank"
@@ -189,7 +195,7 @@ function LocationPage() {
             <span className="mt-1">
               {location.postal_code} {location.city}
             </span>
-            <span className="mt-4 text-xs uppercase tracking-[0.16em]">Open in maps</span>
+            <span className="mt-4 text-xs uppercase tracking-[0.16em]">In Maps öffnen</span>
           </a>
         </div>
       </section>
@@ -211,9 +217,13 @@ function LocationPage() {
 
       <section className="container-mixd mt-24 pb-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="display-md">Spaces here</h2>
-          <Link to="/spaces" search={{ location: slug }} className="link-underline text-sm text-muted-foreground">
-            Check availability
+          <h2 className="display-md">Spaces in Garbsen</h2>
+          <Link
+            to="/spaces"
+            search={{ location: slug }}
+            className="link-underline text-sm text-muted-foreground"
+          >
+            Verfügbarkeit prüfen
           </Link>
         </div>
         <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">

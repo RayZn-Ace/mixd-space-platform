@@ -150,6 +150,8 @@ const AUDIENCES = [
   "Researcher",
 ];
 
+const BUILDING_HIGHLIGHTS = ["ca. 1.000 m² Bürofläche", "2 Etagen", "modernisiert", "barrierefrei"];
+
 function Home() {
   const { data: spaces, isLoading } = useQuery(spacesQuery());
   const { data: memberships } = useQuery(membershipsQuery);
@@ -438,11 +440,23 @@ function Home() {
           <div className="p-6 sm:p-10 lg:p-14">
             <p className="eyebrow">Location</p>
             <h2 className="display-md mt-4">MIXD.SPACE Garbsen</h2>
+            <p className="mt-5 max-w-md text-muted-foreground">
+              Ein modernes Bürohaus auf einem großzügigen Grundstück: nah an Hannover, gut
+              erreichbar und groß genug für den bewussten Mix aus Desk, Office, Meeting und
+              Projektfläche.
+            </p>
             <address className="mt-6 text-lg not-italic text-muted-foreground">
               Erlenweg 18
               <br />
               30827 Garbsen-Berenbostel
             </address>
+            <ul className="mt-6 flex flex-wrap gap-2 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              {BUILDING_HIGHLIGHTS.map((item) => (
+                <li key={item} className="rounded-full border border-border px-3 py-2">
+                  {item}
+                </li>
+              ))}
+            </ul>
             <Button asChild variant="outline" className="mt-8">
               <Link to="/locations/$slug" params={{ slug: "garbsen" }}>
                 Standort ansehen

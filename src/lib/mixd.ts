@@ -151,6 +151,7 @@ export function spaceMarketingCopy(space: Pick<SpaceRow, "slug" | "space_type" |
 const AMENITY_LABELS: Record<string, string> = {
   "High-speed WiFi": "Highspeed WLAN",
   "Coffee included": "Kaffee inklusive",
+  "Coffee & water": "Kaffee & Wasser",
   Parking: "Parken",
   "Natural light": "Tageslicht",
   "Quiet zone": "Ruhezone",
@@ -160,6 +161,15 @@ const AMENITY_LABELS: Record<string, string> = {
   "Video conferencing": "Video-Setup",
   Projector: "Projektor",
   Catering: "Catering",
+  Printing: "Drucken",
+  "Phone booths": "Phone Booths",
+  Kitchen: "Küche",
+  "Lift access": "Aufzug",
+  "Flexible units": "Flexible Einheiten",
+  "Standing desk": "Stehschreibtisch",
+  "Window seat": "Fensterplatz",
+  Soundproofed: "Schallgedämmt",
+  "Movable furniture": "Flexible Möbel",
 };
 
 export function amenityLabel(name: string) {

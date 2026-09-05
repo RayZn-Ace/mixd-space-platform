@@ -9,7 +9,20 @@ import { BookingSearch } from "@/components/booking/BookingSearch";
 import { Button } from "@/components/ui/button";
 
 import { locationQuery, spacesQuery } from "@/lib/queries";
-import { slugToTitle } from "@/lib/mixd";
+import { amenityLabel, slugToTitle } from "@/lib/mixd";
+
+const BUILDING_FACTS = [
+  ["ca. 1.000 m²", "Bürofläche für Desks, Offices, Meetings und Projektzonen."],
+  ["2 Etagen", "Flexibel teilbar für ruhige Arbeit, Teams und Events."],
+  ["Modernisiert", "Gehobene Ausstattung mit Parkett, Teppich und fugenlosem Gussboden."],
+  ["Barrierefrei", "Das Obergeschoss ist per Fahrstuhl erreichbar."],
+] as const;
+
+const WEEKDAY_LABELS: Record<string, string> = {
+  mon_fri: "Mo - Fr",
+  sat: "Sa",
+  sun: "So",
+};
 
 export const Route = createFileRoute("/locations/$slug")({
   head: ({ params }) => {
@@ -63,7 +76,19 @@ function LocationPage() {
   }
 
   const hours = (location.opening_hours ?? {}) as Record<string, string>;
-  const amenities = (location.amenities ?? []) as string[];
+  const locationAmenities = (location.amenities ?? []) as string[];
+  const amenities =
+    slug === "garbsen"
+      ? Array.from(new Set([...locationAmenities, "Lift access", "Flexible units"]))
+      : locationAmenities;
+  const parkingInfo =
+    slug === "garbsen"
+      ? "Parken direkt am Gebäude auf dem großzügigen Grundstück."
+      : location.parking_info;
+  const gettingThere =
+    slug === "garbsen"
+      ? "Gut erreichbarer Standort in Garbsen mit schneller Anbindung in Richtung Hannover, A2, A352 und regionale Gewerbestandorte."
+      : location.getting_there;
   const mapsQuery = encodeURIComponent(
     `${location.address_line1 ?? ""} ${location.postal_code ?? ""} ${location.city ?? ""}`,
   );
@@ -94,8 +119,9 @@ function LocationPage() {
         <p className="eyebrow">Standort</p>
         <h1 className="display-xl mt-6">{location.name}</h1>
         <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-          Der erste MIXD.SPACE Standort in Garbsen-Berenbostel: nah genug für den Alltag,
-          professionell genug für Kundentermine, flexibel genug für alles dazwischen.
+          Ein modernes, ca. 1.000 m² großes Bürohaus in Garbsen: groß genug für Teams und
+          Unternehmen, zugänglich genug für Studierende, Freelancer und Remote Worker, flexibel
+          genug für alles dazwischen.
         </p>
         <address className="mt-8 text-lg not-italic text-muted-foreground">
           {location.address_line1}
@@ -137,27 +163,49 @@ function LocationPage() {
         <BookingSearch />
       </section>
 
+      <section className="container-mixd mt-24 border-y border-border py-12">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.4fr] lg:items-start">
+          <div>
+            <p className="eyebrow">Das Gebäude</p>
+            <h2 className="display-md mt-4">Ein echtes Bürohaus für den MIXD Alltag.</h2>
+            <p className="mt-5 max-w-md text-muted-foreground">
+              Der Standort ist kein Showroom und kein klassisches Business Center. Er gibt MIXD die
+              richtige Basis: professionelle Räume, flexible Flächen und genug Platz, damit Fokus,
+              Meetings, Projektarbeit und Community nebeneinander funktionieren.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {BUILDING_FACTS.map(([value, label]) => (
+              <div key={value} className="rounded-lg border border-border bg-card p-6">
+                <p className="font-display text-2xl tracking-tight">{value}</p>
+                <p className="mt-3 text-sm text-muted-foreground">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="container-mixd mt-24 grid gap-12 border-t border-border pt-12 lg:grid-cols-3">
         <div>
           <p className="eyebrow">Öffnungszeiten</p>
           <ul className="mt-5 space-y-2 text-sm">
             {Object.entries(hours).map(([k, v]) => (
               <li key={k} className="flex justify-between gap-4">
-                <span className="text-muted-foreground capitalize">{k.replace("_", " – ")}</span>
+                <span className="text-muted-foreground">{WEEKDAY_LABELS[k] ?? k}</span>
                 <span>{v}</span>
               </li>
             ))}
           </ul>
-          {location.parking_info && (
+          {parkingInfo && (
             <>
               <p className="eyebrow mt-10">Parken</p>
-              <p className="mt-4 text-sm text-muted-foreground">{location.parking_info}</p>
+              <p className="mt-4 text-sm text-muted-foreground">{parkingInfo}</p>
             </>
           )}
-          {location.getting_there && (
+          {gettingThere && (
             <>
               <p className="eyebrow mt-10">Anfahrt</p>
-              <p className="mt-4 text-sm text-muted-foreground">{location.getting_there}</p>
+              <p className="mt-4 text-sm text-muted-foreground">{gettingThere}</p>
             </>
           )}
         </div>
@@ -166,12 +214,12 @@ function LocationPage() {
           <p className="eyebrow">Ausstattung</p>
           <ul className="mt-5 grid gap-2 text-sm">
             {amenities.map((a) => (
-              <li key={a}>{a}</li>
+              <li key={a}>{amenityLabel(a)}</li>
             ))}
           </ul>
           {(location.contact_email || location.contact_phone) && (
             <>
-              <p className="eyebrow mt-10">Contact</p>
+              <p className="eyebrow mt-10">Kontakt</p>
               <p className="mt-4 text-sm text-muted-foreground">
                 {location.contact_email}
                 <br />

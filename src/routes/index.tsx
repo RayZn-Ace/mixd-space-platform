@@ -4,10 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/mixd-building-exterior.jpg";
 import locationImage from "@/assets/mixd-building-exterior.jpg";
-import peopleStudent from "@/assets/people-student.jpg";
-import peopleProfessional from "@/assets/people-professional.jpg";
-import peopleCall from "@/assets/people-call.jpg";
-import peopleTeam from "@/assets/people-team.jpg";
+import interiorOpen from "@/assets/mixd-building-open-interior.jpg";
+import interiorOffice from "@/assets/mixd-building-glass-office.jpg";
 import { SiteShell } from "@/components/site/SiteShell";
 import { BookingSearch } from "@/components/booking/BookingSearch";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
@@ -100,26 +98,26 @@ const NEEDS = [
 
 const PEOPLE = [
   {
-    img: peopleStudent,
-    w: 1200,
-    h: 1500,
-    alt: "A student working on a thesis at a quiet desk",
+    img: interiorOpen,
+    w: 1600,
+    h: 1200,
+    alt: "Flexible workspace inside MIXD.SPACE Garbsen",
     label: "Bachelorarbeit. Dritter Kaffee.",
     tag: "DESK.04",
   },
   {
-    img: peopleProfessional,
-    w: 1200,
-    h: 1500,
-    alt: "A professional working on a laptop by the window",
+    img: interiorOffice,
+    w: 1600,
+    h: 1200,
+    alt: "Private office inside MIXD.SPACE Garbsen",
     label: "Remote Day. Nicht zuhause.",
     tag: "DESK.01",
   },
   {
-    img: peopleCall,
-    w: 1200,
-    h: 1500,
-    alt: "A consultant taking a call between appointments",
+    img: interiorOpen,
+    w: 1600,
+    h: 1200,
+    alt: "Open project area inside MIXD.SPACE Garbsen",
     label: "Zwei Termine. Eine Stunde dazwischen.",
     tag: "OFFICE.02",
   },
@@ -503,11 +501,11 @@ function Home() {
           </div>
           <div className="media-zoom aspect-[16/10] bg-muted">
             <img
-              src={peopleTeam}
-              alt="A team meeting in a MIXD.SPACE meeting room"
+              src={interiorOpen}
+              alt="Open team workspace inside MIXD.SPACE Garbsen"
               loading="lazy"
-              width={1500}
-              height={1000}
+              width={1600}
+              height={1200}
               className="media-zoom-img h-full w-full object-cover"
             />
           </div>

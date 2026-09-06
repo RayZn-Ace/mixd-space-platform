@@ -57,11 +57,11 @@ export function BookingSearch({
       <form
         onSubmit={submit}
         className={cn(
-          "flex flex-col gap-1 overflow-hidden rounded-3xl bg-white p-2 shadow-2xl ring-8 ring-white/10 sm:flex-row sm:items-stretch",
+          "flex flex-col gap-1 overflow-hidden rounded-3xl bg-white p-2 shadow-2xl ring-8 ring-white/10 lg:flex-row lg:items-stretch",
           className,
         )}
       >
-        <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
+        <div className="flex flex-col justify-center border-b border-border/40 px-5 py-3 lg:flex-1 lg:border-b-0 lg:border-r">
           <label className={HERO_LABEL}>Standort</label>
           {singleLocation ? (
             <span className="truncate text-foreground">{singleLocation.name}</span>
@@ -81,7 +81,7 @@ export function BookingSearch({
           )}
         </div>
 
-        <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
+        <div className="flex flex-col justify-center border-b border-border/40 px-5 py-3 lg:flex-1 lg:border-b-0 lg:border-r">
           <label className={HERO_LABEL}>Datum</label>
           <div className="flex items-center gap-2">
             <input
@@ -94,7 +94,7 @@ export function BookingSearch({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
+        <div className="flex flex-col justify-center border-b border-border/40 px-5 py-3 lg:flex-1 lg:border-b-0 lg:border-r">
           <label className={HERO_LABEL}>Zeit</label>
           <div className="flex items-center gap-1">
             <input
@@ -113,7 +113,7 @@ export function BookingSearch({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col justify-center border-b border-border/40 px-5 py-3 sm:border-b-0 sm:border-r">
+        <div className="flex flex-col justify-center border-b border-border/40 px-5 py-3 lg:flex-1 lg:border-b-0 lg:border-r">
           <label className={HERO_LABEL}>Space</label>
           <select
             className={cn(HERO_INPUT, "appearance-none")}
@@ -131,7 +131,7 @@ export function BookingSearch({
 
         <Button
           type="submit"
-          className="group shrink-0 rounded-2xl bg-accent px-7 py-6 text-base font-semibold text-accent-foreground hover:bg-accent/90 sm:py-0"
+          className="group w-full rounded-2xl bg-accent px-7 py-4 text-base font-semibold text-accent-foreground hover:bg-accent/90 lg:w-auto lg:shrink-0 lg:py-0"
         >
           Verfügbarkeit prüfen
           <ArrowRight className="ml-2 size-4 transition-transform group-hover:translate-x-1" />

@@ -162,7 +162,7 @@ function Home() {
         <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem]">
           <div className="absolute inset-0">
             <img
-              src={heroImage}
+              src={heroImage.url}
               alt="A workspace at MIXD.SPACE Garbsen"
               width={1920}
               height={1200}

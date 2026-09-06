@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/mixd-building-exterior.jpg";
+import heroImage from "@/assets/mixd-hero-exterior-readable.jpg.asset.json";
 import locationImage from "@/assets/mixd-building-exterior.jpg";
 import interiorOpen from "@/assets/mixd-building-open-interior.jpg";
 import interiorOffice from "@/assets/mixd-building-glass-office.jpg";
@@ -168,7 +168,8 @@ function Home() {
               height={1200}
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/85 via-foreground/35 to-foreground/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/55 to-foreground/5" />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/75 via-transparent to-foreground/10" />
           </div>
 
           <div className="relative z-10 flex flex-col justify-end px-5 pb-8 pt-32 sm:px-10 sm:pb-12 sm:pt-44 lg:px-16 lg:pb-16 lg:pt-56">

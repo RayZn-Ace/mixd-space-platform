@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import logoLight from "@/assets/mixd-logo-light.png.asset.json";
 
 const KEY = "mixd-intro-seen";
 const WORDS = ["work.", "meet.", "create."];
@@ -63,7 +62,9 @@ export function IntroAnimation() {
 
       <div className="mixd-intro-stage relative flex flex-col items-center px-6 text-center">
         <div className="relative overflow-hidden">
-          <img src={logoLight.url} alt="" className="mixd-intro-mark" />
+          <div className="mixd-intro-mark inline-flex items-center justify-center font-display text-4xl font-semibold tracking-tight text-background sm:text-6xl">
+            MI<span className="text-accent">X</span>D.SPACE
+          </div>
           <div className="mixd-intro-beam" />
         </div>
 

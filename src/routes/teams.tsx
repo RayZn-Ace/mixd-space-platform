@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Audience } from "@/components/site/XMark";
 import { SiteShell, PageHeader } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
-import teamImage from "@/assets/space-team.jpg";
+import teamImage from "@/assets/mixd-building-open-interior.jpg";
 import { LeadBand } from "@/components/site/LeadDialog";
 
 export const Route = createFileRoute("/teams")({
@@ -83,7 +83,6 @@ function TeamsPage() {
         line="Desks, offices and meeting rooms on one invoice. We'll set it up with you."
         kind="team_setup"
       />
-
     </SiteShell>
   );
 }

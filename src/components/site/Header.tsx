@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, X as CloseIcon } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import logoDark from "@/assets/mixd-logo-dark.png.asset.json";
 
 const NAV = [
   { to: "/coworking", label: "Desks" },
@@ -17,11 +16,17 @@ const NAV = [
 
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <img
-      src={logoDark.url}
-      alt="MIXD.SPACE"
-      className={cn("h-9 w-auto object-contain", className)}
-    />
+    <span
+      aria-label="MIXD.SPACE"
+      className={cn(
+        "inline-flex h-9 items-center font-display text-lg font-semibold tracking-tight text-foreground",
+        className,
+      )}
+    >
+      <span aria-hidden="true">
+        MI<span className="text-accent">X</span>D.SPACE
+      </span>
+    </span>
   );
 }
 
@@ -73,7 +78,7 @@ export function Header() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          {open ? <CloseIcon className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
 

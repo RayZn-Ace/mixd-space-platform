@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteShell } from "@/components/site/SiteShell";
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero.jpg";
+import heroImage from "@/assets/mixd-building-open-interior.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -50,14 +50,22 @@ function AboutPage() {
 
       <section className="container-mixd mt-16">
         <div className="media-zoom aspect-[16/9] bg-muted sm:aspect-[16/7]">
-          <img src={heroImage} alt="MIXD.SPACE interior" loading="lazy" className="h-full w-full object-cover" />
+          <img
+            src={heroImage}
+            alt="MIXD.SPACE interior"
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
         </div>
       </section>
 
       <section className="container-mixd mt-24">
         <div className="divide-y divide-border border-y border-border">
           {STEPS.map(([n, t, d]) => (
-            <div key={n} className="grid gap-4 py-10 md:grid-cols-[6rem_1fr_1.4fr] md:items-baseline">
+            <div
+              key={n}
+              className="grid gap-4 py-10 md:grid-cols-[6rem_1fr_1.4fr] md:items-baseline"
+            >
               <span className="eyebrow">{n}</span>
               <h2 className="display-md">{t}</h2>
               <p className="text-muted-foreground">{d}</p>

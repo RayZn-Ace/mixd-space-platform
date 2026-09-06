@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import locationImage from "@/assets/location-garbsen.jpg";
-import flexImage from "@/assets/space-flex.jpg";
-import meetingImage from "@/assets/space-meeting.jpg";
+import locationImage from "@/assets/mixd-building-exterior.jpg";
+import flexImage from "@/assets/mixd-building-open-interior.jpg";
+import meetingImage from "@/assets/mixd-building-glass-office.jpg";
 import { SiteShell, EmptyState } from "@/components/site/SiteShell";
 import { SpaceCard, SpaceCardSkeleton } from "@/components/spaces/SpaceCard";
 import { BookingSearch } from "@/components/booking/BookingSearch";

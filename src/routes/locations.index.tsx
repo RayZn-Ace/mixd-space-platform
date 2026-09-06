@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import locationImage from "@/assets/location-garbsen.jpg";
+import locationImage from "@/assets/mixd-building-exterior.jpg";
 import { SiteShell, PageHeader, EmptyState } from "@/components/site/SiteShell";
 import { locationsQuery } from "@/lib/queries";
 

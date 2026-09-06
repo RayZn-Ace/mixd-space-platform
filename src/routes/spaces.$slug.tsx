@@ -70,7 +70,9 @@ function SpaceDetail() {
     (space.space_images ?? []).length > 0
       ? space.space_images.sort((a, b) => a.sort_order - b.sort_order).map((i) => i.url)
       : [spaceImage(space.space_type, (space as { code?: string | null }).code ?? null)];
-  const amenities = (space.space_amenities ?? []).map((a) => a.amenities?.name).filter(Boolean);
+  const amenities = (space.space_amenities ?? [])
+    .map((a) => a.amenities?.name)
+    .filter((name): name is string => Boolean(name));
   const related = (all ?? []).filter((s) => s.id !== space.id && s.space_type === space.space_type);
   const description = spaceMarketingCopy(space);
 
